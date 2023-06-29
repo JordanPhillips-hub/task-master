@@ -36,11 +36,25 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
     );
   };
 
+  const setPriorityColor = (priority) => {
+    let color;
+
+    if (priority <= 3) {
+      color = "var(--clr-sky-blue)";
+    } else if (priority <= 7 && priority > 3) {
+      color = "var(--clr-bright-orange)";
+    } else if (priority > 7) {
+      color = "var(--clr-red-orange)";
+    }
+
+    return color;
+  };
+
   return (
-    <StyledTaskCard>
+    <StyledTaskCard priorityColor={setPriorityColor(priority)}>
       <FlexContainer justify="space-between" marginBottom="10px">
         <FlexContainer gap="10px">
-          <LevelIndicator />
+          <LevelIndicator priorityColor={setPriorityColor(priority)} />
           <Header text={taskName} />
         </FlexContainer>
 
@@ -54,7 +68,10 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
         <FlexContainer key={detail.key} gap="6px" marginBottom="10px">
           {React.cloneElement(detail.icon, { className: "detailsIcon" })}
           <p>
-            {detail.key} <span>{detail.value}</span>
+            {detail.key}{" "}
+            <span className={detail.key === "Due Date:" ? "dueDate" : ""}>
+              {detail.value}
+            </span>
           </p>
         </FlexContainer>
       ))}
