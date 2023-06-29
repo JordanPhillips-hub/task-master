@@ -12,9 +12,18 @@ const StyledTaskCard = styled.div`
   }
 
   p {
-    color: var(--clr-dim-gray);
     font-size: 0.875rem;
+    color: var(--clr-dim-gray);
     margin: 0;
+  }
+
+  span {
+    color: var(--clr-black);
+    font-weight: 500;
+  }
+
+  .dueDate {
+    color: ${({ priorityColor }) => priorityColor || ''};
   }
 
   .buttonIcon {
