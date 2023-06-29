@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import moment from "moment/moment";
 import { AiOutlinePlus } from "react-icons/ai";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
@@ -23,7 +24,7 @@ const Home = ({ tasks }) => {
           <TaskCard
             key={task.id}
             taskName={task.taskName}
-            dueDate={task.dueDate}
+            dueDate={moment(task.dueDate).format("ll")}
             time={task.time}
             priority={task.priority}
             complexity={task.complexity}
