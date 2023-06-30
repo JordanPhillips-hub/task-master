@@ -9,7 +9,7 @@ import Header from "../Header/Header";
 import Button from "../Button/Button.styled";
 import { FlexContainer } from "../../App.styles";
 
-const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
+const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
   const taskDetails = [
     {
       icon: <CiCalendarDate />,
@@ -71,6 +71,7 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
           </p>
         </FlexContainer>
       ))}
+      <div>{tags}</div>
     </StyledTaskCard>
   );
 };
