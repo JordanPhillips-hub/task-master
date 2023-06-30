@@ -4,7 +4,7 @@ import { CiEdit, CiCalendarDate } from "react-icons/ci";
 import { BiCheck } from "react-icons/bi";
 import { BsArrowUpShort, BsArrowsMove } from "react-icons/bs";
 import StyledTaskCard from "./TaskCard.styled";
-import LevelIndicator from "./LevelIndicator.styled";
+import PriorityIndicator from "./PriorityIndicator.styled";
 import Header from "../Header/Header";
 import Button from "../Button/Button.styled";
 import { FlexContainer } from "../../App.styles";
@@ -54,7 +54,7 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
     <StyledTaskCard priorityColor={setPriorityColor(priority)}>
       <FlexContainer justify="space-between" marginBottom="10px">
         <FlexContainer gap="10px">
-          <LevelIndicator priorityColor={setPriorityColor(priority)} />
+          <PriorityIndicator priorityColor={setPriorityColor(priority)} />
           <Header text={taskName} />
         </FlexContainer>
 
