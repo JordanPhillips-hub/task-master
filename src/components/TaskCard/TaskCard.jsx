@@ -39,9 +39,9 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time }) => {
   const setPriorityColor = (priority) => {
     let color;
 
-    if (priority <= 3) {
+    if (priority <= 4) {
       color = "var(--clr-sky-blue)";
-    } else if (priority <= 7 && priority > 3) {
+    } else if (priority <= 7 && priority > 4) {
       color = "var(--clr-bright-orange)";
     } else if (priority > 7) {
       color = "var(--clr-red-orange)";
