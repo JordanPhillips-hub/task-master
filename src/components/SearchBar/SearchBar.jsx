@@ -2,7 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import { BsArrowRightShort } from "react-icons/bs";
 import { SearchContainer, SearchIcon } from "./SearchBar.styled";
 import Input from "../Input/Input.styled";
-import Button from "../Button/Button";
+import Button from "../Button/Button.styled";
 
 const SearchBar = () => {
   return (

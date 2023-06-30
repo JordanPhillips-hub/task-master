@@ -4,7 +4,7 @@ import moment from "moment/moment";
 import { AiOutlinePlus } from "react-icons/ai";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Button/Button.styled";
 import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
 import { Main, GridContainer } from "../../App.styles";

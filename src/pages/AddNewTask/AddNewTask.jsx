@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import StyledAddNewTask from "./AddNewTask.styled";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import StyledSelect from "./Select.styled";
 import Input from "../Input/Input.styled";
-import Button from "../Button/Button";
+import Button from "../Button/Button.styled";
 
 const createOption = (label) => {
   const value = label.toLowerCase();
