@@ -28,6 +28,7 @@ const Home = ({ tasks }) => {
     return timeValue;
   };
 
+  const tags = tasks.map((task) => task.tag.split(","));
   return (
     <Main>
       <div>
@@ -46,6 +47,7 @@ const Home = ({ tasks }) => {
             time={task.time ? convertTimeFormat(task.time) : ""}
             priority={task.priority}
             complexity={task.complexity}
+            tags={tags.map((tag) => tag)}
           />
         ))}
 
