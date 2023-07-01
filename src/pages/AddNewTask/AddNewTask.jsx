@@ -11,6 +11,7 @@ import TaskLevel from "../../components/TaskLevel/TaskLevel";
 import { Main, FlexContainer } from "../../App.styles";
 
 const AddNewTask = ({ onSubmit }) => {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     taskName: "",
     subtask: "",
@@ -23,8 +24,6 @@ const AddNewTask = ({ onSubmit }) => {
     complexity: 0,
     priority: 0,
   });
-
-  const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
     name === "tag"
@@ -49,7 +48,7 @@ const AddNewTask = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    navigate("/");
     onSubmit(
       inputValue.taskName,
       taskLevel.complexity,
@@ -59,7 +58,6 @@ const AddNewTask = ({ onSubmit }) => {
       inputValue.dueDate,
       inputValue.time
     );
-    navigate("/");
   };
 
   const textInputs = {
