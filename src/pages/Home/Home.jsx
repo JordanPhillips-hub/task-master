@@ -7,6 +7,7 @@ import Select from "../../components/Select/Select";
 import Button from "../../components/Button/Button.styled";
 import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
+import Tag from "../../components/Tag/Tag.styled";
 import { Main, GridContainer } from "../../App.styles";
 
 const Home = ({ tasks }) => {
@@ -28,7 +29,6 @@ const Home = ({ tasks }) => {
     return timeValue;
   };
 
-  const tags = tasks.map((task) => task.tag.split(","));
   return (
     <Main>
       <div>
@@ -47,7 +47,9 @@ const Home = ({ tasks }) => {
             time={task.time ? convertTimeFormat(task.time) : ""}
             priority={task.priority}
             complexity={task.complexity}
-            tags={tags.map((tag) => tag)}
+            tags={task.tag.map(
+              (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
+            )}
           />
         ))}
 

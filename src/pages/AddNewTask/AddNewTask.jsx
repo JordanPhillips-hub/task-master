@@ -27,10 +27,15 @@ const AddNewTask = ({ onSubmit }) => {
   const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    name === "tag"
+      ? setInputValue((prevState) => ({
+          ...prevState,
+          [name]: value.replace(" ", ",").split(","),
+        }))
+      : setInputValue((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
   };
 
   const handleTaskLevel =
