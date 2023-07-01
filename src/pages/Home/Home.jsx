@@ -43,7 +43,9 @@ const Home = ({ tasks }) => {
           <TaskCard
             key={task.id}
             taskName={task.taskName}
-            dueDate={task.dueDate ? moment(task.dueDate).format("ll") : ""}
+            dueDate={
+              task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
+            }
             time={task.time ? convertTimeFormat(task.time) : ""}
             priority={task.priority}
             complexity={task.complexity}
