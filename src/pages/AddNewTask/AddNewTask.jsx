@@ -26,15 +26,10 @@ const AddNewTask = ({ onSubmit }) => {
   });
 
   const handleChange = ({ target: { name, value } }) => {
-    name === "tag"
-      ? setInputValue((prevState) => ({
-          ...prevState,
-          [name]: value.replace(" ", ",").split(","),
-        }))
-      : setInputValue((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
+    setInputValue((prevState) => ({
+      ...prevState,
+      [name]: name === "tag" ? value.replace(" ", ",").split(",") : value,
+    }));
   };
 
   const handleTaskLevel =
