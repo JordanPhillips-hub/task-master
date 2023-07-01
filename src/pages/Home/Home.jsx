@@ -48,8 +48,8 @@ const Home = ({ tasks }) => {
             priority={task.priority}
             complexity={task.complexity}
             tags={
-              task.tag !== "" &&
-              task.tag.map(
+              task.tags !== "" &&
+              task.tags.map(
                 (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
               )
             }

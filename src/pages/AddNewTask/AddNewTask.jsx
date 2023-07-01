@@ -15,7 +15,7 @@ const AddNewTask = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState({
     taskName: "",
     subtask: "",
-    tag: "",
+    tags: "",
     dueDate: "",
     time: "",
   });
@@ -28,7 +28,7 @@ const AddNewTask = ({ onSubmit }) => {
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
-      [name]: name === "tag" ? value.replace(" ", ",").split(",") : value,
+      [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
     }));
   };
 
@@ -49,7 +49,7 @@ const AddNewTask = ({ onSubmit }) => {
       taskLevel.complexity,
       taskLevel.priority,
       inputValue.subtask,
-      inputValue.tag,
+      inputValue.tags,
       inputValue.dueDate,
       inputValue.time
     );
@@ -66,8 +66,8 @@ const AddNewTask = ({ onSubmit }) => {
       label: "Add Checklist For Subtasks",
       placeHolder: "Subtask Item...",
     },
-    tag: {
-      value: inputValue.tag,
+    tags: {
+      value: inputValue.tags,
       label: "Add Tags",
       placeHolder: "#Tags...",
     },

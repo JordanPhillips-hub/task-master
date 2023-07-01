@@ -12,7 +12,7 @@ const App = () => {
     complexity,
     priority,
     subtask,
-    tag,
+    tags,
     dueDate,
     time
   ) => {
@@ -22,7 +22,7 @@ const App = () => {
       complexity,
       priority,
       subtask,
-      tag,
+      tags,
       dueDate,
       time,
       completed: false,
