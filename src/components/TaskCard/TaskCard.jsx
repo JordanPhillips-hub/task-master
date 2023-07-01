@@ -71,7 +71,7 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
           </p>
         </FlexContainer>
       ))}
-      <div>{tags}</div>
+      <FlexContainer gap="8px">{tags}</FlexContainer>
     </StyledTaskCard>
   );
 };
