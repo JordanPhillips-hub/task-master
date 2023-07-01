@@ -47,9 +47,12 @@ const Home = ({ tasks }) => {
             time={task.time ? convertTimeFormat(task.time) : ""}
             priority={task.priority}
             complexity={task.complexity}
-            tags={task.tag.map(
-              (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
-            )}
+            tags={
+              task.tag !== "" &&
+              task.tag.map(
+                (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
+              )
+            }
           />
         ))}
 
