@@ -19,12 +19,16 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
     {
       icon: <BsArrowUpShort />,
       key: "Priority:",
-      value: `Medium ${`(${priority}/10)`}`,
+      value: `${
+        priority <= 4 ? "Low" : priority <= 7 ? "Medium" : "High"
+      } ${`(${priority}/10)`}`,
     },
     {
       icon: <BsArrowsMove />,
       key: "Complexity:",
-      value: `Medium ${`(${complexity}/10)`}`,
+      value: `${
+        complexity <= 4 ? "Low" : complexity <= 7 ? "Medium" : "High"
+      } ${`(${complexity}/10)`}`,
     },
   ];
 
