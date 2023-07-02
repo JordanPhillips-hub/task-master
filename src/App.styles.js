@@ -104,4 +104,6 @@ export const GridContainer = styled.div`
 
 export const InputContainer = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
 `
