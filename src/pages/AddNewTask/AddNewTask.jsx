@@ -64,7 +64,7 @@ const AddNewTask = ({ onSubmit }) => {
     subtask: {
       value: inputValue.subtask,
       label: "Add Checklist For Subtasks",
-      placeHolder: "Subtask Item...",
+      placeHolder: "Add Subtask...",
     },
     tags: {
       value: inputValue.tags,
