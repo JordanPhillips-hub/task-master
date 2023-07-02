@@ -18,15 +18,15 @@ const StyledAddNewTask = styled.form`
   margin-bottom: 0.83em;
  }
 
- section:nth-child(5) div {
+ section:nth-child(4) div {
   flex: 1;
  }
 
- section:nth-child(6) {
+ section:nth-child(5) {
   position: relative;
  }
 
- section:nth-child(6) button {
+ section:nth-child(5) button {
   position: absolute;
   top: 53%;
   right: 3%;
