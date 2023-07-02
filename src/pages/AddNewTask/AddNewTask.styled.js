@@ -28,7 +28,7 @@ const StyledAddNewTask = styled.form`
 
  section:nth-child(5) button {
   position: absolute;
-  top: 53%;
+  top: 17%;
   right: 3%;
  }
 
