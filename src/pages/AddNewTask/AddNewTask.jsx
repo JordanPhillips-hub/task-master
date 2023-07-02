@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
+import { RxCross2 } from "react-icons/Rx";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
@@ -140,8 +141,8 @@ const AddNewTask = ({ onSubmit }) => {
                     value={`${index + 1}. ${subtask}`}
                     disabled
                   />
-                  <Button round type="button">
-                    <AiOutlinePlus fontSize="1.5rem" />
+                  <Button round remove type="button">
+                    <RxCross2 fontSize="1.5rem" />
                   </Button>
                 </InputContainer>
               </li>
