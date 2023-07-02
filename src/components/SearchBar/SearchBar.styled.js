@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const SearchContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
   margin-bottom: 18px;
 
   & label {
