@@ -101,3 +101,7 @@ export const GridContainer = styled.div`
   gap: 30px;
   margin-bottom: 18px;
 `
+
+export const InputContainer = styled.div`
+  position: relative;
+`
