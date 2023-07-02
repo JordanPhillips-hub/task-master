@@ -132,7 +132,19 @@ const AddNewTask = ({ onSubmit }) => {
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
             {subtasks.map((subtask, index) => (
-              <li key={index}>{subtask}</li>
+              <li key={index}>
+                <InputContainer>
+                  <Input
+                    id={index}
+                    type="text"
+                    value={`${index + 1}. ${subtask}`}
+                    disabled
+                  />
+                  <Button round type="button">
+                    <AiOutlinePlus fontSize="1.5rem" />
+                  </Button>
+                </InputContainer>
+              </li>
             ))}
           </ul>
 
@@ -142,7 +154,7 @@ const AddNewTask = ({ onSubmit }) => {
               type="text"
               name="subtask"
               value={inputValue.subtask}
-              placeholder="Add Subtask..."
+              placeholder="Add New Subtask..."
               onChange={handleChange}
             />
             <Button round type="button" onClick={handleSubtasks}>
