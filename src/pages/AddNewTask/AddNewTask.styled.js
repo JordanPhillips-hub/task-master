@@ -21,13 +21,8 @@ const StyledAddNewTask = styled.form`
   flex: 1;
  }
 
- section:nth-child(5) {
-  position: relative;
- }
-
  section:nth-child(5) button {
   position: absolute;
-  top: 17%;
   right: 3%;
  }
 
