@@ -10,7 +10,6 @@ const Tag = styled.div`
   padding: 0.375em 0.5em;
   border-radius: 60px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
 `
 
 export default Tag;
