@@ -130,6 +130,10 @@ const AddNewTask = ({ onSubmit }) => {
 
         <section>
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
+          {subtasks.map((subtask, index) => (
+            <div key={index}>{subtask}</div>
+          ))}
+
           <Input
             id="subtask"
             type="text"
@@ -138,16 +142,9 @@ const AddNewTask = ({ onSubmit }) => {
             placeholder="Add Subtask..."
             onChange={handleChange}
           />
-
           <Button round type="button" onClick={handleSubtasks}>
             <AiOutlinePlus fontSize="1.5rem" />
           </Button>
-
-          <ul>
-            {subtasks.map((subtask) => (
-              <li key={subtask}>{subtask}</li>
-            ))}
-          </ul>
         </section>
 
         <section>
