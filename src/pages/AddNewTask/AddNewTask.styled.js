@@ -14,8 +14,7 @@ const StyledAddNewTask = styled.form`
   font-size: 1.125rem;
   font-weight: 500;
   display: block;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
+  margin: 0.83em 0;
  }
 
  section:nth-child(4) div {
