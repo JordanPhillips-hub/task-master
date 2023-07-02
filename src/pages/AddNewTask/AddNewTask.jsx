@@ -8,7 +8,7 @@ import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
-import { Main, FlexContainer } from "../../App.styles";
+import { Main, FlexContainer, InputContainer } from "../../App.styles";
 
 const AddNewTask = ({ onSubmit }) => {
   const navigate = useNavigate();
@@ -130,21 +130,25 @@ const AddNewTask = ({ onSubmit }) => {
 
         <section>
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
-          {subtasks.map((subtask, index) => (
-            <div key={index}>{subtask}</div>
-          ))}
+          <ul>
+            {subtasks.map((subtask, index) => (
+              <li key={index}>{subtask}</li>
+            ))}
+          </ul>
 
-          <Input
-            id="subtask"
-            type="text"
-            name="subtask"
-            value={inputValue.subtask}
-            placeholder="Add Subtask..."
-            onChange={handleChange}
-          />
-          <Button round type="button" onClick={handleSubtasks}>
-            <AiOutlinePlus fontSize="1.5rem" />
-          </Button>
+          <InputContainer>
+            <Input
+              id="subtask"
+              type="text"
+              name="subtask"
+              value={inputValue.subtask}
+              placeholder="Add Subtask..."
+              onChange={handleChange}
+            />
+            <Button round type="button" onClick={handleSubtasks}>
+              <AiOutlinePlus fontSize="1.5rem" />
+            </Button>
+          </InputContainer>
         </section>
 
         <section>
