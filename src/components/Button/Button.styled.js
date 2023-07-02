@@ -66,6 +66,14 @@ const Button = styled.button`
       width: 2.143em;
       height: 2.143em;
     `}
+
+    ${({ remove }) => remove && css`
+      background-color: var(--clr-light-red-transparent);
+
+      &:hover {
+        border: 1px solid var(--clr-red-orange);
+      }
+    `}
   `}
 `
 
