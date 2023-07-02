@@ -31,5 +31,9 @@ const StyledAddNewTask = styled.form`
   width: 100%;
   padding: 12px 24px;
  }
+
+ li {
+  margin-bottom: 6px;
+ }
 `
 export default StyledAddNewTask;
