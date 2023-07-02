@@ -25,6 +25,17 @@ const AddNewTask = ({ onSubmit }) => {
     priority: 0,
   });
 
+  const [subtasks, setSubtasks] = useState([]);
+
+  const handleSubtasks = () => {
+    const subtaskList = [...subtasks, inputValue.subtask];
+    setSubtasks(subtaskList);
+    setInputValue((prevState) => ({
+      ...prevState,
+      subtask: "",
+    }));
+  };
+
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
@@ -105,11 +116,21 @@ const AddNewTask = ({ onSubmit }) => {
               />
 
               {key === "subtask" && (
-                <Button round type="button">
+                <Button round type="button" onClick={handleSubtasks}>
                   <AiOutlinePlus fontSize="1.5rem" />
                 </Button>
               )}
             </section>
+
+            {key === "subtask" && (
+              <section>
+                <ul>
+                  {subtasks.map((subtask) => (
+                    <li key={subtask}>{subtask}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {key === "taskName" && (
               <>
