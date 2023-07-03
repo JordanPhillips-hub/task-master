@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
+import { RxCross2 } from "react-icons/Rx";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
-import { Main, FlexContainer } from "../../App.styles";
+import { Main, FlexContainer, InputContainer } from "../../App.styles";
 
 const AddNewTask = ({ onSubmit }) => {
   const navigate = useNavigate();
@@ -28,12 +29,24 @@ const AddNewTask = ({ onSubmit }) => {
   const [subtasks, setSubtasks] = useState([]);
 
   const handleSubtasks = () => {
-    const subtaskList = [...subtasks, inputValue.subtask];
-    setSubtasks(subtaskList);
+    const subtask = {
+      id: Math.random(),
+      subtask: inputValue.subtask,
+    };
+
+    const subtaskList = [...subtasks, subtask];
+    inputValue.subtask !== "" ? setSubtasks(subtaskList) : null;
     setInputValue((prevState) => ({
       ...prevState,
       subtask: "",
     }));
+  };
+
+  const handleRemoveSubtask = (subtask) => {
+    const index = subtasks.indexOf(subtask);
+    const removedTask = subtasks.splice(index, 1);
+    const newTaskList = subtasks.filter((task) => task !== removedTask);
+    setSubtasks(newTaskList);
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -66,29 +79,6 @@ const AddNewTask = ({ onSubmit }) => {
     );
   };
 
-  const textInputs = {
-    taskName: {
-      value: inputValue.taskName,
-      label: "Add Task",
-      placeHolder: "Task 1...",
-    },
-    subtask: {
-      value: inputValue.subtask,
-      label: "Add Checklist For Subtasks",
-      placeHolder: "Add Subtask...",
-    },
-    tags: {
-      value: inputValue.tags,
-      label: "Add Tags",
-      placeHolder: "#Tags...",
-    },
-  };
-
-  const dateAndTimeInputs = {
-    dueDate: { value: inputValue.dueDate, label: "Due Date", type: "date" },
-    time: { value: inputValue.time, label: "Select Time", type: "time" },
-  };
-
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
@@ -102,70 +92,106 @@ const AddNewTask = ({ onSubmit }) => {
           <Header lrg text="Add New Task" />
         </FlexContainer>
 
-        {Object.entries(textInputs).map(([key, value]) => (
-          <React.Fragment key={key}>
-            <section>
-              <label htmlFor={key}>{value.label}</label>
+        <section>
+          <label htmlFor="taskName">Add Task</label>
+          <Input
+            id="taskName"
+            type="text"
+            name="taskName"
+            value={inputValue.taskName}
+            placeholder="Task 1..."
+            onChange={handleChange}
+          />
+        </section>
+
+        <section>
+          <TaskLevel
+            text="Select Complexity Level"
+            onClick={handleTaskLevel("complexity")}
+          />
+          <TaskLevel
+            text="Select Priority Level"
+            onClick={handleTaskLevel("priority")}
+          />
+        </section>
+
+        <section>
+          <FlexContainer gap="30px">
+            <div>
+              <label htmlFor="dueDate">Due Date</label>
               <Input
-                id={key}
-                type="text"
-                name={key}
-                value={value.value}
-                placeholder={value.placeHolder}
+                id="dueDate"
+                type="date"
+                name="dueDate"
+                value={inputValue.dueDate}
                 onChange={handleChange}
               />
+            </div>
 
-              {key === "subtask" && (
-                <Button round type="button" onClick={handleSubtasks}>
-                  <AiOutlinePlus fontSize="1.5rem" />
-                </Button>
-              )}
-            </section>
+            <div>
+              <label htmlFor="time">Select Time</label>
+              <Input
+                id="time"
+                type="time"
+                name="time"
+                value={inputValue.time}
+                onChange={handleChange}
+              />
+            </div>
+          </FlexContainer>
+        </section>
 
-            {key === "subtask" && (
-              <section>
-                <ul>
-                  {subtasks.map((subtask) => (
-                    <li key={subtask}>{subtask}</li>
-                  ))}
-                </ul>
-              </section>
-            )}
+        <section>
+          <label htmlFor="subtask">Add Checklist For Subtasks</label>
+          <ul>
+            {subtasks.map((subtask, index) => (
+              <li key={index}>
+                <InputContainer>
+                  <Input
+                    id={index}
+                    type="text"
+                    value={`${index + 1}. ${subtask.subtask}`}
+                    disabled
+                  />
+                  <Button
+                    round
+                    remove
+                    type="button"
+                    onClick={() => handleRemoveSubtask(subtask)}
+                  >
+                    <RxCross2 fontSize="1.5rem" />
+                  </Button>
+                </InputContainer>
+              </li>
+            ))}
+          </ul>
 
-            {key === "taskName" && (
-              <>
-                <TaskLevel
-                  text="Select Complexity Level"
-                  onClick={handleTaskLevel("complexity")}
-                />
-                <TaskLevel
-                  text="Select Priority Level"
-                  onClick={handleTaskLevel("priority")}
-                />
-              </>
-            )}
+          <InputContainer>
+            <Input
+              id="subtask"
+              type="text"
+              name="subtask"
+              value={inputValue.subtask}
+              placeholder="Add New Subtask..."
+              onChange={handleChange}
+            />
+            <Button round type="button" onClick={handleSubtasks}>
+              <AiOutlinePlus fontSize="1.5rem" />
+            </Button>
+          </InputContainer>
+        </section>
 
-            {key !== "taskName" ||
-              (key !== "subtask" && (
-                <section>
-                  <FlexContainer gap="30px">
-                    {Object.entries(dateAndTimeInputs).map(([key, value]) => (
-                      <div key={key}>
-                        <label htmlFor={key}>{value.label}</label>
-                        <Input
-                          id={key}
-                          type={value.type}
-                          name={key}
-                          value={value.value}
-                          onChange={handleChange}
-                        />
-                      </div>
-                    ))}
-                  </FlexContainer>
-                </section>
-              ))}
-          </React.Fragment>
-        ))}
+        <section>
+          <label htmlFor="tags">Add Tags</label>
+          <Input
+            id="tags"
+            type="text"
+            name="tags"
+            value={inputValue.tags}
+            placeholder="School, Career, Routine"
+            onChange={handleChange}
+          />
+        </section>
 
         <Button dark lrg width="50%" type="submit">
           Add Task

@@ -14,21 +14,15 @@ const StyledAddNewTask = styled.form`
   font-size: 1.125rem;
   font-weight: 500;
   display: block;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
+  margin: 0.83em 0;
  }
 
- section:nth-child(5) div {
+ section:nth-child(4) div {
   flex: 1;
  }
 
- section:nth-child(6) {
-  position: relative;
- }
-
- section:nth-child(6) button {
+ section:nth-child(5) button {
   position: absolute;
-  top: 53%;
   right: 3%;
  }
 
@@ -36,6 +30,10 @@ const StyledAddNewTask = styled.form`
  input[type=time] {
   width: 100%;
   padding: 12px 24px;
+ }
+
+ li {
+  margin-bottom: 6px;
  }
 `
 export default StyledAddNewTask;
