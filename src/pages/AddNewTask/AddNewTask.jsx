@@ -21,6 +21,8 @@ const AddNewTask = ({ onSubmit }) => {
     time: "",
   });
 
+  const [activeComplexityButton, setActiveComplexityButton] = useState(null);
+  const [activePriorityButton, setActivePriorityButton] = useState(null);
   const [taskLevel, setTaskLevel] = useState({
     complexity: 0,
     priority: 0,
@@ -63,6 +65,14 @@ const AddNewTask = ({ onSubmit }) => {
         ...prevState,
         [levelType]: Number(innerText),
       }));
+
+      if (levelType === "complexity") {
+        setActiveComplexityButton(Number(innerText));
+      }
+
+      if (levelType === "priority") {
+        setActivePriorityButton(Number(innerText));
+      }
     };
 
   const handleSubmit = (e) => {
@@ -108,10 +118,12 @@ const AddNewTask = ({ onSubmit }) => {
           <TaskLevel
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
+            active={activeComplexityButton}
           />
           <TaskLevel
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
+            active={activePriorityButton}
           />
         </section>
 
