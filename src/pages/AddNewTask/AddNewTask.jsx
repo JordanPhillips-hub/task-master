@@ -29,12 +29,24 @@ const AddNewTask = ({ onSubmit }) => {
   const [subtasks, setSubtasks] = useState([]);
 
   const handleSubtasks = () => {
-    const subtaskList = [...subtasks, inputValue.subtask];
-    setSubtasks(subtaskList);
+    const subtask = {
+      id: Math.random(),
+      subtask: inputValue.subtask,
+    };
+
+    const subtaskList = [...subtasks, subtask];
+    inputValue.subtask !== "" ? setSubtasks(subtaskList) : null;
     setInputValue((prevState) => ({
       ...prevState,
       subtask: "",
     }));
+  };
+
+  const handleRemoveSubtask = (subtask) => {
+    const index = subtasks.indexOf(subtask);
+    const removedTask = subtasks.splice(index, 1);
+    const newTaskList = subtasks.filter((task) => task !== removedTask);
+    setSubtasks(newTaskList);
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -138,10 +150,15 @@ const AddNewTask = ({ onSubmit }) => {
                   <Input
                     id={index}
                     type="text"
-                    value={`${index + 1}. ${subtask}`}
+                    value={`${index + 1}. ${subtask.subtask}`}
                     disabled
                   />
-                  <Button round remove type="button">
+                  <Button
+                    round
+                    remove
+                    type="button"
+                    onClick={() => handleRemoveSubtask(subtask)}
+                  >
                     <RxCross2 fontSize="1.5rem" />
                   </Button>
                 </InputContainer>
