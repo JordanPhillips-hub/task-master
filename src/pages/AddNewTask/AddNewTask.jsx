@@ -3,8 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
-// import { RxCross2 } from "react-icons/Rx";
-// import { IoRemoveOutline } from "react-icons/Io";
 import { MdRemove } from "react-icons/Md";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Button from "../../components/Button/Button.styled";
