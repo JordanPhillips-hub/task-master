@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
-import { RxCross2 } from "react-icons/Rx";
+// import { RxCross2 } from "react-icons/Rx";
+// import { IoRemoveOutline } from "react-icons/Io";
+import { MdRemove } from "react-icons/Md";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
@@ -159,7 +161,7 @@ const AddNewTask = ({ onSubmit }) => {
                     type="button"
                     onClick={() => handleRemoveSubtask(subtask)}
                   >
-                    <RxCross2 fontSize="1.5rem" />
+                    <MdRemove fontSize="1.5rem" />
                   </Button>
                 </InputContainer>
               </li>
