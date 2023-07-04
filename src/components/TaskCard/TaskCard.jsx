@@ -1,30 +1,28 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { CiEdit, CiCalendarDate } from "react-icons/ci";
-import { BiCheck } from "react-icons/bi";
-import { BsArrowUpShort, BsArrowsMove } from "react-icons/bs";
 import StyledTaskCard from "./TaskCard.styled";
 import PriorityIndicator from "./PriorityIndicator.styled";
 import Header from "../Header/Header";
+import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 import { FlexContainer } from "../../App.styles";
 
 const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
   const taskDetails = [
     {
-      icon: <CiCalendarDate />,
+      icon: <Icon type="calendar" />,
       key: "Due Date:",
       value: `${dueDate}, ${time}`,
     },
     {
-      icon: <BsArrowUpShort />,
+      icon: <Icon type="arrowUp" />,
       key: "Priority:",
       value: `${
         priority <= 4 ? "Low" : priority <= 7 ? "Medium" : "High"
       } ${`(${priority}/10)`}`,
     },
     {
-      icon: <BsArrowsMove />,
+      icon: <Icon type="arrowMove" />,
       key: "Complexity:",
       value: `${
         complexity <= 4 ? "Low" : complexity <= 7 ? "Medium" : "High"
@@ -59,8 +57,8 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
         </FlexContainer>
 
         <FlexContainer gap="15px">
-          {createButton(<CiEdit />)}
-          {createButton(<BiCheck />)}
+          {createButton(<Icon type="edit" />)}
+          {createButton(<Icon type="check" />)}
         </FlexContainer>
       </FlexContainer>
 

@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { RxCross2 } from "react-icons/rx";
 import { TaskContext } from "../../contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
+import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
@@ -91,7 +89,7 @@ const AddNewTask = () => {
         <FlexContainer>
           <Link to="/">
             <Button variant="round" light>
-              <BsArrowLeftShort fontSize="1.5rem" />
+              <Icon type="arrowLeft" fontSize="1.5rem" />
             </Button>
           </Link>
 
@@ -166,7 +164,7 @@ const AddNewTask = () => {
                     remove
                     onClick={() => handleRemoveSubtask(subtask)}
                   >
-                    <RxCross2 fontSize="1.5rem" />
+                    <Icon type="cross" fontSize="1.5rem" />
                   </Button>
                 </InputContainer>
               </li>
@@ -183,7 +181,7 @@ const AddNewTask = () => {
               onChange={handleChange}
             />
             <Button variant="round" onClick={handleSubtasks}>
-              <AiOutlinePlus fontSize="1.5rem" />
+              <Icon type="plus" fontSize="1.5rem" />
             </Button>
           </InputContainer>
         </section>

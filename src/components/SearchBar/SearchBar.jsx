@@ -1,7 +1,6 @@
-import { CiSearch } from "react-icons/ci";
-import { BsArrowRightShort } from "react-icons/bs";
 import { SearchContainer, SearchIcon } from "./SearchBar.styled";
 import Input from "../Input/Input.styled";
+import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 import { InputContainer } from "../../App.styles";
 
@@ -10,7 +9,7 @@ const SearchBar = () => {
     <SearchContainer>
       <InputContainer>
         <SearchIcon>
-          <CiSearch />
+          <Icon type="search" />
         </SearchIcon>
 
         <Input
@@ -23,7 +22,7 @@ const SearchBar = () => {
         />
 
         <Button variant="round">
-          <BsArrowRightShort fontSize="1.5rem" />
+          <Icon type="arrowRight" fontSize="1.5rem" />
         </Button>
       </InputContainer>
     </SearchContainer>

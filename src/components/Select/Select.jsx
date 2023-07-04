@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { BsChevronDown } from "react-icons/bs";
 import StyledSelect from "./Select.styled";
+import Icon from "../Icon/Icon";
 import Input from "../Input/Input.styled";
 import Button from "../Button/Button";
 
@@ -47,7 +47,10 @@ const Select = ({ name, options }) => {
         onClick={handleSelectToggle}
       >
         {name}
-        <BsChevronDown style={isOpen && { transform: "rotate(180deg)" }} />
+        <Icon
+          type="arrowDown"
+          style={isOpen && { transform: "rotate(180deg)" }}
+        />
       </Button>
 
       {isOpen && (
