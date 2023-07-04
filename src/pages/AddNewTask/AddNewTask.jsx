@@ -6,7 +6,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { TaskContext } from "../../contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
-import Button from "../../components/Button/Button.styled";
+import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
@@ -90,7 +90,7 @@ const AddNewTask = () => {
       <StyledAddNewTask onSubmit={handleSubmit}>
         <FlexContainer>
           <Link to="/">
-            <Button round back light type="button">
+            <Button variant="round" light>
               <BsArrowLeftShort fontSize="1.5rem" />
             </Button>
           </Link>
@@ -162,9 +162,8 @@ const AddNewTask = () => {
                     disabled
                   />
                   <Button
-                    round
+                    variant="round"
                     remove
-                    type="button"
                     onClick={() => handleRemoveSubtask(subtask)}
                   >
                     <RxCross2 fontSize="1.5rem" />
@@ -183,7 +182,7 @@ const AddNewTask = () => {
               placeholder="Add New Subtask..."
               onChange={handleChange}
             />
-            <Button round type="button" onClick={handleSubtasks}>
+            <Button variant="round" onClick={handleSubtasks}>
               <AiOutlinePlus fontSize="1.5rem" />
             </Button>
           </InputContainer>
@@ -201,7 +200,7 @@ const AddNewTask = () => {
           />
         </section>
 
-        <Button dark lrg width="50%" type="submit">
+        <Button lrg width="50%" type="submit">
           Add Task
         </Button>
       </StyledAddNewTask>

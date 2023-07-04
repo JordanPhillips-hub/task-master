@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import Header from "../Header/Header";
-import Button from "../Button/Button.styled";
+import Button from "../Button/Button";
 import { FlexContainer } from "../../App.styles";
 
 const generateLevelButtons = (n, active, onClick) => {
@@ -8,15 +8,14 @@ const generateLevelButtons = (n, active, onClick) => {
     .fill()
     .map((_, i) => (
       <Button
+        variant="round"
+        sml
         key={Math.random()}
         style={
           i + 1 === active
             ? { backgroundColor: "var(--clr-sky-blue)" }
             : undefined
         }
-        round
-        sml
-        type="button"
         onClick={onClick}
       >
         {i + 1}
