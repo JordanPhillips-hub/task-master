@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { AiOutlinePlus } from "react-icons/ai";
+import { TaskContext } from "../../TaskContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
 import Button from "../../components/Button/Button.styled";
@@ -10,7 +12,9 @@ import TaskCard from "../../components/TaskCard/TaskCard";
 import Tag from "../../components/Tag/Tag.styled";
 import { Main, GridContainer } from "../../App.styles";
 
-const Home = ({ tasks }) => {
+const Home = () => {
+  const { tasks } = useContext(TaskContext);
+
   const convertTimeFormat = (timeValue) => {
     let [hours, minutes] = timeValue.split(":");
     let period = "AM";
