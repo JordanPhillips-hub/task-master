@@ -16,8 +16,6 @@ const AddNewTask = () => {
   const navigate = useNavigate();
   const { addTask } = useContext(TaskContext);
   const [subtasks, setSubtasks] = useState([]);
-  const [activeComplexityButton, setActiveComplexityButton] = useState(null);
-  const [activePriorityButton, setActivePriorityButton] = useState(null);
   const [inputValue, setInputValue] = useState({
     taskName: "",
     subtask: "",
@@ -85,14 +83,6 @@ const AddNewTask = () => {
         ...prevState,
         [levelType]: Number(innerText),
       }));
-
-      if (levelType === "complexity") {
-        setActiveComplexityButton(Number(innerText));
-      }
-
-      if (levelType === "priority") {
-        setActivePriorityButton(Number(innerText));
-      }
     };
 
   return (
@@ -124,12 +114,12 @@ const AddNewTask = () => {
           <TaskLevel
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
-            active={activeComplexityButton}
+            active={taskLevel.complexity}
           />
           <TaskLevel
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
-            active={activePriorityButton}
+            active={taskLevel.priority}
           />
         </section>
 
