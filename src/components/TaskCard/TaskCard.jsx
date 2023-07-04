@@ -6,7 +6,7 @@ import { BsArrowUpShort, BsArrowsMove } from "react-icons/bs";
 import StyledTaskCard from "./TaskCard.styled";
 import PriorityIndicator from "./PriorityIndicator.styled";
 import Header from "../Header/Header";
-import { ButtonRound } from "../Button/Button.styled";
+import Button from "../Button/Button";
 import { FlexContainer } from "../../App.styles";
 
 const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
@@ -34,9 +34,9 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
 
   const createButton = (icon) => {
     return (
-      <ButtonRound>
+      <Button variant="round">
         {React.cloneElement(icon, { className: "buttonIcon" })}
-      </ButtonRound>
+      </Button>
     );
   };
 

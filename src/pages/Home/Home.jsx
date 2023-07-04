@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { TaskContext } from "../../contexts/TaskContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
-import { ButtonPrimary } from "../../components/Button/Button.styled";
+import Button from "../../components/Button/Button";
 import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
 import Tag from "../../components/Tag/Tag.styled";
@@ -63,10 +63,10 @@ const Home = () => {
         ))}
 
         <Link to="/AddNewTask">
-          <ButtonPrimary lrg width="50%" type="button">
+          <Button lrg width="50%">
             <AiOutlinePlus style={{ marginRight: "13px" }} />
             Add New Task
-          </ButtonPrimary>
+          </Button>
         </Link>
       </div>
     </Main>

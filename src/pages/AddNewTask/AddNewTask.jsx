@@ -6,10 +6,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { TaskContext } from "../../contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
-import {
-  ButtonRound,
-  ButtonPrimary,
-} from "../../components/Button/Button.styled";
+import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input.styled";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
@@ -93,9 +90,9 @@ const AddNewTask = () => {
       <StyledAddNewTask onSubmit={handleSubmit}>
         <FlexContainer>
           <Link to="/">
-            <ButtonRound light type="button">
+            <Button variant="round" light>
               <BsArrowLeftShort fontSize="1.5rem" />
-            </ButtonRound>
+            </Button>
           </Link>
 
           <Header lrg text="Add New Task" />
@@ -164,13 +161,13 @@ const AddNewTask = () => {
                     value={`${index + 1}. ${subtask.subtask}`}
                     disabled
                   />
-                  <ButtonRound
+                  <Button
+                    variant="round"
                     remove
-                    type="button"
                     onClick={() => handleRemoveSubtask(subtask)}
                   >
                     <RxCross2 fontSize="1.5rem" />
-                  </ButtonRound>
+                  </Button>
                 </InputContainer>
               </li>
             ))}
@@ -185,9 +182,9 @@ const AddNewTask = () => {
               placeholder="Add New Subtask..."
               onChange={handleChange}
             />
-            <ButtonRound type="button" onClick={handleSubtasks}>
+            <Button variant="round" onClick={handleSubtasks}>
               <AiOutlinePlus fontSize="1.5rem" />
-            </ButtonRound>
+            </Button>
           </InputContainer>
         </section>
 
@@ -203,9 +200,9 @@ const AddNewTask = () => {
           />
         </section>
 
-        <ButtonPrimary lrg width="50%" type="submit">
+        <Button lrg width="50%" type="submit">
           Add Task
-        </ButtonPrimary>
+        </Button>
       </StyledAddNewTask>
     </Main>
   );

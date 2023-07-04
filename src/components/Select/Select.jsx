@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import StyledSelect from "./Select.styled";
 import Input from "../Input/Input.styled";
-import { ButtonSecondary } from "../Button/Button.styled";
+import Button from "../Button/Button";
 
 const createOption = (label) => {
   const value = label.toLowerCase();
@@ -39,17 +39,16 @@ const Select = ({ name, options }) => {
 
   return (
     <div>
-      <ButtonSecondary
+      <Button
+        variant="secondary"
         med
-        light
         width="100%"
         gap="24px"
-        type="button"
         onClick={handleSelectToggle}
       >
         {name}
         <BsChevronDown style={isOpen && { transform: "rotate(180deg)" }} />
-      </ButtonSecondary>
+      </Button>
 
       {isOpen && (
         <StyledSelect name={name} id={name}>
