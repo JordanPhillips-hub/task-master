@@ -47,7 +47,7 @@ const AddNewTask = () => {
       taskName: inputValue.taskName,
       complexity: taskLevel.complexity,
       priority: taskLevel.priority,
-      subtask: inputValue.subtask,
+      subtasks: subtasks,
       tags: inputValue.tags,
       dueDate: inputValue.dueDate,
       time: inputValue.time,
