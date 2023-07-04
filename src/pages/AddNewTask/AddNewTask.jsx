@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
+import { TaskContext } from "../../TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Button from "../../components/Button/Button.styled";
 import Input from "../../components/Input/Input.styled";
@@ -11,8 +12,12 @@ import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
 import { Main, FlexContainer, InputContainer } from "../../App.styles";
 
-const AddNewTask = ({ onSubmit }) => {
+const AddNewTask = () => {
   const navigate = useNavigate();
+  const { addTask } = useContext(TaskContext);
+  const [subtasks, setSubtasks] = useState([]);
+  const [activeComplexityButton, setActiveComplexityButton] = useState(null);
+  const [activePriorityButton, setActivePriorityButton] = useState(null);
   const [inputValue, setInputValue] = useState({
     taskName: "",
     subtask: "",
@@ -21,14 +26,36 @@ const AddNewTask = ({ onSubmit }) => {
     time: "",
   });
 
-  const [activeComplexityButton, setActiveComplexityButton] = useState(null);
-  const [activePriorityButton, setActivePriorityButton] = useState(null);
   const [taskLevel, setTaskLevel] = useState({
     complexity: 0,
     priority: 0,
   });
 
-  const [subtasks, setSubtasks] = useState([]);
+  const handleChange = ({ target: { name, value } }) => {
+    setInputValue((prevState) => ({
+      ...prevState,
+      [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/");
+
+    const task = {
+      id: `${Math.random()}`,
+      taskName: inputValue.taskName,
+      complexity: taskLevel.complexity,
+      priority: taskLevel.priority,
+      subtask: inputValue.subtask,
+      tags: inputValue.tags,
+      dueDate: inputValue.dueDate,
+      time: inputValue.time,
+      completed: false,
+    };
+
+    addTask(task);
+  };
 
   const handleSubtasks = () => {
     const subtask = {
@@ -51,13 +78,6 @@ const AddNewTask = ({ onSubmit }) => {
     setSubtasks(newTaskList);
   };
 
-  const handleChange = ({ target: { name, value } }) => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
-    }));
-  };
-
   const handleTaskLevel =
     (levelType) =>
     ({ target: { innerText } }) => {
@@ -74,20 +94,6 @@ const AddNewTask = ({ onSubmit }) => {
         setActivePriorityButton(Number(innerText));
       }
     };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/");
-    onSubmit(
-      inputValue.taskName,
-      taskLevel.complexity,
-      taskLevel.priority,
-      inputValue.subtask,
-      inputValue.tags,
-      inputValue.dueDate,
-      inputValue.time
-    );
-  };
 
   return (
     <Main>
