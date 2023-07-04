@@ -2,10 +2,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
-import { AiOutlinePlus } from "react-icons/ai";
 import { TaskContext } from "../../contexts/TaskContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
+import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
 import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
@@ -63,8 +63,8 @@ const Home = () => {
         ))}
 
         <Link to="/AddNewTask">
-          <Button lrg width="50%">
-            <AiOutlinePlus style={{ marginRight: "13px" }} />
+          <Button lrg width="50%" gap="13px">
+            <Icon type="plus" />
             Add New Task
           </Button>
         </Link>
