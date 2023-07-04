@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { AiOutlinePlus } from "react-icons/ai";
-import { TaskContext } from "../../TaskContext";
+import { TaskContext } from "../../contexts/TaskContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Select from "../../components/Select/Select";
 import Button from "../../components/Button/Button.styled";
