@@ -2,7 +2,7 @@
 import { useState } from "react";
 import StyledSelect from "./Select.styled";
 import Icon from "../Icon/Icon";
-import Input from "../Input/Input.styled";
+import Input from "../Input/Input";
 import Button from "../Button/Button";
 
 const createOption = (label) => {
@@ -57,12 +57,11 @@ const Select = ({ name, options }) => {
         <StyledSelect name={name} id={name}>
           {options.map((option) => (
             <li key={option.value}>
-              <label htmlFor={option.value}>{option.label}</label>
               <Input
+                label={option.label}
                 id={option.value}
-                htmlFor={option.value}
                 type="radio"
-                name={option.name}
+                // name={option.name}
                 value={option.value}
               />
             </li>
