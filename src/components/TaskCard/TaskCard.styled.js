@@ -25,13 +25,5 @@ const StyledTaskCard = styled.div`
   .dueDate {
     color: ${({ priorityColor }) => priorityColor || ''};
   }
-
-  .buttonIcon {
-    font-size: 1.3rem;
-  }
-
-  .detailsIcon {
-    font-size: 1.125rem;
-  }
 `
 export default StyledTaskCard;
