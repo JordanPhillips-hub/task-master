@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import StyledTaskCard from "./TaskCard.styled";
 import PriorityIndicator from "./PriorityIndicator.styled";
 import Header from "../Header/Header";
@@ -10,19 +9,19 @@ import { FlexContainer } from "../../App.styles";
 const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
   const taskDetails = [
     {
-      icon: <Icon type="calendar" />,
+      icon: "calendar",
       key: "Due Date:",
       value: `${dueDate}, ${time}`,
     },
     {
-      icon: <Icon type="arrowUp" />,
+      icon: "arrowUp",
       key: "Priority:",
       value: `${
         priority <= 4 ? "Low" : priority <= 7 ? "Medium" : "High"
       } ${`(${priority}/10)`}`,
     },
     {
-      icon: <Icon type="arrowMove" />,
+      icon: "arrowMove",
       key: "Complexity:",
       value: `${
         complexity <= 4 ? "Low" : complexity <= 7 ? "Medium" : "High"
@@ -30,10 +29,10 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
     },
   ];
 
-  const createButton = (icon) => {
+  const createButton = (type) => {
     return (
       <Button variant="round">
-        {React.cloneElement(icon, { className: "buttonIcon" })}
+        <Icon type={type} fontSize="1.3rem" />
       </Button>
     );
   };
@@ -57,14 +56,14 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
         </FlexContainer>
 
         <FlexContainer gap="15px">
-          {createButton(<Icon type="edit" />)}
-          {createButton(<Icon type="check" />)}
+          {createButton("edit")}
+          {createButton("check")}
         </FlexContainer>
       </FlexContainer>
 
       {taskDetails.map((detail) => (
         <FlexContainer key={detail.key} gap="6px" marginBottom="10px">
-          {React.cloneElement(detail.icon, { className: "detailsIcon" })}
+          <Icon type={detail.icon} fontSize="1.125rem" />
           <p>
             {detail.key}{" "}
             <span className={detail.key === "Due Date:" ? "dueDate" : ""}>
