@@ -5,7 +5,7 @@ import { TaskContext } from "../../contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input.styled";
+import Input from "../../components/Input/Input";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
 import { Main, FlexContainer, InputContainer } from "../../App.styles";
@@ -97,11 +97,9 @@ const AddNewTask = () => {
         </FlexContainer>
 
         <section>
-          <label htmlFor="taskName">Add Task</label>
           <Input
+            label="Add Task"
             id="taskName"
-            type="text"
-            name="taskName"
             value={inputValue.taskName}
             placeholder="Task 1..."
             onChange={handleChange}
@@ -124,22 +122,20 @@ const AddNewTask = () => {
         <section>
           <FlexContainer gap="30px">
             <div>
-              <label htmlFor="dueDate">Due Date</label>
               <Input
+                label="Due Date"
                 id="dueDate"
                 type="date"
-                name="dueDate"
                 value={inputValue.dueDate}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="time">Select Time</label>
               <Input
+                label="Select Time"
                 id="time"
                 type="time"
-                name="time"
                 value={inputValue.time}
                 onChange={handleChange}
               />
@@ -155,9 +151,8 @@ const AddNewTask = () => {
                 <InputContainer>
                   <Input
                     id={index}
-                    type="text"
                     value={`${index + 1}. ${subtask.subtask}`}
-                    disabled
+                    disabled={true}
                   />
                   <Button
                     variant="round"
@@ -174,8 +169,6 @@ const AddNewTask = () => {
           <InputContainer>
             <Input
               id="subtask"
-              type="text"
-              name="subtask"
               value={inputValue.subtask}
               placeholder="Add New Subtask..."
               onChange={handleChange}
@@ -187,11 +180,9 @@ const AddNewTask = () => {
         </section>
 
         <section>
-          <label htmlFor="tags">Add Tags</label>
           <Input
+            label="Add Tags"
             id="tags"
-            type="text"
-            name="tags"
             value={inputValue.tags}
             placeholder="School, Career, Routine"
             onChange={handleChange}

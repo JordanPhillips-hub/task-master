@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Input = styled.input`
+const StyledInput = styled.input`
   color: var(--clr-dim-grey);
   font-family: "Manrope", sans-serif;
   font-size: 1rem;
@@ -45,6 +45,6 @@ const Input = styled.input`
 &[type=radio]:checked::before {
   transform: scale(0.6);
 }
-`;
+`
 
-export default Input;
+export default StyledInput;
