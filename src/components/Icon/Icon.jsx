@@ -25,9 +25,9 @@ const icons = {
   check: BiCheck,
 };
 
-const Icon = ({ type, ...rest }) => {
+const Icon = ({ type, fontSize, ...rest }) => {
   const IconType = icons[type];
-  return <IconType {...rest} />;
+  return <IconType style={{fontSize: fontSize ? fontSize : '1.5rem'}} {...rest} />;
 };
 
 export default Icon;
