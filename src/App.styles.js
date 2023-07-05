@@ -88,6 +88,7 @@ export const Main = styled.main`
 `
 
 export const FlexContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: ${({ justify }) => justify};
@@ -100,10 +101,4 @@ export const GridContainer = styled.div`
   grid-template-columns: 1fr 1fr; 
   gap: 30px;
   margin-bottom: 18px;
-`
-
-export const InputContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
 `
