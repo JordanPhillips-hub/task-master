@@ -1,16 +1,8 @@
 import styled from "styled-components";
 
 const StyledAddNewTask = styled.form`
- button:not(section button, div > a button) {
-  margin-top: 30px;
-  margin-inline: auto;
- }
 
- h1 {
-  margin-left: 73px;
- }
-
- label {
+label {
   font-size: 1.125rem;
   font-weight: 500;
   display: block;
@@ -30,6 +22,10 @@ const StyledAddNewTask = styled.form`
  input[type=time] {
   width: 100%;
   padding: 12px 24px;
+ }
+
+ button[type=submit] {
+  margin-top: 30px;
  }
 
  li {
