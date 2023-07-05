@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TaskContext } from "../../contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
 import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
-import Header from "../../components/Header/Header";
+import PageHeader from "../../components/Header/PageHeader";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
 import Subtask from "../../components/Subtask/Subtask";
 import { Main, FlexContainer } from "../../App.styles";
@@ -87,16 +87,7 @@ const AddNewTask = () => {
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
-        <FlexContainer>
-          <Link to="/">
-            <Button variant="round" light>
-              <Icon type="arrowLeft" />
-            </Button>
-          </Link>
-
-          <Header lrg text="Add New Task" />
-        </FlexContainer>
-
+        <PageHeader text="Add New Task" />
         <section>
           <Input
             label="Add Task"
