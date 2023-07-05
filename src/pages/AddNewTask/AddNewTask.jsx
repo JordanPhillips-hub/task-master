@@ -89,7 +89,7 @@ const AddNewTask = () => {
         <FlexContainer>
           <Link to="/">
             <Button variant="round" light>
-              <Icon type="arrowLeft" fontSize="1.5rem" />
+              <Icon type="arrowLeft" />
             </Button>
           </Link>
 
@@ -164,7 +164,7 @@ const AddNewTask = () => {
                     remove
                     onClick={() => handleRemoveSubtask(subtask)}
                   >
-                    <Icon type="cross" fontSize="1.5rem" />
+                    <Icon type="cross" />
                   </Button>
                 </InputContainer>
               </li>
@@ -181,7 +181,7 @@ const AddNewTask = () => {
               onChange={handleChange}
             />
             <Button variant="round" onClick={handleSubtasks}>
-              <Icon type="plus" fontSize="1.5rem" />
+              <Icon type="plus" />
             </Button>
           </InputContainer>
         </section>
