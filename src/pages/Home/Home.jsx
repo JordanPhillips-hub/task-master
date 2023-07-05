@@ -35,40 +35,38 @@ const Home = () => {
 
   return (
     <Main>
-      <div>
-        <SearchBar />
+      <SearchBar />
 
-        <GridContainer>
-          <Select name="Sort" options={sortOptions} />
-          <Select name="Category" options={categoryOptions} />
-        </GridContainer>
+      <GridContainer>
+        <Select name="Sort" options={sortOptions} />
+        <Select name="Category" options={categoryOptions} />
+      </GridContainer>
 
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            taskName={task.taskName}
-            dueDate={
-              task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-            }
-            time={task.time ? convertTimeFormat(task.time) : ""}
-            priority={task.priority}
-            complexity={task.complexity}
-            tags={
-              task.tags !== "" &&
-              task.tags.map(
-                (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
-              )
-            }
-          />
-        ))}
+      {tasks.map((task) => (
+        <TaskCard
+          key={task.id}
+          taskName={task.taskName}
+          dueDate={
+            task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
+          }
+          time={task.time ? convertTimeFormat(task.time) : ""}
+          priority={task.priority}
+          complexity={task.complexity}
+          tags={
+            task.tags !== "" &&
+            task.tags.map(
+              (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
+            )
+          }
+        />
+      ))}
 
-        <Link to="/AddNewTask">
-          <Button lrg width="50%" gap="13px">
-            <Icon type="plus" />
-            Add New Task
-          </Button>
-        </Link>
-      </div>
+      <Link to="/AddNewTask">
+        <Button lrg width="50%" gap="13px">
+          <Icon type="plus" />
+          Add New Task
+        </Button>
+      </Link>
     </Main>
   );
 };
