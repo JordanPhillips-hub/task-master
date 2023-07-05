@@ -22,7 +22,7 @@ const SearchBar = () => {
         />
 
         <Button variant="round">
-          <Icon type="arrowRight" fontSize="1.5rem" />
+          <Icon type="arrowRight" />
         </Button>
       </InputContainer>
     </SearchContainer>
