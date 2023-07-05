@@ -9,7 +9,7 @@ import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
 import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
-import Tag from "../../components/Tag/Tag.styled";
+import Tag from "../../components/TaskCard/Tag.styled";
 import { Main, GridContainer } from "../../App.styles";
 
 const Home = () => {
