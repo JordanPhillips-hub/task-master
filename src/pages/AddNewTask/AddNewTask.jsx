@@ -8,7 +8,8 @@ import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Header from "../../components/Header/Header";
 import TaskLevel from "../../components/TaskLevel/TaskLevel";
-import { Main, FlexContainer, InputContainer } from "../../App.styles";
+import Subtask from "../../components/Subtask/Subtask";
+import { Main, FlexContainer } from "../../App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
@@ -148,12 +149,8 @@ const AddNewTask = () => {
           <ul>
             {subtasks.map((subtask, index) => (
               <li key={index}>
-                <InputContainer>
-                  <Input
-                    id={index}
-                    value={`${index + 1}. ${subtask.subtask}`}
-                    disabled={true}
-                  />
+                <FlexContainer>
+                  <Subtask text={`${index + 1}. ${subtask.subtask}`} />
                   <Button
                     variant="round"
                     remove
@@ -161,12 +158,12 @@ const AddNewTask = () => {
                   >
                     <Icon type="cross" />
                   </Button>
-                </InputContainer>
+                </FlexContainer>
               </li>
             ))}
           </ul>
 
-          <InputContainer>
+          <FlexContainer>
             <Input
               id="subtask"
               value={inputValue.subtask}
@@ -176,7 +173,7 @@ const AddNewTask = () => {
             <Button variant="round" onClick={handleSubtasks}>
               <Icon type="plus" />
             </Button>
-          </InputContainer>
+          </FlexContainer>
         </section>
 
         <section>
