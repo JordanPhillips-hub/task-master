@@ -16,7 +16,6 @@ export const GlobalStyles = createGlobalStyle`
   --clr-light-cyan: hsl(183, 100%, 95%);
   --clr-light-blue-gray: hsl(205, 57%, 92%); 
   --clr-black: hsl(0, 0%, 0%);
-  --clr-mostly-black: hsl(340, 100%, 2%); 
   --clr-red-orange: hsl(4, 100%, 60%);
   --clr-bright-orange: hsl(29, 99%, 51%);
   --clr-navy-blue: hsl(217, 100%, 17%);
@@ -51,7 +50,7 @@ h1 {
 
 h1,
 h2 {
-  color: var(--clr-mostly-black);
+  color: var(--clr-black);
   font-weight: 500;
 }
 
