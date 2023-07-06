@@ -50,7 +50,7 @@ export const ButtonPrimary = styled.button`
 export const ButtonSecondary = styled.button`
   ${sharedStyles}
   background-color: var(--clr-white);
-  color: var(--clr-mostly-black);
+  color: var(--clr-black);
   border: 1px solid var(--clr-light-gray);
 
   &:hover,
