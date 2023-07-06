@@ -60,8 +60,7 @@ const Select = ({ name, options }) => {
               <Input
                 label={option.label}
                 id={option.value}
-                type="radio"
-                // name={option.name}
+                type="checkbox"
                 value={option.value}
               />
             </li>
