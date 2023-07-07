@@ -22,6 +22,10 @@ const Select = ({ name, options }) => {
     setIsOpen((prevState) => !prevState);
   };
 
+  const toLower = (val) => {
+    return val.toLowerCase();
+  };
+
   return (
     <div>
       <Button
@@ -44,7 +48,7 @@ const Select = ({ name, options }) => {
             <li key={option}>
               <Input
                 label={option}
-                id={option}
+                id={toLower(option)}
                 type="checkbox"
                 value={option}
               />
