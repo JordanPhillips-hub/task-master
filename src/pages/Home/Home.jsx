@@ -32,9 +32,7 @@ const Home = () => {
     return timeValue;
   };
 
-  const taskTags = tasks.map((task) => task.tags);
-  const tags = taskTags.map((tags) => tags.map((tag) => tag));
-  const tag = tags.flat();
+  const tag = tasks.flatMap((task) => task.tags);
 
   return (
     <Main>
