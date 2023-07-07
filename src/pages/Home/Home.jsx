@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { TaskContext } from "../../contexts/TaskContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Select from "../../components/Select/Select";
+import Select, { sortOptions } from "../../components/Select/Select";
 import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
-import { sortOptions, categoryOptions } from "../../components/Select/Select";
 import TaskCard from "../../components/TaskCard/TaskCard";
 import Tag from "../../components/TaskCard/Tag.styled";
 import { Main, GridContainer } from "../../App.styles";
@@ -33,13 +32,17 @@ const Home = () => {
     return timeValue;
   };
 
+  const taskTags = tasks.map((task) => task.tags);
+  const tags = taskTags.map((tags) => tags.map((tag) => tag));
+  const tag = tags.flat();
+
   return (
     <Main>
       <SearchBar />
 
       <GridContainer>
         <Select name="Sort" options={sortOptions} />
-        <Select name="Category" options={categoryOptions} />
+        <Select name="Category" options={tag}></Select>
       </GridContainer>
 
       {tasks.map((task) => (
