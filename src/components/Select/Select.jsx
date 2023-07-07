@@ -5,11 +5,6 @@ import Icon from "../Icon/Icon";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
-const createOption = (label) => {
-  const value = label.toLowerCase();
-  return { label: label, value };
-};
-
 export const sortOptions = [
   "Default",
   "Ascending Date",
@@ -18,23 +13,17 @@ export const sortOptions = [
   "Descending Complexity",
   "Ascending Priority",
   "Descending Priority",
-].map((label) => ({ ...createOption(label), name: "sort" }));
-
-export const categoryOptions = [
-  "Education",
-  "Career",
-  "Job",
-  "Success",
-  "Routine",
-  "Morning Task",
-  "Medicine",
-].map((label) => ({ ...createOption(label), name: "category" }));
+];
 
 const Select = ({ name, options }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelectToggle = () => {
     setIsOpen((prevState) => !prevState);
+  };
+
+  const toLower = (val) => {
+    return val.toLowerCase();
   };
 
   return (
@@ -56,12 +45,12 @@ const Select = ({ name, options }) => {
       {isOpen && (
         <StyledSelect name={name} id={name}>
           {options.map((option) => (
-            <li key={option.value}>
+            <li key={option}>
               <Input
-                label={option.label}
-                id={option.value}
+                label={option}
+                id={toLower(option)}
                 type="checkbox"
-                value={option.value}
+                value={option}
               />
             </li>
           ))}
