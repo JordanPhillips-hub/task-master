@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 import StyledPageHeader from "./PageHeader.styled";
 import Header from "./Header";
-import Button from "../Button/Button";
-import Icon from "../Icon/Icon";
+import Button from "src/components/Button/Button";
+import Icon from "src/components/Icon/Icon";
 
 const PageHeader = ({ text }) => {
   return (

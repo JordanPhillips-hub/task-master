@@ -2,14 +2,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
-import { TaskContext } from "../../contexts/TaskContext";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import Select, { sortOptions } from "../../components/Select/Select";
-import Icon from "../../components/Icon/Icon";
-import Button from "../../components/Button/Button";
-import TaskCard from "../../components/TaskCard/TaskCard";
-import Tag from "../../components/TaskCard/Tag.styled";
-import { Main, GridContainer } from "../../App.styles";
+import { TaskContext } from "src/contexts/TaskContext";
+import SearchBar from "src/components/SearchBar/SearchBar";
+import Select, { sortOptions } from "src/components/Select/Select";
+import TaskCard from "src/components/TaskCard/TaskCard";
+import Button from "src/components/Button/Button";
+import Icon from "src/components/Icon/Icon";
+import Tag from "src/components/TaskCard/Tag.styled";
+import { Main, GridContainer } from "src/App.styles";
 
 const Home = () => {
   const { tasks } = useContext(TaskContext);

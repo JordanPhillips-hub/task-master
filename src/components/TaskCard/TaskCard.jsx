@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import StyledTaskCard from "./TaskCard.styled";
 import PriorityIndicator from "./PriorityIndicator.styled";
-import Header from "../Header/Header";
-import Icon from "../Icon/Icon";
-import Button from "../Button/Button";
-import { FlexContainer } from "../../App.styles";
+import Header from "src/components/Header/Header";
+import Icon from "src/components/Icon/Icon";
+import Button from "src/components/Button/Button";
+import { FlexContainer } from "src/App.styles";
 
 const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
   const taskDetails = [

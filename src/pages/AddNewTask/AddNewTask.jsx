@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TaskContext } from "../../contexts/TaskContext";
+import { TaskContext } from "src/contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
-import Icon from "../../components/Icon/Icon";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
-import PageHeader from "../../components/Header/PageHeader";
-import TaskLevel from "../../components/TaskLevel/TaskLevel";
-import Subtask from "../../components/Subtask/Subtask";
-import { Main, FlexContainer } from "../../App.styles";
+import PageHeader from "src/components/Header/PageHeader";
+import Input from "src/components/Input/Input";
+import TaskLevel from "src/components/TaskLevel/TaskLevel";
+import Subtask from "src/components/Subtask/Subtask";
+import Button from "src/components/Button/Button";
+import Icon from "src/components/Icon/Icon";
+import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
