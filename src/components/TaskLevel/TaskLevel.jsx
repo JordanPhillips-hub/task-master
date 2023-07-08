@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { uid } from "uid";
 import Header from "src/components/Header/Header";
 import Button from "src/components/Button/Button";
 import { FlexContainer } from "src/App.styles";
@@ -10,7 +11,7 @@ const generateLevelButtons = (n, active, onClick) => {
       <Button
         variant="round"
         sml
-        key={Math.random()}
+        key={uid()}
         style={
           i + 1 === active
             ? { backgroundColor: "var(--clr-sky-blue)" }

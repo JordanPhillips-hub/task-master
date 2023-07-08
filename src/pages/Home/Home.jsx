@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { uid } from "uid";
 import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
 import SearchBar from "src/components/SearchBar/SearchBar";
@@ -45,7 +46,7 @@ const Home = () => {
 
       {tasks.map((task) => (
         <TaskCard
-          key={task.id}
+          key={uid()}
           taskName={task.taskName}
           dueDate={
             task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { uid } from "uid";
 import StyledTaskCard from "./TaskCard.styled";
 import PriorityIndicator from "./PriorityIndicator.styled";
 import Header from "src/components/Header/Header";
@@ -62,7 +63,7 @@ const TaskCard = ({ taskName, dueDate, priority, complexity, time, tags }) => {
       </FlexContainer>
 
       {taskDetails.map((detail) => (
-        <FlexContainer key={detail.key} gap="6px" marginBottom="10px">
+        <FlexContainer key={uid()} gap="6px" marginBottom="10px">
           <Icon type={detail.icon} fontSize="1.125rem" />
           <p>
             {detail.key}{" "}
