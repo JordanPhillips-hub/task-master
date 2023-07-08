@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import StyledSelect from "./Select.styled";
-import Icon from "../Icon/Icon";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
+import Icon from "src/components/Icon/Icon";
+import Input from "src/components/Input/Input";
+import Button from "src/components/Button/Button";
 
 export const sortOptions = [
   "Default",

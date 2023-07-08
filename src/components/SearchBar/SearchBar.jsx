@@ -1,7 +1,7 @@
 import { SearchContainer, SearchIcon } from "./SearchBar.styled";
-import Input from "../Input/Input";
-import Icon from "../Icon/Icon";
-import Button from "../Button/Button";
+import Input from "src/components/Input/Input";
+import Icon from "src/components/Icon/Icon";
+import Button from "src/components/Button/Button";
 
 const SearchBar = () => {
   return (

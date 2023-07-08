@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import Header from "../Header/Header";
-import Button from "../Button/Button";
-import { FlexContainer } from "../../App.styles";
+import Header from "src/components/Header/Header";
+import Button from "src/components/Button/Button";
+import { FlexContainer } from "src/App.styles";
 
 const generateLevelButtons = (n, active, onClick) => {
   return Array(n)
