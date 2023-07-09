@@ -140,7 +140,7 @@ const AddNewTask = () => {
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
             {subtasks.map((subtask, index) => (
-              <li key={index}>
+              <li key={uid()}>
                 <FlexContainer>
                   <Subtask text={`${index + 1}. ${subtask.subtask}`} />
                   <Button
