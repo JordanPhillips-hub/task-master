@@ -43,7 +43,12 @@ const Select = ({ name, options }) => {
         <StyledSelect name={name} id={uid()}>
           {options.map((option) => (
             <li key={uid()}>
-              <Input label={option} id={uid()} type="checkbox" value={option} />
+              <Input
+                label={option}
+                id={option}
+                type="checkbox"
+                value={option}
+              />
             </li>
           ))}
         </StyledSelect>
