@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
 import PageHeader from "src/components/Header/PageHeader";
@@ -40,7 +41,7 @@ const AddNewTask = () => {
     navigate("/");
 
     const task = {
-      id: `${Math.random()}`,
+      id: `${uid()}`,
       taskName: inputValue.taskName,
       complexity: taskLevel.complexity,
       priority: taskLevel.priority,
@@ -56,7 +57,7 @@ const AddNewTask = () => {
 
   const handleSubtasks = () => {
     const subtask = {
-      id: Math.random(),
+      id: uid(),
       subtask: inputValue.subtask,
     };
 
@@ -139,7 +140,7 @@ const AddNewTask = () => {
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
             {subtasks.map((subtask, index) => (
-              <li key={index}>
+              <li key={uid()}>
                 <FlexContainer>
                   <Subtask text={`${index + 1}. ${subtask.subtask}`} />
                   <Button

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { uid } from "uid";
 import StyledSelect from "./Select.styled";
 import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input/Input";
@@ -22,10 +23,6 @@ const Select = ({ name, options }) => {
     setIsOpen((prevState) => !prevState);
   };
 
-  const toLower = (val) => {
-    return val.toLowerCase();
-  };
-
   return (
     <div>
       <Button
@@ -43,12 +40,12 @@ const Select = ({ name, options }) => {
       </Button>
 
       {isOpen && (
-        <StyledSelect name={name} id={name}>
+        <StyledSelect name={name} id={uid()}>
           {options.map((option) => (
-            <li key={option}>
+            <li key={uid()}>
               <Input
                 label={option}
-                id={toLower(option)}
+                id={option}
                 type="checkbox"
                 value={option}
               />
