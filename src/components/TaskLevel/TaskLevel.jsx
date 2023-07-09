@@ -9,9 +9,9 @@ const generateLevelButtons = (n, active, onClick) => {
     .fill()
     .map((_, i) => (
       <Button
+        key={uid()}
         variant="round"
         sml
-        key={uid()}
         style={
           i + 1 === active
             ? { backgroundColor: "var(--clr-sky-blue)" }
