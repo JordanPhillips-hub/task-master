@@ -45,22 +45,23 @@ const Home = () => {
       </GridContainer>
 
       {tasks.map((task) => (
-        <TaskCard
-          key={uid()}
-          taskName={task.taskName}
-          dueDate={
-            task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-          }
-          time={task.time ? convertTimeFormat(task.time) : ""}
-          priority={task.priority}
-          complexity={task.complexity}
-          tags={
-            task.tags !== "" &&
-            task.tags.map(
-              (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
-            )
-          }
-        />
+        <Link key={uid()} to={`/task/${task.id}`}>
+          <TaskCard
+            taskName={task.taskName}
+            dueDate={
+              task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
+            }
+            time={task.time ? convertTimeFormat(task.time) : ""}
+            priority={task.priority}
+            complexity={task.complexity}
+            tags={
+              task.tags !== "" &&
+              task.tags.map(
+                (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
+              )
+            }
+          />
+        </Link>
       ))}
 
       <Link to="/AddNewTask">
