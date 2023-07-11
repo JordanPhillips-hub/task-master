@@ -2,24 +2,25 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
-import TaskDetail from "../../components/TaskDetail/TaskDetail";
-import TaskHeader from "../../components/Header/TaskHeader";
 import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
-import SearchBar from "src/components/SearchBar/SearchBar";
-import Select, { sortOptions } from "src/components/Select/Select";
-import TaskCard from "src/components/TaskCard/TaskCard";
+import { formatTime } from "src/utils/formatTime";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
-import Tag from "src/components/TaskCard/Tag.styled";
-import { formatTime } from "../../utils/formatTime";
+import SearchBar from "src/components/SearchBar/SearchBar";
+import Select from "src/components/Select/Select";
+import { selectOptions } from "src/components/Select/selectOptions";
+import TaskCard from "src/components/Task/TaskCard/TaskCard";
+import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
+import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
+import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
   const { tasks } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
 
-  const createButton = (type) => {
+  const createHeaderButton = (type) => {
     return (
       <Button variant="round">
         <Icon type={type} fontSize="1.3rem" />
@@ -32,7 +33,7 @@ const Home = () => {
       <SearchBar />
 
       <GridContainer>
-        <Select name="Sort" options={sortOptions} />
+        <Select name="Sort" options={selectOptions} />
         <Select name="Category" options={tags}></Select>
       </GridContainer>
 
@@ -43,8 +44,8 @@ const Home = () => {
               <TaskHeader text={task.taskName} priority={task.priority} />
 
               <FlexContainer gap="15px">
-                {createButton("edit")}
-                {createButton("check")}
+                {createHeaderButton("edit")}
+                {createHeaderButton("check")}
               </FlexContainer>
             </FlexContainer>
 
@@ -69,7 +70,9 @@ const Home = () => {
             />
             <FlexContainer gap="8px">
               {task.tags !== "" &&
-                task.tags.map((tag, index) => <Tag key={index}>{tag}</Tag>)}
+                task.tags.map((tag, index) => (
+                  <TaskTag key={index}>{tag}</TaskTag>
+                ))}
             </FlexContainer>
           </TaskCard>
         </Link>

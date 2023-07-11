@@ -2,14 +2,14 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { uid } from "uid";
-import { TaskContext } from "src/contexts/TaskContext";
 import StyledAddNewTask from "./AddNewTask.styled";
-import PageHeader from "src/components/Header/PageHeader";
+import { TaskContext } from "src/contexts/TaskContext";
 import Input from "src/components/Input/Input";
-import TaskLevel from "src/components/TaskLevel/TaskLevel";
-import Subtask from "src/components/Subtask/Subtask";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
+import PageHeader from "src/components/PageHeader/PageHeader";
+import LevelSelector from "src/components/LevelSelector/LevelSelector";
+import Subtask from "src/components/Subtask/Subtask";
 import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
@@ -100,12 +100,12 @@ const AddNewTask = () => {
         </section>
 
         <section>
-          <TaskLevel
+          <LevelSelector
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
             active={taskLevel.complexity}
           />
-          <TaskLevel
+          <LevelSelector
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
             active={taskLevel.priority}

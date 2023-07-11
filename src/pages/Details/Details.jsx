@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
-import PageHeader from "src/components/Header/PageHeader";
-import TaskCard from "src/components/TaskCard/TaskCard";
-import Tag from "src/components/TaskCard/Tag.styled";
+import PageHeader from "src/components/PageHeader/PageHeader";
+import TaskCard from "src/components/Task/TaskCard/TaskCard";
+import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main } from "src/App.styles";
 
 const Details = () => {
@@ -46,7 +46,7 @@ const Details = () => {
         tags={
           task.tags !== "" &&
           task.tags.map(
-            (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
+            (tag, index) => tag !== "" && <TaskTag key={index}>{tag}</TaskTag>
           )
         }
       />
