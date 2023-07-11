@@ -51,7 +51,7 @@ const Home = () => {
         <Link key={uid()} to={`/task/${task.id}`}>
           <TaskCard key={uid()}>
             <FlexContainer justify="space-between" marginBottom="10px">
-              <TaskHeader text={task.taskName} />
+              <TaskHeader text={task.taskName} priority={task.priority} />
 
               <FlexContainer gap="15px">
                 {createButton("edit")}
