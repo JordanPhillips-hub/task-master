@@ -4,21 +4,21 @@ import Header from "./Header";
 import PriorityIndicator from "../TaskCard/PriorityIndicator.styled";
 import { FlexContainer } from "../../App.styles";
 
-// const setPriorityColor = (priority) => {
-//   let color =
-//     priority <= 4
-//       ? "var(--clr-sky-blue)"
-//       : priority <= 7
-//       ? "var(--clr-bright-orange)"
-//       : "var(--clr-red-orange)";
-//   return color;
-// };
+const setPriorityColor = (priority) => {
+  let color =
+    priority <= 4
+      ? "var(--clr-sky-blue)"
+      : priority <= 7
+      ? "var(--clr-bright-orange)"
+      : "var(--clr-red-orange)";
+  return color;
+};
 
-const TaskHeader = ({ text }) => {
+const TaskHeader = ({ text, priority }) => {
   return (
     <StyledTaskHeader>
       <FlexContainer gap="10px">
-        <PriorityIndicator />
+        <PriorityIndicator priorityColor={setPriorityColor(priority)} />
         <Header text={text} />
       </FlexContainer>
     </StyledTaskHeader>
