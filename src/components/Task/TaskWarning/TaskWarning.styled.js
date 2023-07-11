@@ -1,12 +1,18 @@
 import styled from "styled-components";
+import moment from 'moment';
 
-export const setWarningColor = (priority) => {
-  let color =
-    priority <= 4
-      ? "var(--clr-sky-blue)"
-      : priority <= 7
-        ? "var(--clr-bright-orange)"
-        : "var(--clr-red-orange)";
+export const setWarningColor = (dueDate) => {
+  const currentDate = moment();
+  const dueDateMoment = moment(dueDate);
+  const daysDiff = dueDateMoment.diff(currentDate, 'days');
+  let color;
+  if (daysDiff === 0) {
+    color = "var(--clr-red-orange)";
+  } else if (daysDiff <= 3) {
+    color = "var(--clr-bright-orange)";
+  } else {
+    color = "var(--clr-sky-blue)";
+  }
   return color;
 };
 
