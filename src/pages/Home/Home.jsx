@@ -12,23 +12,12 @@ import TaskCard from "src/components/TaskCard/TaskCard";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
 import Tag from "src/components/TaskCard/Tag.styled";
+import { formatTime } from "../../utils/formatTime";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
   const { tasks } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
-
-  const convertTimeFormat = (timeValue) => {
-    let [hours, minutes] = timeValue.split(":");
-    let period = "AM";
-    if (hours > 12) {
-      hours -= 12;
-      period = "PM";
-    }
-    if (hours < 10) hours = Number(hours);
-    timeValue = `${hours}:${minutes} ${period}`;
-    return timeValue;
-  };
 
   const createButton = (type) => {
     return (
@@ -64,7 +53,7 @@ const Home = () => {
               title="Due Date:"
               value={`${
                 task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-              }, ${task.time ? convertTimeFormat(task.time) : ""}`}
+              }, ${task.time ? formatTime(task.time) : ""}`}
             />
 
             <TaskDetail
