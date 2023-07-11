@@ -24,7 +24,7 @@ const generateLevelButtons = (n, active, onClick) => {
     ));
 };
 
-const TaskLevel = ({ text, active, onClick }) => {
+const LevelSelector = ({ text, active, onClick }) => {
   return (
     <section>
       <Header text={text} />
@@ -35,4 +35,4 @@ const TaskLevel = ({ text, active, onClick }) => {
   );
 };
 
-export default TaskLevel;
+export default LevelSelector;

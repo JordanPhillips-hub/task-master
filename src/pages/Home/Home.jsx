@@ -4,63 +4,77 @@ import { Link } from "react-router-dom";
 import { uid } from "uid";
 import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
-import SearchBar from "src/components/SearchBar/SearchBar";
-import Select, { sortOptions } from "src/components/Select/Select";
-import TaskCard from "src/components/TaskCard/TaskCard";
+import { formatTime } from "src/utils/formatTime";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
-import Tag from "src/components/TaskCard/Tag.styled";
-import { Main, GridContainer } from "src/App.styles";
+import SearchBar from "src/components/SearchBar/SearchBar";
+import Select from "src/components/Select/Select";
+import { selectOptions } from "src/components/Select/selectOptions";
+import TaskCard from "src/components/Task/TaskCard/TaskCard";
+import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
+import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
+import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
+import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
   const { tasks } = useContext(TaskContext);
+  const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
 
-  const convertTimeFormat = (timeValue) => {
-    let [hours, minutes] = timeValue.split(":");
-    let period = "AM";
-
-    if (hours > 12) {
-      hours -= 12;
-      period = "PM";
-    }
-
-    if (hours < 10) {
-      hours = Number(hours);
-    }
-
-    timeValue = `${hours}:${minutes} ${period}`;
-
-    return timeValue;
+  const createHeaderButton = (type) => {
+    return (
+      <Button variant="round">
+        <Icon type={type} fontSize="1.3rem" />
+      </Button>
+    );
   };
-
-  const tag = tasks.flatMap((task) => task.tags);
 
   return (
     <Main>
       <SearchBar />
 
       <GridContainer>
-        <Select name="Sort" options={sortOptions} />
-        <Select name="Category" options={tag}></Select>
+        <Select name="Sort" options={selectOptions} />
+        <Select name="Category" options={tags}></Select>
       </GridContainer>
 
       {tasks.map((task) => (
         <Link key={uid()} to={`/task/${task.id}`}>
-          <TaskCard
-            taskName={task.taskName}
-            dueDate={
-              task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-            }
-            time={task.time ? convertTimeFormat(task.time) : ""}
-            priority={task.priority}
-            complexity={task.complexity}
-            tags={
-              task.tags !== "" &&
-              task.tags.map(
-                (tag, index) => tag !== "" && <Tag key={index}>{tag}</Tag>
-              )
-            }
-          />
+          <TaskCard key={uid()}>
+            <FlexContainer justify="space-between" marginBottom="10px">
+              <TaskHeader text={task.taskName} priority={task.priority} />
+
+              <FlexContainer gap="15px">
+                {createHeaderButton("edit")}
+                {createHeaderButton("check")}
+              </FlexContainer>
+            </FlexContainer>
+
+            <TaskDetail
+              icon="calendar"
+              title="Due Date:"
+              value={`${
+                task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
+              }, ${task.time ? formatTime(task.time) : ""}`}
+            />
+
+            <TaskDetail
+              icon="arrowUp"
+              title="Priority:"
+              value={task.priority}
+            />
+
+            <TaskDetail
+              icon="arrowMove"
+              title="Complexity:"
+              value={task.complexity}
+            />
+            <FlexContainer gap="8px">
+              {task.tags !== "" &&
+                task.tags.map((tag, index) => (
+                  <TaskTag key={index}>{tag}</TaskTag>
+                ))}
+            </FlexContainer>
+          </TaskCard>
         </Link>
       ))}
 
