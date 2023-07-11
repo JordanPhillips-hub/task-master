@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import StyledTaskDetail from "./TaskDetail.styled";
 import Icon from "src/components/Icon/Icon";
+import { setWarningColor } from "src/components/Task/TaskWarning/TaskWarning.styled";
 import { FlexContainer } from "src/App.styles";
 
-const TaskDetail = ({ icon, title, value }) => {
+const TaskDetail = ({ icon, title, value, dueDate }) => {
   return (
-    <StyledTaskDetail>
+    <StyledTaskDetail warningColor={setWarningColor(dueDate)}>
       <FlexContainer gap="6px" marginBottom="10px">
         <Icon type={icon} fontSize="1.125rem" />
         <p>{title}</p>
@@ -15,7 +16,9 @@ const TaskDetail = ({ icon, title, value }) => {
             {`(${value}/10)`}
           </span>
         ) : (
-          <span>{value}</span>
+          <span className={title === "Due Date:" ? "dueDate" : ""}>
+            {value}
+          </span>
         )}
       </FlexContainer>
     </StyledTaskDetail>
