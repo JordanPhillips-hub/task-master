@@ -48,36 +48,42 @@ const Home = () => {
       </GridContainer>
 
       {tasks.map((task) => (
-        <TaskCard key={uid()}>
-          <FlexContainer justify="space-between" marginBottom="10px">
-            <TaskHeader text={task.taskName} />
+        <Link key={uid()} to={`/task/${task.id}`}>
+          <TaskCard key={uid()}>
+            <FlexContainer justify="space-between" marginBottom="10px">
+              <TaskHeader text={task.taskName} />
 
-            <FlexContainer gap="15px">
-              {createButton("edit")}
-              {createButton("check")}
+              <FlexContainer gap="15px">
+                {createButton("edit")}
+                {createButton("check")}
+              </FlexContainer>
             </FlexContainer>
-          </FlexContainer>
 
-          <TaskDetail
-            icon="calendar"
-            title="Due Date:"
-            value={`${
-              task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-            }, ${task.time ? convertTimeFormat(task.time) : ""}`}
-          />
+            <TaskDetail
+              icon="calendar"
+              title="Due Date:"
+              value={`${
+                task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
+              }, ${task.time ? convertTimeFormat(task.time) : ""}`}
+            />
 
-          <TaskDetail icon="arrowUp" title="Priority:" value={task.priority} />
+            <TaskDetail
+              icon="arrowUp"
+              title="Priority:"
+              value={task.priority}
+            />
 
-          <TaskDetail
-            icon="arrowMove"
-            title="Complexity:"
-            value={task.complexity}
-          />
-          <FlexContainer gap="8px">
-            {task.tags !== "" &&
-              task.tags.map((tag, index) => <Tag key={index}>{tag}</Tag>)}
-          </FlexContainer>
-        </TaskCard>
+            <TaskDetail
+              icon="arrowMove"
+              title="Complexity:"
+              value={task.complexity}
+            />
+            <FlexContainer gap="8px">
+              {task.tags !== "" &&
+                task.tags.map((tag, index) => <Tag key={index}>{tag}</Tag>)}
+            </FlexContainer>
+          </TaskCard>
+        </Link>
       ))}
 
       <Link to="/AddNewTask">
