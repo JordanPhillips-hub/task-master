@@ -41,7 +41,7 @@ const Home = () => {
         <Link key={uid()} to={`/task/${task.id}`}>
           <TaskCard key={uid()}>
             <FlexContainer justify="space-between" marginBottom="10px">
-              <TaskHeader text={task.taskName} priority={task.priority} />
+              <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
               <FlexContainer gap="15px">
                 {createHeaderButton("edit")}
@@ -50,6 +50,7 @@ const Home = () => {
             </FlexContainer>
 
             <TaskDetail
+              dueDate={task.dueDate}
               icon="calendar"
               title="Due Date:"
               value={`${
