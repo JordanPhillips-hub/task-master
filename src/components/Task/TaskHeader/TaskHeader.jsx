@@ -6,11 +6,11 @@ import TaskWarning, {
 } from "src/components/Task/TaskWarning/TaskWarning.styled";
 import { FlexContainer } from "src/App.styles";
 
-const TaskHeader = ({ text, priority }) => {
+const TaskHeader = ({ text, dueDate }) => {
   return (
     <StyledTaskHeader>
       <FlexContainer gap="10px">
-        <TaskWarning warningColor={setWarningColor(priority)} />
+        <TaskWarning warningColor={setWarningColor(dueDate)} />
         <Header text={text} />
       </FlexContainer>
     </StyledTaskHeader>
