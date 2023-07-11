@@ -6,16 +6,6 @@ import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input/Input";
 import Button from "src/components/Button/Button";
 
-export const sortOptions = [
-  "Default",
-  "Ascending Date",
-  "Descending Date",
-  "Ascending Complexity",
-  "Descending Complexity",
-  "Ascending Priority",
-  "Descending Priority",
-];
-
 const Select = ({ name, options }) => {
   const [isOpen, setIsOpen] = useState(false);
 
