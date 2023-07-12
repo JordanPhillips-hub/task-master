@@ -11,7 +11,8 @@ import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
 import PageHeader from "src/components/PageHeader/PageHeader";
 import Subtask from "src/components/Subtask/Subtask";
-import { Main } from "src/App.styles";
+import Button from "src/components/Button/Button";
+import { Main, GridContainer } from "src/App.styles";
 
 const setDate = (date) => {
   return date ? formatDate(date) : "No Set Date";
@@ -64,6 +65,15 @@ const Details = () => {
           ))}
         </ul>
       </section>
+
+      <GridContainer>
+        <Button variant="transparent" med width="100%">
+          Edit Task
+        </Button>
+        <Button variant="transparent" med remove width="100%">
+          Delete Task
+        </Button>
+      </GridContainer>
     </Main>
   );
 };
