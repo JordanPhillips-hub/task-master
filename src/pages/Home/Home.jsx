@@ -2,9 +2,8 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
-import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
-import { formatTime } from "src/utils/formatTime";
+import { formatTime, formatDate } from "src/utils/formatTime";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
 import SearchBar from "src/components/SearchBar/SearchBar";
@@ -26,6 +25,14 @@ const Home = () => {
         <Icon type={type} fontSize="1.3rem" />
       </Button>
     );
+  };
+
+  const setDate = (date) => {
+    return date ? formatDate(date) : "No Set Date";
+  };
+
+  const setTime = (time) => {
+    return time ? formatTime(time) : "";
   };
 
   return (
@@ -53,9 +60,7 @@ const Home = () => {
               dueDate={task.dueDate}
               icon="calendar"
               title="Due Date:"
-              value={`${
-                task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-              }, ${task.time ? formatTime(task.time) : ""}`}
+              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
             />
 
             <TaskDetail
