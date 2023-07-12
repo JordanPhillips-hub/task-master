@@ -48,7 +48,7 @@ const Home = () => {
       {tasks.map((task) => (
         <Link key={uid()} to={`/task/${task.id}`}>
           <TaskCard key={uid()}>
-            <FlexContainer justify="space-between" marginBottom="10px">
+            <FlexContainer justify="space-between">
               <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
               <FlexContainer gap="15px">
