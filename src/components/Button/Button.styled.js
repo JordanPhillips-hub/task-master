@@ -90,4 +90,10 @@ export const ButtonTransparent = styled.button`
   ${sharedStyles}
   background-color: ${({ remove }) => remove ? 'var(--clr-light-red-transparent)' : 'var(--clr-light-blue-transparent)'};
   color: var(--clr-black);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    border: ${({ remove }) => remove ? '1px solid var(--clr-red-orange)' : '1px solid var(--clr-deep-sky-blue)'} ;
+  }
 `
