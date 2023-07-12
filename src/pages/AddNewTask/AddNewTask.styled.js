@@ -13,7 +13,7 @@ label {
   flex: 1;
  }
 
- section:nth-child(5) button {
+ section:nth-child(5) > div button {
   position: absolute;
   right: 3%;
  }
@@ -26,10 +26,6 @@ label {
 
  button[type=submit] {
   margin-top: 30px;
- }
-
- li {
-  margin-bottom: 6px;
  }
 `
 export default StyledAddNewTask;
