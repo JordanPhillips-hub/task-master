@@ -51,7 +51,7 @@ const Home = () => {
             <FlexContainer justify="space-between">
               <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
-              <FlexContainer gap="15px">
+              <FlexContainer gap="15px" marginBottom="16px">
                 {createHeaderButton("edit")}
                 {createHeaderButton("check")}
               </FlexContainer>
