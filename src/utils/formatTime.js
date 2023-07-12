@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export const formatTime = (timeValue) => {
   let [hours, minutes] = timeValue.split(":");
   let period = "AM";
@@ -12,6 +10,3 @@ export const formatTime = (timeValue) => {
   return timeValue;
 };
 
-export const formatDate = (date) => {
-  return moment(date).format('ll');
-}
