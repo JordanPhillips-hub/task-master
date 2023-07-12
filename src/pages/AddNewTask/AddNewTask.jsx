@@ -59,6 +59,7 @@ const AddNewTask = () => {
     const subtask = {
       id: uid(),
       subtask: inputValue.subtask,
+      complete: false,
     };
 
     const subtaskList = [...subtasks, subtask];
