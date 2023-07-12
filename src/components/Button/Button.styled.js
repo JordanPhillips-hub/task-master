@@ -86,3 +86,8 @@ export const ButtonRound = styled.button`
     }
   `}
 `
+export const ButtonTransparent = styled.button`
+  ${sharedStyles}
+  background-color: ${({ remove }) => remove ? 'var(--clr-light-red-transparent)' : 'var(--clr-light-blue-transparent)'};
+  color: var(--clr-black);
+`
