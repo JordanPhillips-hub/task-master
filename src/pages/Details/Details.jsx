@@ -62,6 +62,7 @@ const Details = () => {
               text={`${index + 1}. ${subtask.subtask}`}
               iconType="check"
               onButtonClick={() => handleCompleteSubtask(task.id, subtask.id)}
+              complete={subtask.complete ? true : false}
             />
           ))}
         </ul>
