@@ -4,9 +4,9 @@ import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
 import { FlexContainer } from "src/App.styles";
 
-const Subtask = ({ text, iconType, remove, onButtonClick }) => {
+const Subtask = ({ text, iconType, remove, onButtonClick, complete }) => {
   return (
-    <StyledSubtask>
+    <StyledSubtask complete={complete}>
       <FlexContainer>
         <span>{text}</span>
         <Button variant="round" remove={remove} onClick={onButtonClick}>
