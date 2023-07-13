@@ -23,10 +23,11 @@ const setTime = (time) => {
 };
 
 const Details = () => {
-  const { tasks, handleCompleteSubtask } = useContext(TaskContext);
+  const { tasks, handleCompleteSubtask, handleDeleteTask } =
+    useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
-  const subtasks = Object.values(task)[4];
+  const subtasks = task.subtasks;
 
   return (
     <Main>
@@ -72,7 +73,13 @@ const Details = () => {
         <Button variant="transparent" med width="100%">
           Edit Task
         </Button>
-        <Button variant="transparent" med remove width="100%">
+        <Button
+          variant="transparent"
+          med
+          remove
+          width="100%"
+          onClick={() => handleDeleteTask()}
+        >
           Delete Task
         </Button>
       </GridContainer>
