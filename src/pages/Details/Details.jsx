@@ -1,55 +1,81 @@
 // /* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import moment from "moment/moment";
+import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
-import PageHeader from "src/components/PageHeader/PageHeader";
 import TaskCard from "src/components/Task/TaskCard/TaskCard";
-import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
-import { Main } from "src/App.styles";
+import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
+import Header from "src/components/Header/Header";
+import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
+import { formatTime } from "src/utils/formatTime";
+import { formatDate } from "src/utils/formatDate";
+import PageHeader from "src/components/PageHeader/PageHeader";
+import Subtask from "src/components/Subtask/Subtask";
+import Button from "src/components/Button/Button";
+import { Main, GridContainer } from "src/App.styles";
+
+const setDate = (date) => {
+  return date ? formatDate(date) : "No Set Date";
+};
+
+const setTime = (time) => {
+  return time ? formatTime(time) : "";
+};
 
 const Details = () => {
-  const { tasks } = useContext(TaskContext);
+  const { tasks, handleCompleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
-
-  const convertTimeFormat = (timeValue) => {
-    let [hours, minutes] = timeValue.split(":");
-    let period = "AM";
-
-    if (hours > 12) {
-      hours -= 12;
-      period = "PM";
-    }
-
-    if (hours < 10) {
-      hours = Number(hours);
-    }
-
-    timeValue = `${hours}:${minutes} ${period}`;
-
-    return timeValue;
-  };
+  const subtasks = Object.values(task)[4];
 
   return (
     <Main>
       <PageHeader text="Task Details" />
 
-      <TaskCard
-        taskName={task.taskName}
-        dueDate={
-          task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-        }
-        time={task.time ? convertTimeFormat(task.time) : ""}
-        priority={task.priority}
-        complexity={task.complexity}
-        tags={
-          task.tags !== "" &&
-          task.tags.map(
-            (tag, index) => tag !== "" && <TaskTag key={index}>{tag}</TaskTag>
-          )
-        }
-      />
+      <section>
+        <TaskCard>
+          <TaskHeader text={task.taskName} dueDate={task.dueDate} />
+
+          <TaskDetail
+            dueDate={task.dueDate}
+            icon="calendar"
+            title="Due Date:"
+            value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
+          />
+
+          <TaskDetail icon="arrowUp" title="Priority:" value={task.priority} />
+
+          <TaskDetail
+            icon="arrowMove"
+            title="Complexity:"
+            value={task.complexity}
+          />
+        </TaskCard>
+      </section>
+
+      <section>
+        <Header text="Checklist for subtasks" />
+        <ul>
+          {subtasks.map((subtask, index) => (
+            <Subtask
+              key={uid()}
+              text={`${index + 1}. ${subtask.subtask}`}
+              iconType="check"
+              onButtonClick={() => handleCompleteSubtask(task.id, subtask.id)}
+              complete={subtask.complete ? true : false}
+            />
+          ))}
+        </ul>
+      </section>
+
+      <GridContainer>
+        <Button variant="transparent" med width="100%">
+          Edit Task
+        </Button>
+        <Button variant="transparent" med remove width="100%">
+          Delete Task
+        </Button>
+      </GridContainer>
     </Main>
   );
 };

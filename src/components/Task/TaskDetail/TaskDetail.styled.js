@@ -17,7 +17,7 @@ const StyledTaskDetail = styled.div`
   }
 
   .dueDate {
-   color: ${({ priorityColor }) => priorityColor || ''};
+   color: ${({ warningColor }) => warningColor || ''};
   }
 `
 export default StyledTaskDetail

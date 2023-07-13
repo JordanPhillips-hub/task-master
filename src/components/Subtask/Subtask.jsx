@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
 import StyledSubtask from "./Subtask.styled";
+import Button from "src/components/Button/Button";
+import Icon from "src/components/Icon/Icon";
+import { FlexContainer } from "src/App.styles";
 
-const Subtask = ({ text }) => {
+const Subtask = ({ text, iconType, remove, onButtonClick, complete }) => {
   return (
-    <StyledSubtask>
-      <span>{text}</span>
+    <StyledSubtask complete={complete}>
+      <FlexContainer>
+        <span>{text}</span>
+        <Button variant="round" remove={remove} onClick={onButtonClick}>
+          <Icon type={iconType} />
+        </Button>
+      </FlexContainer>
     </StyledSubtask>
   );
 };

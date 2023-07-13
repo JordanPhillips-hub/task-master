@@ -9,3 +9,4 @@ export const formatTime = (timeValue) => {
   timeValue = `${hours}:${minutes} ${period}`;
   return timeValue;
 };
+

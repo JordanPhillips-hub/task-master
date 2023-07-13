@@ -59,6 +59,7 @@ const AddNewTask = () => {
     const subtask = {
       id: uid(),
       subtask: inputValue.subtask,
+      complete: false,
     };
 
     const subtaskList = [...subtasks, subtask];
@@ -140,18 +141,13 @@ const AddNewTask = () => {
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
             {subtasks.map((subtask, index) => (
-              <li key={uid()}>
-                <FlexContainer>
-                  <Subtask text={`${index + 1}. ${subtask.subtask}`} />
-                  <Button
-                    variant="round"
-                    remove
-                    onClick={() => handleRemoveSubtask(subtask)}
-                  >
-                    <Icon type="cross" />
-                  </Button>
-                </FlexContainer>
-              </li>
+              <Subtask
+                key={uid()}
+                text={`${index + 1}. ${subtask.subtask}`}
+                iconType="cross"
+                remove
+                onButtonClick={() => handleRemoveSubtask(subtask)}
+              />
             ))}
           </ul>
 

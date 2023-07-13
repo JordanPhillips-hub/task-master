@@ -2,9 +2,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
-import moment from "moment/moment";
 import { TaskContext } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
+import { formatDate } from "src/utils/formatDate";
 import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
 import SearchBar from "src/components/SearchBar/SearchBar";
@@ -28,6 +28,14 @@ const Home = () => {
     );
   };
 
+  const setDate = (date) => {
+    return date ? formatDate(date) : "No Set Date";
+  };
+
+  const setTime = (time) => {
+    return time ? formatTime(time) : "";
+  };
+
   return (
     <Main>
       <SearchBar />
@@ -40,21 +48,20 @@ const Home = () => {
       {tasks.map((task) => (
         <Link key={uid()} to={`/task/${task.id}`}>
           <TaskCard key={uid()}>
-            <FlexContainer justify="space-between" marginBottom="10px">
-              <TaskHeader text={task.taskName} priority={task.priority} />
+            <FlexContainer justify="space-between">
+              <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
-              <FlexContainer gap="15px">
+              <FlexContainer gap="15px" marginBottom="16px">
                 {createHeaderButton("edit")}
                 {createHeaderButton("check")}
               </FlexContainer>
             </FlexContainer>
 
             <TaskDetail
+              dueDate={task.dueDate}
               icon="calendar"
               title="Due Date:"
-              value={`${
-                task.dueDate ? moment(task.dueDate).format("ll") : "No Set Date"
-              }, ${task.time ? formatTime(task.time) : ""}`}
+              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
             />
 
             <TaskDetail

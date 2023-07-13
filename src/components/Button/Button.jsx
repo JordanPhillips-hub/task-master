@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
-import { ButtonPrimary, ButtonSecondary, ButtonRound } from "./Button.styled";
+import {
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonRound,
+  ButtonTransparent,
+} from "./Button.styled";
 
 const buttonStyles = {
   primary: ButtonPrimary,
   secondary: ButtonSecondary,
   round: ButtonRound,
+  transparent: ButtonTransparent,
 };
 
 const Button = ({ children, variant, type, ...rest }) => {

@@ -10,7 +10,23 @@ export const TaskProvider = ({ children }) => {
     setTasks((prevState) => [...prevState, newTask]);
   };
 
-  const taskValues = { tasks, addTask };
+  const handleCompleteSubtask = (taskId, subtaskId) => {
+    setTasks((prevState) =>
+      prevState.map((task) => {
+        if (task.id === taskId) {
+          const updatedSubtasks = task.subtasks.map((subtask) =>
+            subtask.id === subtaskId
+              ? { ...subtask, complete: !subtask.complete }
+              : subtask
+          );
+          return { ...task, subtasks: updatedSubtasks };
+        }
+        return task;
+      })
+    );
+  };
+
+  const taskValues = { tasks, addTask, handleCompleteSubtask };
 
   return (
     <TaskContext.Provider value={taskValues}>{children}</TaskContext.Provider>
