@@ -23,7 +23,7 @@ const setTime = (time) => {
 };
 
 const Details = () => {
-  const { tasks } = useContext(TaskContext);
+  const { tasks, handleCompleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const subtasks = Object.values(task)[4];
@@ -61,6 +61,7 @@ const Details = () => {
               key={uid()}
               text={`${index + 1}. ${subtask.subtask}`}
               iconType="check"
+              onButtonClick={() => handleCompleteSubtask(task.id, subtask.id)}
             />
           ))}
         </ul>
