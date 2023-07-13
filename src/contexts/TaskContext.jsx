@@ -26,7 +26,14 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
-  const taskValues = { tasks, addTask, handleCompleteSubtask };
+  const handleDeleteTask = () => {};
+
+  const taskValues = {
+    tasks,
+    addTask,
+    handleCompleteSubtask,
+    handleDeleteTask,
+  };
 
   return (
     <TaskContext.Provider value={taskValues}>{children}</TaskContext.Provider>
