@@ -39,20 +39,15 @@ const AddNewTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/");
-
-    const task = {
-      id: `${uid()}`,
-      taskName: inputValue.taskName,
-      complexity: taskLevel.complexity,
-      priority: taskLevel.priority,
-      subtasks: subtasks,
-      tags: inputValue.tags,
-      dueDate: inputValue.dueDate,
-      time: inputValue.time,
-      completed: false,
-    };
-
-    addTask(task);
+    addTask(
+      inputValue.taskName,
+      taskLevel.complexity,
+      taskLevel.priority,
+      subtasks,
+      inputValue.tags,
+      inputValue.dueDate,
+      inputValue.time
+    );
   };
 
   const handleSubtasks = () => {
@@ -70,11 +65,8 @@ const AddNewTask = () => {
     }));
   };
 
-  const handleRemoveSubtask = (subtask) => {
-    const index = subtasks.indexOf(subtask);
-    const removedTask = subtasks.splice(index, 1);
-    const newTaskList = subtasks.filter((task) => task !== removedTask);
-    setSubtasks(newTaskList);
+  const removeSubtask = (task) => {
+    setSubtasks(subtasks.filter((t) => t !== task));
   };
 
   const handleTaskLevel =
@@ -146,7 +138,7 @@ const AddNewTask = () => {
                 text={`${index + 1}. ${subtask.subtask}`}
                 iconType="cross"
                 remove
-                onButtonClick={() => handleRemoveSubtask(subtask)}
+                onButtonClick={() => removeSubtask(subtask)}
               />
             ))}
           </ul>

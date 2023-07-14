@@ -1,16 +1,39 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from "react";
+import { uid } from "uid";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
-  const addTask = (newTask) => {
-    setTasks((prevState) => [...prevState, newTask]);
+  const addTask = (
+    taskName,
+    complexity,
+    priority,
+    subtasks,
+    tags,
+    dueDate,
+    time
+  ) => {
+    const newTasks = [
+      ...tasks,
+      {
+        id: uid(),
+        taskName,
+        complexity,
+        priority,
+        subtasks,
+        tags,
+        dueDate,
+        time,
+        isCompleted: false,
+      },
+    ];
+    setTasks(newTasks);
   };
 
-  const handleCompleteSubtask = (taskId, subtaskId) => {
+  const completeSubtask = (taskId, subtaskId) => {
     setTasks((prevState) =>
       prevState.map((task) => {
         if (task.id === taskId) {
@@ -26,7 +49,17 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
-  const taskValues = { tasks, addTask, handleCompleteSubtask };
+  const deleteTask = (task) => {
+    setTasks(tasks.filter((t) => t !== task));
+  };
+
+  const taskValues = {
+    tasks,
+    addTask,
+    setTasks,
+    completeSubtask,
+    deleteTask,
+  };
 
   return (
     <TaskContext.Provider value={taskValues}>{children}</TaskContext.Provider>

@@ -5,6 +5,7 @@ import {
   BsChevronDown,
   BsArrowUpShort,
   BsArrowsMove,
+  BsArrowRepeat,
 } from "react-icons/bs";
 import { CiSearch, CiEdit, CiCalendarDate } from "react-icons/ci";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -23,11 +24,14 @@ const icons = {
   plus: AiOutlinePlus,
   cross: RxCross2,
   check: BiCheck,
+  repeat: BsArrowRepeat,
 };
 
 const Icon = ({ type, fontSize, ...rest }) => {
   const IconType = icons[type];
-  return <IconType style={{fontSize: fontSize ? fontSize : '1.5rem'}} {...rest} />;
+  return (
+    <IconType style={{ fontSize: fontSize ? fontSize : "1.5rem" }} {...rest} />
+  );
 };
 
 export default Icon;
