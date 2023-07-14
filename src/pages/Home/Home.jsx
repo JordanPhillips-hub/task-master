@@ -46,13 +46,13 @@ const Home = () => {
       </GridContainer>
 
       {tasks.map((task) => (
-        <TaskCard key={uid()}>
+        <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
           <FlexContainer justify="space-between">
             <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
             <FlexContainer gap="15px" marginBottom="16px">
               {createHeaderButton("edit")}
-              {createHeaderButton("check", () => completeTask())}
+              {createHeaderButton("check", () => completeTask(task))}
             </FlexContainer>
           </FlexContainer>
 
