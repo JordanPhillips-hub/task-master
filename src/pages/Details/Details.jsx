@@ -1,6 +1,6 @@
 // /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
 import TaskCard from "src/components/Task/TaskCard/TaskCard";
@@ -23,11 +23,12 @@ const setTime = (time) => {
 };
 
 const Details = () => {
-  const { tasks, handleCompleteSubtask, handleDeleteTask } =
-    useContext(TaskContext);
+  const navigate = useNavigate();
+  const { tasks, completeSubtask, deleteTask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const subtasks = task.subtasks;
+  if (!task) return <div>Task not found</div>;
 
   return (
     <Main>
@@ -62,7 +63,7 @@ const Details = () => {
               key={uid()}
               text={`${index + 1}. ${subtask.subtask}`}
               iconType="check"
-              onButtonClick={() => handleCompleteSubtask(task.id, subtask.id)}
+              onButtonClick={() => completeSubtask(task.id, subtask.id)}
               complete={subtask.complete ? true : false}
             />
           ))}
@@ -78,7 +79,7 @@ const Details = () => {
           med
           remove
           width="100%"
-          onClick={() => handleDeleteTask()}
+          onClick={() => deleteTask(task, navigate("/"))}
         >
           Delete Task
         </Button>
