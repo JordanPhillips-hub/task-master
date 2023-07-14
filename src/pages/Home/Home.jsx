@@ -17,12 +17,12 @@ import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
-  const { tasks } = useContext(TaskContext);
+  const { tasks, completeTask } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
 
-  const createHeaderButton = (type) => {
+  const createHeaderButton = (type, onClick) => {
     return (
-      <Button variant="round">
+      <Button variant="round" onClick={onClick}>
         <Icon type={type} fontSize="1.3rem" />
       </Button>
     );
@@ -46,43 +46,41 @@ const Home = () => {
       </GridContainer>
 
       {tasks.map((task) => (
-        <Link key={uid()} to={`/task/${task.id}`}>
-          <TaskCard key={uid()}>
-            <FlexContainer justify="space-between">
-              <TaskHeader text={task.taskName} dueDate={task.dueDate} />
+        <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
+          <FlexContainer justify="space-between">
+            <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
-              <FlexContainer gap="15px" marginBottom="16px">
-                {createHeaderButton("edit")}
-                {createHeaderButton("check")}
-              </FlexContainer>
+            <FlexContainer gap="15px" marginBottom="16px">
+              {createHeaderButton("edit")}
+              {createHeaderButton("check", () => completeTask(task))}
             </FlexContainer>
+          </FlexContainer>
 
-            <TaskDetail
-              dueDate={task.dueDate}
-              icon="calendar"
-              title="Due Date:"
-              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
-            />
+          <TaskDetail
+            dueDate={task.dueDate}
+            icon="calendar"
+            title="Due Date:"
+            value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
+          />
 
-            <TaskDetail
-              icon="arrowUp"
-              title="Priority:"
-              value={task.priority}
-            />
+          <TaskDetail icon="arrowUp" title="Priority:" value={task.priority} />
 
-            <TaskDetail
-              icon="arrowMove"
-              title="Complexity:"
-              value={task.complexity}
-            />
-            <FlexContainer gap="8px">
-              {task.tags !== "" &&
-                task.tags.map((tag, index) => (
-                  <TaskTag key={index}>{tag}</TaskTag>
-                ))}
-            </FlexContainer>
-          </TaskCard>
-        </Link>
+          <TaskDetail
+            icon="arrowMove"
+            title="Complexity:"
+            value={task.complexity}
+          />
+          <FlexContainer gap="8px">
+            {task.tags !== "" &&
+              task.tags.map((tag, index) => (
+                <TaskTag key={index}>{tag}</TaskTag>
+              ))}
+          </FlexContainer>
+
+          <Link key={uid()} to={`/task/${task.id}`}>
+            <small>Task Details</small>
+          </Link>
+        </TaskCard>
       ))}
 
       <Link to="/AddNewTask">

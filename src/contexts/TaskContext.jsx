@@ -3,7 +3,6 @@ import { createContext, useState } from "react";
 import { uid } from "uid";
 
 export const TaskContext = createContext();
-
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
@@ -49,6 +48,14 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
+  const completeTask = (task) => {
+    setTasks((prevState) =>
+      prevState.map((t) =>
+        t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
+      )
+    );
+  };
+
   const deleteTask = (task) => {
     setTasks(tasks.filter((t) => t !== task));
   };
@@ -59,6 +66,7 @@ export const TaskProvider = ({ children }) => {
     setTasks,
     completeSubtask,
     deleteTask,
+    completeTask,
   };
 
   return (
