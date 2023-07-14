@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
+import Icon from "../../components/Icon/Icon";
 import TaskCard from "src/components/Task/TaskCard/TaskCard";
 import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
 import Header from "src/components/Header/Header";
@@ -85,7 +86,8 @@ const Details = () => {
         </Button>
       </GridContainer>
 
-      <Button lrg width="100%">
+      <Button lrg width="100%" gap="13px">
+        <Icon type="repeat" />
         Repeat Tasks
       </Button>
     </Main>
