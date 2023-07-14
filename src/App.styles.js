@@ -76,7 +76,7 @@ input:focus {
 }
 
 a {
-  color: black;
+  color: var(--clr-sky-blue);
   text-decoration: none;
 }
 `
