@@ -84,6 +84,10 @@ const Details = () => {
           Delete Task
         </Button>
       </GridContainer>
+
+      <Button lrg width="100%">
+        Repeat Tasks
+      </Button>
     </Main>
   );
 };
