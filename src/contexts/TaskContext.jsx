@@ -48,8 +48,12 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
-  const completeTask = () => {
-    console.log("clicked");
+  const completeTask = (task) => {
+    setTasks((prevState) =>
+      prevState.map((t) =>
+        t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
+      )
+    );
   };
 
   const deleteTask = (task) => {
