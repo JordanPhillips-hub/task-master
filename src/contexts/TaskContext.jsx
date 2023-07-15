@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { uid } from "uid";
 
 export const TaskContext = createContext();
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [sortOrder, setSortOrder] = useState(null);
 
   const addTask = (
     taskName,
@@ -31,6 +32,44 @@ export const TaskProvider = ({ children }) => {
     ];
     setTasks(newTasks);
   };
+
+  const handleSortOrder = ({ target: { id } }) => {
+    switch (id) {
+      case "ascending priority":
+        setSortOrder("ascending priority");
+        break;
+      case "descending priority":
+        setSortOrder("descending priority");
+        break;
+      case "ascending complexity":
+        setSortOrder("ascending complexity");
+        break;
+      case "descending complexity":
+        setSortOrder("descending complexity");
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (sortOrder) {
+      const sortedTasks = [...tasks].sort((a, b) => {
+        switch (sortOrder) {
+          case "ascending priority":
+            return a.priority - b.priority;
+          case "descending priority":
+            return b.priority - a.priority;
+          case "ascending complexity":
+            return a.complexity - b.complexity;
+          case "descending complexity":
+            return b.complexity - a.complexity;
+          default:
+            return 0;
+        }
+      });
+      setTasks(sortedTasks);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortOrder]);
 
   const completeSubtask = (taskId, subtaskId) => {
     setTasks((prevState) =>
@@ -67,6 +106,7 @@ export const TaskProvider = ({ children }) => {
     completeSubtask,
     deleteTask,
     completeTask,
+    handleSortOrder,
   };
 
   return (
