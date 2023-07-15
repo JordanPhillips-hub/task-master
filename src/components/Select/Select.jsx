@@ -3,10 +3,9 @@ import { useState } from "react";
 import { uid } from "uid";
 import StyledSelect from "./Select.styled";
 import Icon from "src/components/Icon/Icon";
-import Input from "src/components/Input/Input";
 import Button from "src/components/Button/Button";
 
-const Select = ({ name, options }) => {
+const Select = ({ name, options, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelectToggle = () => {
@@ -33,12 +32,9 @@ const Select = ({ name, options }) => {
         <StyledSelect name={name} id={uid()}>
           {options.map((option) => (
             <li key={uid()}>
-              <Input
-                label={option}
-                id={option}
-                type="checkbox"
-                value={option}
-              />
+              <Button id={option.toLowerCase()} onClick={onClick}>
+                {option}
+              </Button>
             </li>
           ))}
         </StyledSelect>
