@@ -17,7 +17,7 @@ import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
-  const { tasks, completeTask } = useContext(TaskContext);
+  const { tasks, completeTask, handleSortOrder } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
 
   const createHeaderButton = (type, onClick) => {
@@ -41,7 +41,11 @@ const Home = () => {
       <SearchBar />
 
       <GridContainer>
-        <Select name="Sort" options={selectOptions} />
+        <Select
+          name="Sort"
+          options={selectOptions}
+          onClick={(e) => handleSortOrder(e)}
+        />
         <Select name="Category" options={tags}></Select>
       </GridContainer>
 
