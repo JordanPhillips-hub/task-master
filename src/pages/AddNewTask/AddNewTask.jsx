@@ -150,7 +150,10 @@ const AddNewTask = () => {
               placeholder="Add New Subtask..."
               onChange={handleChange}
             />
-            <Button variant="round" onClick={handleSubtasks}>
+            <Button
+              variant="round"
+              onClick={inputValue.subtask !== "" ? handleSubtasks : null}
+            >
               <Icon type="plus" />
             </Button>
           </FlexContainer>
