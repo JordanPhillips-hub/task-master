@@ -22,6 +22,10 @@ z-index: 100;
   input {
     cursor: pointer;
   }
+
+  svg {
+    pointer-events: none;
+  }
   
   &:last-child {
     border-bottom: 0px;
