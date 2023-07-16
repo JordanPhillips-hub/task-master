@@ -88,6 +88,7 @@ const AddNewTask = () => {
             id="taskName"
             value={inputValue.taskName}
             placeholder="Task 1..."
+            required={true}
             onChange={handleChange}
           />
         </section>
