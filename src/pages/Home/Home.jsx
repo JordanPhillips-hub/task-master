@@ -17,18 +17,21 @@ import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
-  const [isActive, setIsActive] = useState(false);
+  const [activeSort, setActiveSort] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(false);
+  const [categoryOrder, setCategoryOrder] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const { tasks, completeTask, handleSortOrder } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
-  const filteredTasks = tasks.filter((task) =>
+  const uniqueTags = [...new Set(tags)];
+
+  let filteredTasks = tasks.filter((task) =>
     task.taskName.includes(searchValue)
   );
 
-  const handleSortOptions = (index, e) => {
-    setIsActive(index);
-    handleSortOrder(e);
-  };
+  if (categoryOrder) {
+    filteredTasks = tasks.filter((task) => task.tags.includes(categoryOrder));
+  }
 
   const createHeaderButton = (type, onClick) => {
     return (
@@ -50,6 +53,20 @@ const Home = () => {
     setSearchValue(value);
   };
 
+  const handleSortOptions = (index, e) => {
+    setActiveSort(index);
+    handleSortOrder(e);
+  };
+
+  const handleFilterCategory = ({ target: { id } }) => {
+    setCategoryOrder(id);
+  };
+
+  const handleFilterTags = (index, e) => {
+    setActiveCategory(index);
+    handleFilterCategory(e);
+  };
+
   return (
     <Main>
       <SearchBar value={searchValue} onChange={handleSearchValue} />
@@ -58,10 +75,15 @@ const Home = () => {
         <Select
           name="Sort"
           options={selectOptions}
-          isActive={isActive}
+          isActive={activeSort}
           onClick={(e, index) => handleSortOptions(index, e)}
         />
-        <Select name="Category" options={tags}></Select>
+        <Select
+          name="Category"
+          options={uniqueTags}
+          isActive={activeCategory}
+          onClick={(e, index) => handleFilterTags(index, e)}
+        ></Select>
       </GridContainer>
 
       {filteredTasks.map((task) => (
