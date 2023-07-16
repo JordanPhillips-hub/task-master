@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
@@ -17,9 +17,12 @@ import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
+  const [searchValue, setSearchValue] = useState("");
   const { tasks, completeTask } = useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
-
+  const filteredTasks = tasks.filter((task) =>
+    task.taskName.includes(searchValue)
+  );
   const createHeaderButton = (type, onClick) => {
     return (
       <Button variant="round" onClick={onClick}>
@@ -36,16 +39,20 @@ const Home = () => {
     return time ? formatTime(time) : "";
   };
 
+  const handleSearchValue = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <Main>
-      <SearchBar />
+      <SearchBar value={searchValue} onChange={handleSearchValue} />
 
       <GridContainer>
         <Select name="Sort" options={selectOptions} />
         <Select name="Category" options={tags}></Select>
       </GridContainer>
 
-      {tasks.map((task) => (
+      {filteredTasks.map((task) => (
         <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
           <FlexContainer justify="space-between">
             <TaskHeader text={task.taskName} dueDate={task.dueDate} />
