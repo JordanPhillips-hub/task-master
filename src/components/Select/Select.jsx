@@ -36,7 +36,7 @@ const Select = ({ name, options, onClick, isActive }) => {
               <Button
                 variant="round"
                 select
-                id={option.toLowerCase()}
+                id={option}
                 onClick={(e) => onClick(e, index)}
               >
                 {index === isActive ? (
