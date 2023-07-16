@@ -39,8 +39,8 @@ const Home = () => {
     return time ? formatTime(time) : "";
   };
 
-  const handleSearchValue = (e) => {
-    setSearchValue(e.target.value);
+  const handleSearchValue = ({ target: { value } }) => {
+    setSearchValue(value);
   };
 
   return (
