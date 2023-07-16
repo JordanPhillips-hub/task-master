@@ -47,6 +47,12 @@ export const TaskProvider = ({ children }) => {
       case "descending complexity":
         setSortOrder("descending complexity");
         break;
+      case "ascending date":
+        setSortOrder("ascending date");
+        break;
+      case "descending date":
+        setSortOrder("descending date");
+        break;
     }
   };
 
@@ -62,6 +68,10 @@ export const TaskProvider = ({ children }) => {
             return a.complexity - b.complexity;
           case "descending complexity":
             return b.complexity - a.complexity;
+          case "ascending date":
+            return new Date(a.dueDate) - new Date(b.dueDate);
+          case "descending date":
+            return new Date(b.dueDate) - new Date(a.dueDate);
           default:
             return 0;
         }
