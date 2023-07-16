@@ -1,23 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { uid } from "uid";
-import { TaskContext } from "../../contexts/TaskContext";
 import StyledSelect from "./Select.styled";
 import Icon from "src/components/Icon/Icon";
 import Button from "src/components/Button/Button";
 
-const Select = ({ name, options }) => {
+const Select = ({ name, options, onClick, isActive }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const { handleSortOrder } = useContext(TaskContext);
 
   const handleSelectToggle = () => {
     setIsOpen((prevState) => !prevState);
-  };
-
-  const handleSortOptions = (index, e) => {
-    setIsActive(index);
-    handleSortOrder(e);
   };
 
   return (
@@ -44,8 +36,8 @@ const Select = ({ name, options }) => {
               <Button
                 variant="round"
                 select
-                id={option.toLowerCase()}
-                onClick={(e) => handleSortOptions(index, e)}
+                id={option}
+                onClick={(e) => onClick(e, index)}
               >
                 {index === isActive ? (
                   <Icon type="check" fontSize="0.7rem" />

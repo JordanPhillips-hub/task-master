@@ -35,23 +35,23 @@ export const TaskProvider = ({ children }) => {
 
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
-      case "ascending priority":
-        setSortOrder("ascending priority");
+      case "Ascending Priority":
+        setSortOrder("Ascending Priority");
         break;
-      case "descending priority":
-        setSortOrder("descending priority");
+      case "Descending Priority":
+        setSortOrder("Descending Priority");
         break;
-      case "ascending complexity":
-        setSortOrder("ascending complexity");
+      case "Ascending Complexity":
+        setSortOrder("Ascending Complexity");
         break;
-      case "descending complexity":
-        setSortOrder("descending complexity");
+      case "Descending Complexity":
+        setSortOrder("Descending Complexity");
         break;
-      case "ascending date":
-        setSortOrder("ascending date");
+      case "Ascending Date":
+        setSortOrder("Ascending Date");
         break;
-      case "descending date":
-        setSortOrder("descending date");
+      case "Descending Date":
+        setSortOrder("Descending Date");
         break;
     }
   };
@@ -60,17 +60,17 @@ export const TaskProvider = ({ children }) => {
     if (sortOrder) {
       const sortedTasks = [...tasks].sort((a, b) => {
         switch (sortOrder) {
-          case "ascending priority":
+          case "Ascending Priority":
             return a.priority - b.priority;
-          case "descending priority":
+          case "Descending Priority":
             return b.priority - a.priority;
-          case "ascending complexity":
+          case "Ascending Complexity":
             return a.complexity - b.complexity;
-          case "descending complexity":
+          case "Descending Complexity":
             return b.complexity - a.complexity;
-          case "ascending date":
+          case "Ascending Date":
             return new Date(a.dueDate) - new Date(b.dueDate);
-          case "descending date":
+          case "Descending Date":
             return new Date(b.dueDate) - new Date(a.dueDate);
           default:
             return 0;
