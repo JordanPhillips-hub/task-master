@@ -64,8 +64,8 @@ export const ButtonRound = styled.button`
     ? 'var(--clr-white)'
     : 'var(--clr-light-blue-transparent)'};
   border-radius: 50%;
-  padding: 0.25em 0.25em;
   padding: 0.42em 0.42em;
+  
 
   &:hover,
   &:focus {
@@ -84,6 +84,12 @@ export const ButtonRound = styled.button`
       background-color: var(--clr-red-orange);
       border: none;
     }
+  `}
+
+  ${({ select }) => select && css`
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-black);
+    /* padding: 0.05em 0.05em; */
   `}
 `
 export const ButtonTransparent = styled.button`
