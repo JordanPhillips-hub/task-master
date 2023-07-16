@@ -15,7 +15,7 @@ const Select = ({ name, options }) => {
     setIsOpen((prevState) => !prevState);
   };
 
-  const handleActiveButton = (index, e) => {
+  const handleSortOptions = (index, e) => {
     setIsActive(index);
     handleSortOrder(e);
   };
@@ -45,7 +45,7 @@ const Select = ({ name, options }) => {
                 variant="round"
                 select
                 id={option.toLowerCase()}
-                onClick={(e) => handleActiveButton(index, e)}
+                onClick={(e) => handleSortOptions(index, e)}
               >
                 {index === isActive ? (
                   <Icon type="check" fontSize="0.7rem" />
