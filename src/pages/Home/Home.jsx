@@ -117,6 +117,8 @@ const Home = () => {
           />
 
           <ProgressBar
+            warningColor={task.dueDate}
+            round
             total={task.subtasks.length}
             completed={
               task.subtasks.filter((subtask) => subtask.complete).length
