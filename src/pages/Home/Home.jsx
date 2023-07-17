@@ -96,7 +96,9 @@ const Home = () => {
             <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
             <FlexContainer gap="15px" marginBottom="16px">
-              {createHeaderButton("edit")}
+              <Link to={`/editTask/${task.id}`}>
+                {createHeaderButton("edit")}
+              </Link>
               {createHeaderButton("check", () => completeTask(task))}
             </FlexContainer>
           </FlexContainer>
