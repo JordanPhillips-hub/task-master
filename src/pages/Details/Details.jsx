@@ -60,6 +60,7 @@ const Details = () => {
           <ProgressBar
             total={subtasks.length}
             completed={completedSubtasks.length}
+            warningColor={task.dueDate}
           />
         </TaskCard>
       </section>
