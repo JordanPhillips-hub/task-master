@@ -7,6 +7,10 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [sortOrder, setSortOrder] = useState(null);
 
+  const setStorage = (list) => {
+    window.localStorage.setItem("tasks", JSON.stringify(list));
+  };
+
   const addTask = (
     taskName,
     complexity,
@@ -31,6 +35,7 @@ export const TaskProvider = ({ children }) => {
       },
     ];
     setTasks(newTasks);
+    setStorage(newTasks);
   };
 
   const handleSortOrder = ({ target: { id } }) => {
@@ -58,7 +63,7 @@ export const TaskProvider = ({ children }) => {
 
   useEffect(() => {
     if (sortOrder) {
-      const sortedTasks = [...tasks].sort((a, b) => {
+      const newTasks = [...tasks].sort((a, b) => {
         switch (sortOrder) {
           case "Ascending Priority":
             return a.priority - b.priority;
@@ -76,37 +81,40 @@ export const TaskProvider = ({ children }) => {
             return 0;
         }
       });
-      setTasks(sortedTasks);
+      setTasks(newTasks);
+      setStorage(newTasks);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOrder]);
 
   const completeSubtask = (taskId, subtaskId) => {
-    setTasks((prevState) =>
-      prevState.map((task) => {
-        if (task.id === taskId) {
-          const updatedSubtasks = task.subtasks.map((subtask) =>
-            subtask.id === subtaskId
-              ? { ...subtask, complete: !subtask.complete }
-              : subtask
-          );
-          return { ...task, subtasks: updatedSubtasks };
-        }
-        return task;
-      })
-    );
+    const newTasks = [...tasks].map((task) => {
+      if (task.id === taskId) {
+        const updatedSubtasks = task.subtasks.map((subtask) =>
+          subtask.id === subtaskId
+            ? { ...subtask, complete: !subtask.complete }
+            : subtask
+        );
+        return { ...task, subtasks: updatedSubtasks };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+    setStorage(newTasks);
   };
 
   const completeTask = (task) => {
-    setTasks((prevState) =>
-      prevState.map((t) =>
-        t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
-      )
+    const newTasks = [...tasks].map((t) =>
+      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
     );
+    setTasks(newTasks);
+    setStorage(newTasks);
   };
 
   const deleteTask = (task) => {
-    setTasks(tasks.filter((t) => t !== task));
+    const newTasks = tasks.filter((t) => t !== task);
+    setTasks(newTasks);
+    setStorage(newTasks);
   };
 
   const taskValues = {
