@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
@@ -21,14 +21,13 @@ const Home = () => {
   const [activeCategory, setActiveCategory] = useState(false);
   const [categoryOrder, setCategoryOrder] = useState(null);
   const [searchValue, setSearchValue] = useState("");
-  const { tasks, completeTask, handleSortOrder } = useContext(TaskContext);
+  const { tasks, setTasks, completeTask, handleSortOrder } =
+    useContext(TaskContext);
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
   const uniqueTags = [...new Set(tags)];
 
-  let filteredTasks = tasks.filter((task) =>
-    task.taskName.includes(searchValue)
-  );
-
+  let filteredTasks;
+  filteredTasks = tasks.filter((task) => task.taskName.includes(searchValue));
   if (categoryOrder) {
     filteredTasks = tasks.filter((task) => task.tags.includes(categoryOrder));
   }
@@ -66,6 +65,10 @@ const Home = () => {
     setActiveCategory(index);
     handleFilterCategory(e);
   };
+
+  useEffect(() => {
+    setTasks(JSON.parse(window.localStorage.getItem("tasks") || []));
+  }, []);
 
   return (
     <Main>
