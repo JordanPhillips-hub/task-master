@@ -58,6 +58,7 @@ h2 {
 
 h2 {
   font-size: 1.125rem;
+  margin-bottom: 7px;
 }
 
 ul, 
