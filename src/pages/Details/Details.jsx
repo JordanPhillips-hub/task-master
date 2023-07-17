@@ -13,7 +13,7 @@ import { formatDate } from "src/utils/formatDate";
 import PageHeader from "src/components/PageHeader/PageHeader";
 import Subtask from "src/components/Subtask/Subtask";
 import Button from "src/components/Button/Button";
-import { Main, GridContainer } from "src/App.styles";
+import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const setDate = (date) => {
   return date ? formatDate(date) : "No Set Date";
@@ -54,6 +54,11 @@ const Details = () => {
             title="Complexity:"
             value={task.complexity}
           />
+
+          <FlexContainer justify="space-between">
+            <Header text="Task Completed" />
+            <div>80%</div>
+          </FlexContainer>
         </TaskCard>
       </section>
 
