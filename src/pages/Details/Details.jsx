@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
-import Icon from "../../components/Icon/Icon";
+import Icon from "src/components/Icon/Icon";
 import TaskCard from "src/components/Task/TaskCard/TaskCard";
 import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
 import Header from "src/components/Header/Header";
@@ -28,7 +28,8 @@ const Details = () => {
   const { tasks, completeSubtask, deleteTask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
-  const subtasks = task.subtasks;
+  const subtasks = task?.subtasks || [];
+
   if (!task) return <div>Task not found</div>;
 
   return (
