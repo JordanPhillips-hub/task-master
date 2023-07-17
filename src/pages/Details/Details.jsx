@@ -3,16 +3,17 @@ import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
-import Icon from "src/components/Icon/Icon";
-import TaskCard from "src/components/Task/TaskCard/TaskCard";
-import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
-import Header from "src/components/Header/Header";
-import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
 import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
-import PageHeader from "src/components/PageHeader/PageHeader";
-import Subtask from "src/components/Subtask/Subtask";
+import Icon from "src/components/Icon/Icon";
 import Button from "src/components/Button/Button";
+import Header from "src/components/Header/Header";
+import PageHeader from "src/components/PageHeader/PageHeader";
+import TaskCard from "src/components/Task/TaskCard/TaskCard";
+import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
+import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
+import Subtask from "src/components/Subtask/Subtask";
+import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import { Main, GridContainer } from "src/App.styles";
 
 const setDate = (date) => {
@@ -29,6 +30,9 @@ const Details = () => {
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const subtasks = task?.subtasks || [];
+
+  const completedSubtasks = subtasks.filter((task) => task.complete === true);
+  const subtasksLength = completedSubtasks.length;
 
   if (!task) return <div>Task not found</div>;
 
@@ -54,6 +58,8 @@ const Details = () => {
             title="Complexity:"
             value={task.complexity}
           />
+
+          <ProgressBar subtasks={subtasks} subtasksComplete={subtasksLength} />
         </TaskCard>
       </section>
 
