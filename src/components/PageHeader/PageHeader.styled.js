@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const StyledPageHeader = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
 
   h1 {
     margin-left: 73px;

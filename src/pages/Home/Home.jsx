@@ -14,6 +14,7 @@ import TaskCard from "src/components/Task/TaskCard/TaskCard";
 import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
 import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
 import TaskTag from "src/components/Task/TaskTag/TaskTag.styled";
+import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
@@ -114,6 +115,16 @@ const Home = () => {
             title="Complexity:"
             value={task.complexity}
           />
+
+          <ProgressBar
+            warningColor={task.dueDate}
+            round
+            total={task.subtasks.length}
+            completed={
+              task.subtasks.filter((subtask) => subtask.complete).length
+            }
+          />
+
           <FlexContainer gap="8px">
             {task.tags !== "" &&
               task.tags.map((tag, index) => (

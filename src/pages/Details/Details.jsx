@@ -30,9 +30,7 @@ const Details = () => {
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const subtasks = task?.subtasks || [];
-
   const completedSubtasks = subtasks.filter((task) => task.complete === true);
-  const subtasksLength = completedSubtasks.length;
 
   if (!task) return <div>Task not found</div>;
 
@@ -59,7 +57,11 @@ const Details = () => {
             value={task.complexity}
           />
 
-          <ProgressBar subtasks={subtasks} subtasksComplete={subtasksLength} />
+          <ProgressBar
+            total={subtasks.length}
+            completed={completedSubtasks.length}
+            warningColor={task.dueDate}
+          />
         </TaskCard>
       </section>
 

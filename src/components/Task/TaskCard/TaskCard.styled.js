@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const StyledTaskCard = styled.div`
-    background-color: ${({ complete }) => complete ? 'var(--clr-pale-green)' : 'var(--clr-white)'};
+  position: relative;
+  background-color: ${({ complete }) => complete ? 'var(--clr-pale-green)' : 'var(--clr-white)'};
   margin-bottom: 24px;
   padding: 20px 14px 6px 14px;
   border-radius: 18px;
