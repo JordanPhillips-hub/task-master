@@ -4,23 +4,21 @@ import StyledProgressBar from "./ProgressBar.styled";
 import Header from "src/components/Header/Header";
 import { FlexContainer } from "src/App.styles";
 
-const ProgressBar = ({ subtasks, subtasksComplete }) => {
+const ProgressBar = ({ total, completed }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const calculateProgress = () => {
-      if (subtasks.length === 0) {
+      if (total === 0) {
         setProgress(0);
       } else {
-        const percentage = (subtasksComplete / subtasks.length) * 100;
+        const percentage = (completed / total) * 100;
         setProgress(Math.floor(percentage));
       }
     };
 
     calculateProgress();
-  }, [subtasks, subtasksComplete]);
-
-  console.log(typeof subtasksComplete);
+  }, [total, completed]);
 
   return (
     <>
