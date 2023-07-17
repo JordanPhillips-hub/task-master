@@ -117,6 +117,14 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const editTask = (taskId, newTaskName) => {
+    const newTasks = [...tasks].map((task) =>
+      task.id === taskId ? { ...task, taskName: newTaskName } : task
+    );
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const taskValues = {
     tasks,
     addTask,
@@ -125,6 +133,7 @@ export const TaskProvider = ({ children }) => {
     deleteTask,
     completeTask,
     handleSortOrder,
+    editTask,
   };
 
   return (
