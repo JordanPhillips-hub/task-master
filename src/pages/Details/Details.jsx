@@ -1,6 +1,6 @@
 // /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
@@ -81,9 +81,12 @@ const Details = () => {
       </section>
 
       <GridContainer>
-        <Button variant="transparent" med width="100%">
-          Edit Task
-        </Button>
+        <Link to={`/editTask/${id}`}>
+          <Button variant="transparent" med width="100%">
+            Edit Task
+          </Button>
+        </Link>
+
         <Button
           variant="transparent"
           med
