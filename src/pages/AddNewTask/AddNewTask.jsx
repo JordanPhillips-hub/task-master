@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { uid } from "uid";
 import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
@@ -14,7 +14,11 @@ import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
-  const { addTask } = useContext(TaskContext);
+  const { addTask, tasks, editTask } = useContext(TaskContext);
+  const { id } = useParams();
+  const task = tasks.find((task) => task.id === id);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [subtasks, setSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
     taskName: "",
@@ -29,6 +33,10 @@ const AddNewTask = () => {
     priority: 0,
   });
 
+  const handleIsEditing = () => {
+    setIsEditing(true);
+  };
+
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
@@ -38,16 +46,28 @@ const AddNewTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    !isEditing
+      ? addTask(
+          inputValue.taskName,
+          taskLevel.complexity,
+          taskLevel.priority,
+          subtasks,
+          inputValue.tags,
+          inputValue.dueDate,
+          inputValue.time
+        )
+      : editTask(
+          id,
+          inputValue.taskName,
+          taskLevel.complexity,
+          taskLevel.priority,
+          subtasks
+          // inputValue.tags,
+          // inputValue.dueDate,
+          // inputValue.time
+        );
+    setIsEditing(false);
     navigate("/");
-    addTask(
-      inputValue.taskName,
-      taskLevel.complexity,
-      taskLevel.priority,
-      subtasks,
-      inputValue.tags,
-      inputValue.dueDate,
-      inputValue.time
-    );
   };
 
   const handleSubtasks = () => {
@@ -67,6 +87,9 @@ const AddNewTask = () => {
 
   const removeSubtask = (task) => {
     setSubtasks(subtasks.filter((t) => t !== task));
+    // if (!isEditing) {
+    //   handleIsEditing();
+    // }
   };
 
   const handleTaskLevel =
@@ -81,15 +104,16 @@ const AddNewTask = () => {
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
-        <PageHeader text="Add New Task" />
+        <PageHeader text={task ? `Editing ${task.taskName}` : "Add New Task"} />
         <section>
           <Input
-            label="Add Task"
+            label="Task Name"
             id="taskName"
-            value={inputValue.taskName}
+            value={task && !isEditing ? task.taskName : inputValue.taskName}
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
+            onClick={task && !isEditing ? handleIsEditing : null}
           />
         </section>
 
@@ -97,12 +121,12 @@ const AddNewTask = () => {
           <LevelSelector
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
-            active={taskLevel.complexity}
+            active={task && !isEditing ? task.complexity : taskLevel.complexity}
           />
           <LevelSelector
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
-            active={taskLevel.priority}
+            active={task && !isEditing ? task.priority : taskLevel.priority}
           />
         </section>
 
@@ -113,8 +137,9 @@ const AddNewTask = () => {
                 label="Due Date"
                 id="dueDate"
                 type="date"
-                value={inputValue.dueDate}
+                value={task && !isEditing ? task.dueDate : inputValue.dueDate}
                 onChange={handleChange}
+                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
 
@@ -123,8 +148,9 @@ const AddNewTask = () => {
                 label="Select Time"
                 id="time"
                 type="time"
-                value={inputValue.time}
+                value={task && !isEditing ? task.time : inputValue.time}
                 onChange={handleChange}
+                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
           </FlexContainer>
@@ -135,7 +161,7 @@ const AddNewTask = () => {
           <ul>
             {subtasks.map((subtask, index) => (
               <Subtask
-                key={uid()}
+                key={subtask.id}
                 text={`${index + 1}. ${subtask.subtask}`}
                 iconType="cross"
                 remove
@@ -151,10 +177,7 @@ const AddNewTask = () => {
               placeholder="Add New Subtask..."
               onChange={handleChange}
             />
-            <Button
-              variant="round"
-              onClick={inputValue.subtask !== "" ? handleSubtasks : null}
-            >
+            <Button variant="round" onClick={handleSubtasks}>
               <Icon type="plus" />
             </Button>
           </FlexContainer>
@@ -164,14 +187,15 @@ const AddNewTask = () => {
           <Input
             label="Add Tags"
             id="tags"
-            value={inputValue.tags}
+            value={task && !isEditing ? task.tags : inputValue.tags}
             placeholder="School, Career, Routine"
             onChange={handleChange}
+            onClick={task && !isEditing ? handleIsEditing : null}
           />
         </section>
 
         <Button lrg width="50%" type="submit">
-          Add Task
+          {task ? "Save Task" : "Add Task"}
         </Button>
       </StyledAddNewTask>
     </Main>
