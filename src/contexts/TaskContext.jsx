@@ -38,6 +38,34 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const editTask = (
+    taskId,
+    newTaskName,
+    newComplexity,
+    newPriority,
+    newSubtasks
+    // newTags,
+    // newDueDate,
+    // newTime
+  ) => {
+    const newTasks = [...tasks].map((task) =>
+      task.id === taskId
+        ? {
+            ...task,
+            taskName: newTaskName,
+            priority: newPriority,
+            complexity: newComplexity,
+            subtasks: newSubtasks,
+            // tags: newTags,
+            // dueDate: newDueDate,
+            // time: newTime,
+          }
+        : task
+    );
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
       case "Ascending Priority":
@@ -113,21 +141,6 @@ export const TaskProvider = ({ children }) => {
 
   const deleteTask = (task) => {
     const newTasks = tasks.filter((t) => t !== task);
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const editTask = (taskId, newTaskName, newComplexity, newPriority) => {
-    const newTasks = [...tasks].map((task) =>
-      task.id === taskId
-        ? {
-            ...task,
-            taskName: newTaskName,
-            priority: newPriority,
-            complexity: newComplexity,
-          }
-        : task
-    );
     setTasks(newTasks);
     setStorage(newTasks);
   };
