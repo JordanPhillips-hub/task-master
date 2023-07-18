@@ -117,9 +117,16 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
-  const editTask = (taskId, newTaskName) => {
+  const editTask = (taskId, newTaskName, newComplexity, newPriority) => {
     const newTasks = [...tasks].map((task) =>
-      task.id === taskId ? { ...task, taskName: newTaskName } : task
+      task.id === taskId
+        ? {
+            ...task,
+            taskName: newTaskName,
+            priority: newPriority,
+            complexity: newComplexity,
+          }
+        : task
     );
     setTasks(newTasks);
     setStorage(newTasks);
