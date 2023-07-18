@@ -13,7 +13,13 @@ const EditTask = () => {
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTaskName, setEditedTaskName] = useState(task.taskName);
+  const [editedInputValue, setEditedInputVale] = useState({
+    taskName: "",
+    // subtask: "",
+    // tags: "",
+    // dueDate: "",
+    // time: "",
+  });
   const [editedTaskLevel, setEditedTaskLevel] = useState({
     complexity: 0,
     priority: 0,
@@ -23,12 +29,20 @@ const EditTask = () => {
     setIsEditing(true);
   };
 
-  const handleChange = (e) => {
-    setEditedTaskName(e.target.value);
+  const handleChange = ({ target: { name, value } }) => {
+    setEditedInputVale((prevState) => ({
+      ...prevState,
+      [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
+    }));
   };
 
   const handleSubmit = () => {
-    editTask(id, editedTaskName, editedTaskLevel.complexity, editedTaskLevel.priority);
+    editTask(
+      id,
+      editedInputValue.taskName,
+      editedTaskLevel.complexity,
+      editedTaskLevel.priority
+    );
     setIsEditing(false);
     navigate("/");
   };
@@ -41,19 +55,19 @@ const EditTask = () => {
         [levelType]: Number(innerText),
       }));
     };
-
+  console.log(task.taskName);
   return (
     <Main>
       <form onSubmit={handleSubmit}>
         <PageHeader text="Edit Task" />
         <section>
-          {isEditing ? (
-            <span onClick={handleIsEditing}>{task.value}</span>
+          {!isEditing ? (
+            <span onClick={handleIsEditing}>{task.taskName}</span>
           ) : (
             <Input
               label="Add Task"
               id="taskName"
-              value={editedTaskName}
+              value={editedInputValue.taskName}
               placeholder="Task 1..."
               required={true}
               onChange={handleChange}
