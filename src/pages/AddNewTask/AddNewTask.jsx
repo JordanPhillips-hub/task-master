@@ -71,18 +71,19 @@ const AddNewTask = () => {
   };
 
   const handleSubtasks = () => {
-    const subtask = {
-      id: uid(),
-      subtask: inputValue.subtask,
-      complete: false,
-    };
+    if (inputValue.subtask.trim() !== "") {
+      const subtask = {
+        id: uid(),
+        subtask: inputValue.subtask,
+        complete: false,
+      };
 
-    const subtaskList = [...subtasks, subtask];
-    inputValue.subtask !== "" ? setSubtasks(subtaskList) : null;
-    setInputValue((prevState) => ({
-      ...prevState,
-      subtask: "",
-    }));
+      setSubtasks((prevState) => [...prevState, subtask]);
+      setInputValue((prevState) => ({
+        ...prevState,
+        subtask: "",
+      }));
+    }
   };
 
   const removeSubtask = (task) => {
@@ -110,6 +111,7 @@ const AddNewTask = () => {
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
+            onClick={task && !isEditing ? handleIsEditing : null}
           />
         </section>
 
@@ -135,6 +137,7 @@ const AddNewTask = () => {
                 type="date"
                 value={task && !isEditing ? task.dueDate : inputValue.dueDate}
                 onChange={handleChange}
+                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
 
@@ -145,6 +148,7 @@ const AddNewTask = () => {
                 type="time"
                 value={task && !isEditing ? task.time : inputValue.time}
                 onChange={handleChange}
+                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
           </FlexContainer>
