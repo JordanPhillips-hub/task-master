@@ -10,7 +10,7 @@ import Icon from "src/components/Icon/Icon";
 import PageHeader from "src/components/PageHeader/PageHeader";
 import LevelSelector from "src/components/LevelSelector/LevelSelector";
 import Subtask from "src/components/Subtask/Subtask";
-import { Main, FlexContainer } from "src/App.styles";
+import { Main, FlexContainer, GridContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
@@ -61,10 +61,10 @@ const AddNewTask = () => {
           inputValue.taskName,
           taskLevel.complexity,
           taskLevel.priority,
-          subtasks
-          // inputValue.tags,
-          // inputValue.dueDate,
-          // inputValue.time
+          subtasks,
+          inputValue.tags,
+          inputValue.dueDate,
+          inputValue.time
         );
     setIsEditing(false);
     navigate("/");
@@ -87,9 +87,6 @@ const AddNewTask = () => {
 
   const removeSubtask = (task) => {
     setSubtasks(subtasks.filter((t) => t !== task));
-    // if (!isEditing) {
-    //   handleIsEditing();
-    // }
   };
 
   const handleTaskLevel =
@@ -113,19 +110,18 @@ const AddNewTask = () => {
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
-            onClick={task && !isEditing ? handleIsEditing : null}
           />
         </section>
 
         <section>
           <LevelSelector
             text="Select Complexity Level"
-            onClick={handleTaskLevel("complexity")}
+            onClick={task && !isEditing ? null : handleTaskLevel("complexity")}
             active={task && !isEditing ? task.complexity : taskLevel.complexity}
           />
           <LevelSelector
             text="Select Priority Level"
-            onClick={handleTaskLevel("priority")}
+            onClick={task && !isEditing ? null : handleTaskLevel("priority")}
             active={task && !isEditing ? task.priority : taskLevel.priority}
           />
         </section>
@@ -139,7 +135,6 @@ const AddNewTask = () => {
                 type="date"
                 value={task && !isEditing ? task.dueDate : inputValue.dueDate}
                 onChange={handleChange}
-                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
 
@@ -150,7 +145,6 @@ const AddNewTask = () => {
                 type="time"
                 value={task && !isEditing ? task.time : inputValue.time}
                 onChange={handleChange}
-                onClick={task && !isEditing ? handleIsEditing : null}
               />
             </div>
           </FlexContainer>
@@ -190,13 +184,17 @@ const AddNewTask = () => {
             value={task && !isEditing ? task.tags : inputValue.tags}
             placeholder="School, Career, Routine"
             onChange={handleChange}
-            onClick={task && !isEditing ? handleIsEditing : null}
           />
         </section>
 
-        <Button lrg width="50%" type="submit">
-          {task ? "Save Task" : "Add Task"}
-        </Button>
+        <GridContainer>
+          <Button type="submit" med width="100%">
+            {task ? "Save Task" : "Add Task"}
+          </Button>
+          <Button med width="100%" onClick={handleIsEditing}>
+            Edit Task
+          </Button>
+        </GridContainer>
       </StyledAddNewTask>
     </Main>
   );
