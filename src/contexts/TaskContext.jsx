@@ -38,6 +38,34 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const editTask = (
+    taskId,
+    newTaskName,
+    newComplexity,
+    newPriority,
+    newSubtasks,
+    newTags,
+    newDueDate,
+    newTime
+  ) => {
+    const newTasks = [...tasks].map((task) =>
+      task.id === taskId
+        ? {
+            ...task,
+            taskName: newTaskName,
+            priority: newPriority,
+            complexity: newComplexity,
+            subtasks: newSubtasks,
+            tags: newTags,
+            dueDate: newDueDate,
+            time: newTime,
+          }
+        : task
+    );
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
       case "Ascending Priority":
@@ -87,30 +115,20 @@ export const TaskProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOrder]);
 
-  const updateSubtasks = (taskId, subtaskUpdate) => {
+  const completeSubtask = (taskId, subtaskId) => {
     const newTasks = [...tasks].map((task) => {
       if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map(subtaskUpdate);
+        const updatedSubtasks = task.subtasks.map((subtask) =>
+          subtask.id === subtaskId
+            ? { ...subtask, complete: !subtask.complete }
+            : subtask
+        );
         return { ...task, subtasks: updatedSubtasks };
       }
       return task;
     });
     setTasks(newTasks);
     setStorage(newTasks);
-  };
-
-  const completeSubtask = (taskId, subtaskId) => {
-    updateSubtasks(taskId, (subtask) =>
-      subtask.id === subtaskId
-        ? { ...subtask, complete: !subtask.complete }
-        : subtask
-    );
-  };
-
-  const resetSubtasks = (taskId) => {
-    updateSubtasks(taskId, (subtask) =>
-      subtask ? { ...subtask, complete: false } : subtask
-    );
   };
 
   const completeTask = (task) => {
@@ -135,7 +153,7 @@ export const TaskProvider = ({ children }) => {
     deleteTask,
     completeTask,
     handleSortOrder,
-    resetSubtasks,
+    editTask,
   };
 
   return (
