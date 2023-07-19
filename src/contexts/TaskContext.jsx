@@ -43,10 +43,10 @@ export const TaskProvider = ({ children }) => {
     newTaskName,
     newComplexity,
     newPriority,
-    newSubtasks
-    // newTags,
-    // newDueDate,
-    // newTime
+    newSubtasks,
+    newTags,
+    newDueDate,
+    newTime
   ) => {
     const newTasks = [...tasks].map((task) =>
       task.id === taskId
@@ -56,9 +56,9 @@ export const TaskProvider = ({ children }) => {
             priority: newPriority,
             complexity: newComplexity,
             subtasks: newSubtasks,
-            // tags: newTags,
-            // dueDate: newDueDate,
-            // time: newTime,
+            tags: newTags,
+            dueDate: newDueDate,
+            time: newTime,
           }
         : task
     );

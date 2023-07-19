@@ -18,14 +18,16 @@ label {
   right: 3%;
  }
 
+  section:nth-child(6)  {
+    margin-bottom: 30px;
+ }
+
+
  input[type=date],
  input[type=time] {
   width: 100%;
   padding: 12px 24px;
  }
 
- button[type=submit] {
-  margin-top: 30px;
- }
 `
 export default StyledAddNewTask;
