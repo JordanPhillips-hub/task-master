@@ -12,12 +12,11 @@ import { Main, FlexContainer } from "src/App.styles";
 
 const EditTask = () => {
   const navigate = useNavigate();
-  const { tasks, editTask } = useContext(TaskContext);
+  const { tasks, editTask, deleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const [isEditing, setIsEditing] = useState("");
-
-  const [editedSubtasks, setEditedSubtasks] = useState([]);
+  const [newSubtasks, setNewSubtasks] = useState([]);
   const [editedInputValue, setEditedInputValue] = useState({
     taskName: task.taskName,
     subtask: "",
@@ -43,12 +42,13 @@ const EditTask = () => {
   };
 
   const handleSubmit = () => {
+    const combinedSubtasks = [...task.subtasks, ...newSubtasks];
     editTask(
       id,
       editedInputValue.taskName,
       editedTaskLevel.complexity,
       editedTaskLevel.priority,
-      editedSubtasks,
+      combinedSubtasks,
       editedInputValue.dueDate,
       editedInputValue.time
     );
@@ -68,28 +68,22 @@ const EditTask = () => {
 
   const handleEditedSubtasks = () => {
     if (editedInputValue.subtask.trim() !== "") {
-      const editedSubtask = {
+      const newSubtask = {
         id: uid(),
         subtask: editedInputValue.subtask,
         complete: false,
       };
 
-      setEditedSubtasks((prevState) => [
-        ...prevState,
-        ...task.subtasks,
-        editedSubtask,
-      ]);
-
+      setNewSubtasks((prevState) => [...prevState, newSubtask]);
       setEditedInputValue((prevState) => ({
         ...prevState,
         subtask: "",
       }));
     }
-    console.log(editedSubtasks, task.subtasks);
   };
 
-  const removeSubtask = (subtaskId) => {
-    setEditedSubtasks(task.subtasks.filter((task) => task.id !== subtaskId));
+  const removeSubtask = (task) => {
+    setNewSubtasks(newSubtasks.filter((t) => t !== task));
   };
 
   return (
@@ -170,17 +164,17 @@ const EditTask = () => {
         <section>
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
-            {task.subtasks.map((subtask, index) => (
+            {task.subtasks.map((subtask) => (
               <Subtask
                 key={subtask.id}
-                text={`${index + 1}. ${subtask.subtask}`}
+                text={subtask.subtask}
                 iconType="cross"
                 remove
-                onButtonClick={() => removeSubtask(subtask.id)}
+                onButtonClick={() => deleteSubtask(id, subtask.id)}
               />
             ))}
 
-            {editedSubtasks.map((subtask, index) => (
+            {newSubtasks.map((subtask, index) => (
               <Subtask
                 key={subtask.id}
                 text={`${index + 1}. ${subtask.subtask}`}
