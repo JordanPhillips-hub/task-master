@@ -131,6 +131,20 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const deleteSubtask = (taskId, subtaskId) => {
+    const newTasks = [...tasks].map((task) => {
+      if (task.id === taskId) {
+        const updatedSubtasks = task.subtasks.filter(
+          (subtask) => subtask.id !== subtaskId
+        );
+        return { ...task, subtasks: updatedSubtasks };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const completeTask = (task) => {
     const newTasks = [...tasks].map((t) =>
       t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
@@ -154,6 +168,7 @@ export const TaskProvider = ({ children }) => {
     completeTask,
     handleSortOrder,
     editTask,
+    deleteSubtask,
   };
 
   return (
