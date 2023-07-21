@@ -295,11 +295,9 @@ const AddNewTask = () => {
           />
         </section>
 
-        <GridContainer>
-          <Button type="submit" med width="100%">
-            {!task ? "Add Task" : "Edit Task"}
-          </Button>
-        </GridContainer>
+        <Button type="submit" lrg width="50%">
+          {!task ? "Add Task" : "Edit Task"}
+        </Button>
       </StyledAddNewTask>
     </Main>
   );
