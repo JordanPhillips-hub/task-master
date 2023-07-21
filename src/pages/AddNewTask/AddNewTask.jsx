@@ -10,7 +10,7 @@ import Icon from "src/components/Icon/Icon";
 import PageHeader from "src/components/PageHeader/PageHeader";
 import LevelSelector from "src/components/LevelSelector/LevelSelector";
 import Subtask from "src/components/Subtask/Subtask";
-import { Main, FlexContainer, GridContainer } from "src/App.styles";
+import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
