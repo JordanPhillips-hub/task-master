@@ -16,26 +16,34 @@ import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
+
+  const getInitialInputValue = (value, isLevelType) => {
+    if (!task) {
+      return isLevelType ? 0 : "";
+    } else {
+      return value;
+    }
+  };
+
+  const task = tasks.find((task) => task.id === id);
+
   const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
-
   const [subtasks, setSubtasks] = useState([]);
   const [isEditing, setIsEditing] = useState("");
   const [editedSubtasks, setEditedSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
-    taskName: !task ? "" : task.taskName,
+    taskName: getInitialInputValue(task.taskName),
+    tags: getInitialInputValue(task.tags),
+    dueDate: getInitialInputValue(task.dueDate),
+    time: getInitialInputValue(task.time),
     subtask: "",
-    tags: !task ? "" : task.tags,
-    dueDate: !task ? "" : task.dueDate,
-    time: !task ? "" : task.time,
   });
 
   const [taskLevel, setTaskLevel] = useState({
-    complexity: !task ? 0 : task.complexity,
-    priority: !task ? 0 : task.priority,
+    complexity: getInitialInputValue(task.complexity, true),
+    priority: getInitialInputValue(task.priority, true),
   });
-
-  const task = tasks.find((task) => task.id === id);
 
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
