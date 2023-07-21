@@ -123,8 +123,6 @@ const AddNewTask = () => {
       handleIsEditing(levelType);
     };
 
-    console.log(!task ? '' : task.tags)
-
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
@@ -284,9 +282,16 @@ const AddNewTask = () => {
           <Input
             label="Add Tags"
             id="tags"
-            value={inputValue.tags}
+            value={
+              !task
+                ? inputValue.tags
+                : isEditing === "tags" || inputValue.tags !== ""
+                ? inputValue.tags
+                : task.tags
+            }
             placeholder="School, Career, Routine"
             onChange={handleChange}
+            onClick={!task ? null : () => handleIsEditing("tags")}
           />
         </section>
 
