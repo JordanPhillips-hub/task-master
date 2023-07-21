@@ -4,14 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
 import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
-import {
-  Input,
-  Button,
-  Icon,
-  PageHeader,
-  LevelSelector,
-  Subtask,
-} from "src/components";
+import Input from "src/components/Input/Input";
+import Button from "src/components/Button/Button";
+import Icon from "src/components/Icon/Icon";
+import PageHeader from "src/components/PageHeader/PageHeader";
+import LevelSelector from "src/components/LevelSelector/LevelSelector";
+import Subtask from "src/components/Subtask/Subtask";
 import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
@@ -102,9 +100,9 @@ const AddNewTask = () => {
     }
   };
 
-  const removeSubtask = (task, arr) => {
-    setSubtasks(arr.filter((t) => t !== task));
-  };
+  // const removeSubtask = (task, arr) => {
+  //   setSubtasks(arr.filter((t) => t !== task));
+  // };
 
   const handleIsEditing = (name) => {
     return !task ? null : () => setIsEditing(name);
@@ -196,7 +194,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeSubtask(subtask, subtasks)}
+                    // onButtonClick={() => removeSubtask(subtask, subtasks)}
                   />
                 ))}
               </ul>
@@ -233,7 +231,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeSubtask(subtask, editedSubtasks)}
+                    // onButtonClick={() => removeSubtask(subtask, editedSubtasks)}
                   />
                 ))}
               </ul>
