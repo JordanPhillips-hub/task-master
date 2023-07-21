@@ -122,7 +122,7 @@ const AddNewTask = () => {
   };
 
   const handleIsEditing = (name) => {
-    setIsEditing(name);
+    return !task ? null : () => setIsEditing(name);
   };
 
   const handleTaskLevel =
@@ -157,7 +157,7 @@ const AddNewTask = () => {
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
-            onClick={!task ? null : () => handleIsEditing("taskName")}
+            onClick={handleIsEditing("taskName")}
           />
         </section>
 
@@ -183,7 +183,7 @@ const AddNewTask = () => {
                 type="date"
                 value={getInputValue("dueDate")}
                 onChange={handleChange}
-                onClick={!task ? null : () => handleIsEditing("dueDate")}
+                onClick={handleIsEditing("dueDate")}
               />
             </div>
 
@@ -194,7 +194,7 @@ const AddNewTask = () => {
                 type="time"
                 value={getInputValue("time")}
                 onChange={handleChange}
-                onClick={!task ? null : () => handleIsEditing("time")}
+                onClick={handleIsEditing("time")}
               />
             </div>
           </FlexContainer>
@@ -275,7 +275,7 @@ const AddNewTask = () => {
             value={getInputValue("tags")}
             placeholder="School, Career, Routine"
             onChange={handleChange}
-            onClick={!task ? null : () => handleIsEditing("tags")}
+            onClick={handleIsEditing("tags")}
           />
         </section>
 
