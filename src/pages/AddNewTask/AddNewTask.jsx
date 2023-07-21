@@ -81,23 +81,7 @@ const AddNewTask = () => {
     navigate("/");
   };
 
-  const handleSubtasks = () => {
-    if (inputValue.subtask.trim() !== "") {
-      const subtask = {
-        id: uid(),
-        subtask: inputValue.subtask,
-        complete: false,
-      };
-
-      setSubtasks((prevState) => [...prevState, subtask]);
-      setInputValue((prevState) => ({
-        ...prevState,
-        subtask: "",
-      }));
-    }
-  };
-
-  const handleEditedSubtasks = () => {
+  const handleSubtasks = (isEditing) => {
     if (inputValue.subtask.trim() !== "") {
       const newSubtask = {
         id: uid(),
@@ -105,7 +89,12 @@ const AddNewTask = () => {
         complete: false,
       };
 
-      setEditedSubtasks((prevState) => [...prevState, newSubtask]);
+      if (isEditing) {
+        setEditedSubtasks((prevState) => [...prevState, newSubtask]);
+      } else {
+        setSubtasks((prevState) => [...prevState, newSubtask]);
+      }
+
       setInputValue((prevState) => ({
         ...prevState,
         subtask: "",
@@ -223,7 +212,7 @@ const AddNewTask = () => {
                   placeholder="Add New Subtask..."
                   onChange={handleChange}
                 />
-                <Button variant="round" onClick={handleSubtasks}>
+                <Button variant="round" onClick={handleSubtasks(false)}>
                   <Icon type="plus" />
                 </Button>
               </FlexContainer>
@@ -260,7 +249,7 @@ const AddNewTask = () => {
                   placeholder="Add New Subtask..."
                   onChange={handleChange}
                 />
-                <Button variant="round" onClick={handleEditedSubtasks}>
+                <Button variant="round" onClick={handleSubtasks(true)}>
                   <Icon type="plus" />
                 </Button>
               </FlexContainer>
