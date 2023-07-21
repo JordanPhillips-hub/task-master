@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
 import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
@@ -14,19 +14,23 @@ import { Main, FlexContainer, GridContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
-  const { addTask } = useContext(TaskContext);
+  const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
+  const { id } = useParams();
+  const task = tasks.find((task) => task.id === id);
   const [subtasks, setSubtasks] = useState([]);
+  const [isEditing, setIsEditing] = useState("");
+  const [editedSubtasks, setEditedSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
-    taskName: "",
+    taskName: task ? task.taskName : "",
     subtask: "",
     tags: "",
-    dueDate: "",
-    time: "",
+    dueDate: task ? task.dueDate : "",
+    time: task ? task.time : "",
   });
 
   const [taskLevel, setTaskLevel] = useState({
-    complexity: 0,
-    priority: 0,
+    complexity: task ? task.complexity : 0,
+    priority: task ? task.priority : 0,
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -38,17 +42,30 @@ const AddNewTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    addTask(
-      inputValue.taskName,
-      taskLevel.complexity,
-      taskLevel.priority,
-      subtasks,
-      inputValue.tags,
-      inputValue.dueDate,
-      inputValue.time
-    );
-
+    if (task) {
+      const combinedSubtasks = [...task.subtasks, ...editedSubtasks];
+      editTask(
+        id,
+        inputValue.taskName,
+        taskLevel.complexity,
+        taskLevel.priority,
+        combinedSubtasks,
+        inputValue.tags,
+        inputValue.dueDate,
+        inputValue.time
+      );
+      setIsEditing("");
+    } else {
+      addTask(
+        inputValue.taskName,
+        taskLevel.complexity,
+        taskLevel.priority,
+        subtasks,
+        inputValue.tags,
+        inputValue.dueDate,
+        inputValue.time
+      );
+    }
     navigate("/");
   };
 
@@ -68,8 +85,32 @@ const AddNewTask = () => {
     }
   };
 
+  const handleEditedSubtasks = () => {
+    if (inputValue.subtask.trim() !== "") {
+      const newSubtask = {
+        id: uid(),
+        subtask: inputValue.subtask,
+        complete: false,
+      };
+
+      setEditedSubtasks((prevState) => [...prevState, newSubtask]);
+      setInputValue((prevState) => ({
+        ...prevState,
+        subtask: "",
+      }));
+    }
+  };
+
   const removeSubtask = (task) => {
     setSubtasks(subtasks.filter((t) => t !== task));
+  };
+
+  const removeEditedSubtask = (task) => {
+    setEditedSubtasks(editedSubtasks.filter((t) => t !== task));
+  };
+
+  const handleIsEditing = (name) => {
+    setIsEditing(name);
   };
 
   const handleTaskLevel =
@@ -79,20 +120,32 @@ const AddNewTask = () => {
         ...prevState,
         [levelType]: Number(innerText),
       }));
+      handleIsEditing(levelType);
     };
+
+    console.log(!task ? '' : task.tags)
 
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
-        <PageHeader text="Add New Task" />
+        <PageHeader
+          text={!task ? "Add New Task" : `Editing ${task.taskName}`}
+        />
         <section>
           <Input
             label="Task Name"
             id="taskName"
-            value={inputValue.taskName}
+            value={
+              !task
+                ? inputValue.taskName
+                : isEditing === "taskName" || inputValue.taskName !== ""
+                ? inputValue.taskName
+                : task.taskName
+            }
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
+            onClick={!task ? null : () => handleIsEditing("taskName")}
           />
         </section>
 
@@ -100,12 +153,24 @@ const AddNewTask = () => {
           <LevelSelector
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
-            active={taskLevel.complexity}
+            active={
+              !task
+                ? taskLevel.complexity
+                : isEditing === "complexity" || taskLevel.complexity !== 0
+                ? taskLevel.complexity
+                : task.complexity
+            }
           />
           <LevelSelector
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
-            active={taskLevel.priority}
+            active={
+              !task
+                ? taskLevel.priority
+                : isEditing === "priority" || taskLevel.priority !== 0
+                ? taskLevel.priority
+                : task.priority
+            }
           />
         </section>
 
@@ -116,8 +181,15 @@ const AddNewTask = () => {
                 label="Due Date"
                 id="dueDate"
                 type="date"
-                value={inputValue.dueDate}
+                value={
+                  !task
+                    ? inputValue.dueDate
+                    : isEditing === "dueDate" || inputValue.dueDate !== ""
+                    ? inputValue.dueDate
+                    : task.dueDate
+                }
                 onChange={handleChange}
+                onClick={!task ? null : () => handleIsEditing("dueDate")}
               />
             </div>
 
@@ -126,8 +198,15 @@ const AddNewTask = () => {
                 label="Select Time"
                 id="time"
                 type="time"
-                value={inputValue.time}
+                value={
+                  !task
+                    ? inputValue.time
+                    : isEditing === "time" || inputValue.time !== ""
+                    ? inputValue.time
+                    : task.time
+                }
                 onChange={handleChange}
+                onClick={!task ? null : () => handleIsEditing("time")}
               />
             </div>
           </FlexContainer>
@@ -135,29 +214,70 @@ const AddNewTask = () => {
 
         <section>
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
-          <ul>
-            {subtasks.map((subtask, index) => (
-              <Subtask
-                key={subtask.id}
-                text={`${index + 1}. ${subtask.subtask}`}
-                iconType="cross"
-                remove
-                onButtonClick={() => removeSubtask(subtask)}
-              />
-            ))}
-          </ul>
+          {!task && (
+            <>
+              <ul>
+                {subtasks.map((subtask, index) => (
+                  <Subtask
+                    key={subtask.id}
+                    text={`${index + 1}. ${subtask.subtask}`}
+                    iconType="cross"
+                    remove
+                    onButtonClick={() => removeSubtask(subtask)}
+                  />
+                ))}
+              </ul>
 
-          <FlexContainer>
-            <Input
-              id="subtask"
-              value={inputValue.subtask}
-              placeholder="Add New Subtask..."
-              onChange={handleChange}
-            />
-            <Button variant="round" onClick={handleSubtasks}>
-              <Icon type="plus" />
-            </Button>
-          </FlexContainer>
+              <FlexContainer>
+                <Input
+                  id="subtask"
+                  value={inputValue.subtask}
+                  placeholder="Add New Subtask..."
+                  onChange={handleChange}
+                />
+                <Button variant="round" onClick={handleSubtasks}>
+                  <Icon type="plus" />
+                </Button>
+              </FlexContainer>
+            </>
+          )}
+          {task && (
+            <>
+              <ul>
+                {task.subtasks.map((subtask) => (
+                  <Subtask
+                    key={subtask.id}
+                    text={subtask.subtask}
+                    iconType="cross"
+                    remove
+                    onButtonClick={() => deleteSubtask(id, subtask.id)}
+                  />
+                ))}
+
+                {editedSubtasks.map((subtask, index) => (
+                  <Subtask
+                    key={subtask.id}
+                    text={`${index + 1}. ${subtask.subtask}`}
+                    iconType="cross"
+                    remove
+                    onButtonClick={() => removeEditedSubtask(subtask)}
+                  />
+                ))}
+              </ul>
+
+              <FlexContainer>
+                <Input
+                  id="subtask"
+                  value={inputValue.subtask}
+                  placeholder="Add New Subtask..."
+                  onChange={handleChange}
+                />
+                <Button variant="round" onClick={handleEditedSubtasks}>
+                  <Icon type="plus" />
+                </Button>
+              </FlexContainer>
+            </>
+          )}
         </section>
 
         <section>
@@ -172,7 +292,7 @@ const AddNewTask = () => {
 
         <GridContainer>
           <Button type="submit" med width="100%">
-            Add Task
+            {!task ? "Add Task" : "Edit Task"}
           </Button>
         </GridContainer>
       </StyledAddNewTask>
