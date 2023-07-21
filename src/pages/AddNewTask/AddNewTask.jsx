@@ -102,12 +102,8 @@ const AddNewTask = () => {
     }
   };
 
-  const removeSubtask = (task) => {
-    setSubtasks(subtasks.filter((t) => t !== task));
-  };
-
-  const removeEditedSubtask = (task) => {
-    setEditedSubtasks(editedSubtasks.filter((t) => t !== task));
+  const removeSubtask = (task, arr) => {
+    setSubtasks(arr.filter((t) => t !== task));
   };
 
   const handleIsEditing = (name) => {
@@ -200,7 +196,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeSubtask(subtask)}
+                    onButtonClick={() => removeSubtask(subtask, subtasks)}
                   />
                 ))}
               </ul>
@@ -237,7 +233,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeEditedSubtask(subtask)}
+                    onButtonClick={() => removeSubtask(subtask, editedSubtasks)}
                   />
                 ))}
               </ul>
