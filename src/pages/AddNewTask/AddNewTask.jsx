@@ -4,12 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
 import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
-import Input from "src/components/Input/Input";
-import Button from "src/components/Button/Button";
-import Icon from "src/components/Icon/Icon";
-import PageHeader from "src/components/PageHeader/PageHeader";
-import LevelSelector from "src/components/LevelSelector/LevelSelector";
-import Subtask from "src/components/Subtask/Subtask";
+import {
+  Input,
+  Button,
+  Icon,
+  PageHeader,
+  LevelSelector,
+  Subtask,
+} from "src/components";
 import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
