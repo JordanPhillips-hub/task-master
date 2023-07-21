@@ -18,22 +18,24 @@ const AddNewTask = () => {
   const navigate = useNavigate();
   const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
-  const task = tasks.find((task) => task.id === id);
+
   const [subtasks, setSubtasks] = useState([]);
   const [isEditing, setIsEditing] = useState("");
   const [editedSubtasks, setEditedSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
-    taskName: task ? task.taskName : "",
+    taskName: !task ? "" : task.taskName,
     subtask: "",
-    tags: "",
-    dueDate: task ? task.dueDate : "",
-    time: task ? task.time : "",
+    tags: !task ? "" : task.tags,
+    dueDate: !task ? "" : task.dueDate,
+    time: !task ? "" : task.time,
   });
 
   const [taskLevel, setTaskLevel] = useState({
-    complexity: task ? task.complexity : 0,
-    priority: task ? task.priority : 0,
+    complexity: !task ? 0 : task.complexity,
+    priority: !task ? 0 : task.priority,
   });
+
+  const task = tasks.find((task) => task.id === id);
 
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
@@ -126,11 +128,7 @@ const AddNewTask = () => {
     };
 
   const getInputValue = (inputName, levelType) => {
-    if (
-      !task ||
-      isEditing === inputName ||
-      (levelType && taskLevel[levelType] !== 0)
-    ) {
+    if (isEditing === inputName || (levelType && taskLevel[levelType] !== 0)) {
       return levelType ? taskLevel[levelType] : inputValue[inputName];
     } else {
       return levelType ? task[levelType] : task[inputName];
