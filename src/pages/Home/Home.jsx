@@ -68,7 +68,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setTasks(JSON.parse(window.localStorage.getItem("tasks") || []));
+    const localStorageTasks = window.localStorage.getItem("tasks");
+    if (localStorageTasks) {
+      setTasks(JSON.parse(localStorageTasks));
+    }
   }, []);
 
   return (
