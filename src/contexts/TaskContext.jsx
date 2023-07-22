@@ -66,6 +66,50 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const completeTask = (task) => {
+    const newTasks = [...tasks].map((t) =>
+      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
+    );
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
+  const deleteTask = (task) => {
+    const newTasks = tasks.filter((t) => t !== task);
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
+  const completeSubtask = (taskId, subtaskId) => {
+    const newTasks = [...tasks].map((task) => {
+      if (task.id === taskId) {
+        const updatedSubtasks = task.subtasks.map((subtask) =>
+          subtask.id === subtaskId
+            ? { ...subtask, complete: !subtask.complete }
+            : subtask
+        );
+        return { ...task, subtasks: updatedSubtasks };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
+  const deleteSubtask = (taskId, subtaskId) => {
+    const newTasks = [...tasks].map((task) => {
+      if (task.id === taskId) {
+        const updatedSubtasks = task.subtasks.filter(
+          (subtask) => subtask.id !== subtaskId
+        );
+        return { ...task, subtasks: updatedSubtasks };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
       case "Ascending Priority":
@@ -115,60 +159,16 @@ export const TaskProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOrder]);
 
-  const completeTask = (task) => {
-    const newTasks = [...tasks].map((t) =>
-      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
-    );
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const deleteTask = (task) => {
-    const newTasks = tasks.filter((t) => t !== task);
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const completeSubtask = (taskId, subtaskId) => {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map((subtask) =>
-          subtask.id === subtaskId
-            ? { ...subtask, complete: !subtask.complete }
-            : subtask
-        );
-        return { ...task, subtasks: updatedSubtasks };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const deleteSubtask = (taskId, subtaskId) => {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.filter(
-          (subtask) => subtask.id !== subtaskId
-        );
-        return { ...task, subtasks: updatedSubtasks };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
   const taskValues = {
     tasks,
     addTask,
+    editTask,
     setTasks,
-    handleSortOrder,
     completeTask,
     deleteTask,
     completeSubtask,
     deleteSubtask,
-    editTask,
+    handleSortOrder,
   };
 
   return (
