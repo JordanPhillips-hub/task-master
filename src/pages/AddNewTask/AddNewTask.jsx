@@ -117,12 +117,9 @@ const AddNewTask = () => {
     }
   };
 
-  const removeSubtask = (task) => {
-    setSubtasks(subtasks.filter((t) => t !== task));
-  };
-
-  const removeEditedSubtask = (task) => {
-    setEditedSubtasks(editedSubtasks.filter((t) => t !== task));
+  const removeSubtask = (task, arr) => {
+    const array = arr.filter((t) => t !== task);
+    arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
   };
 
   const handleIsEditing = (name) => {
@@ -207,7 +204,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeSubtask(subtask)}
+                    onButtonClick={() => removeSubtask(subtask, subtasks)}
                   />
                 ))}
               </ul>
@@ -244,7 +241,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    onButtonClick={() => removeEditedSubtask(subtask)}
+                    onButtonClick={() => removeSubtask(subtask, editedSubtasks)}
                   />
                 ))}
               </ul>
@@ -256,10 +253,7 @@ const AddNewTask = () => {
                   placeholder="Add New Subtask..."
                   onChange={handleChange}
                 />
-                <Button
-                  variant="round"
-                  onClick={() => handleSubtasks(true)}
-                >
+                <Button variant="round" onClick={() => handleSubtasks(true)}>
                   <Icon type="plus" />
                 </Button>
               </FlexContainer>
