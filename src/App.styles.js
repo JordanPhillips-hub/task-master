@@ -8,6 +8,7 @@ export const GlobalStyles = createGlobalStyle`
   --clr-white: hsl(0, 0%, 100%);
   --clr-off-white: hsl(0, 0%, 96%);
   --clr-very-light-gray: hsl(0, 0%, 85%);
+  --clr-progress-bar-bg: hsl(0, 0%, 88%);
   --clr-light-gray: hsl(0, 0%, 89%);
   --clr-dim-gray: hsl(0, 0%, 44%);
   --clr-light-beige: hsl(37, 100%, 95%);
