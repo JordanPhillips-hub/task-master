@@ -26,7 +26,8 @@ const setTime = (time) => {
 
 const Details = () => {
   const navigate = useNavigate();
-  const { tasks, completeSubtask, deleteTask } = useContext(TaskContext);
+  const { tasks, completeSubtask, deleteTask, repeatTasks } =
+    useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
   const subtasks = task?.subtasks || [];
@@ -98,7 +99,7 @@ const Details = () => {
         </Button>
       </GridContainer>
 
-      <Button lrg width="100%" gap="13px">
+      <Button lrg width="100%" gap="13px" onClick={() => repeatTasks(id)}>
         <Icon type="repeat" />
         Repeat Tasks
       </Button>
