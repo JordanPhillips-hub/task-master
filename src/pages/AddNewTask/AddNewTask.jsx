@@ -14,10 +14,14 @@ import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
+
   const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
+
+  const [subtasks, setSubtasks] = useState([]);
   const [isEditing, setIsEditing] = useState("");
+  const [editedSubtasks, setEditedSubtasks] = useState([]);
 
   const getInputValue = (inputName) => {
     if (!task || isEditing === inputName || inputValue[inputName] !== "") {
@@ -43,8 +47,6 @@ const AddNewTask = () => {
     }
   };
 
-  const [subtasks, setSubtasks] = useState([]);
-  const [editedSubtasks, setEditedSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
     taskName: getInitialInputValue("taskName"),
     tags: getInitialInputValue("tags"),
@@ -58,26 +60,12 @@ const AddNewTask = () => {
     priority: getInitialInputValue("priority", true),
   });
 
-  const handleIsEditing = (name) => {
-    return !task ? null : () => setIsEditing(name);
-  };
-
   const handleChange = ({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
       [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
     }));
   };
-
-  const handleTaskLevel =
-    (levelType) =>
-    ({ target: { innerText } }) => {
-      setTaskLevel((prevState) => ({
-        ...prevState,
-        [levelType]: Number(innerText),
-      }));
-      handleIsEditing(levelType);
-    };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -121,6 +109,7 @@ const AddNewTask = () => {
       } else {
         setSubtasks((prevState) => [...prevState, newSubtask]);
       }
+
       setInputValue((prevState) => ({
         ...prevState,
         subtask: "",
@@ -132,6 +121,20 @@ const AddNewTask = () => {
     const array = arr.filter((t) => t !== task);
     arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
   };
+
+  const handleIsEditing = (name) => {
+    return !task ? null : () => setIsEditing(name);
+  };
+
+  const handleTaskLevel =
+    (levelType) =>
+    ({ target: { innerText } }) => {
+      setTaskLevel((prevState) => ({
+        ...prevState,
+        [levelType]: Number(innerText),
+      }));
+      handleIsEditing(levelType);
+    };
 
   return (
     <Main>
