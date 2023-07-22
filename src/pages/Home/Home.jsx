@@ -9,7 +9,7 @@ import Button from "src/components/Button/Button";
 import Icon from "src/components/Icon/Icon";
 import SearchBar from "src/components/SearchBar/SearchBar";
 import Select from "src/components/Select/Select";
-import { selectOptions } from "src/components/Select/selectOptions";
+import { sortOptions } from "src/components/Select/sortOptions";
 import TaskCard from "src/components/Task/TaskCard/TaskCard";
 import TaskHeader from "src/components/Task/TaskHeader/TaskHeader";
 import TaskDetail from "src/components/Task/TaskDetail/TaskDetail";
@@ -81,7 +81,7 @@ const Home = () => {
       <GridContainer>
         <Select
           name="Sort"
-          options={selectOptions}
+          options={sortOptions}
           isActive={activeSort}
           onClick={(e, index) => handleSortOptions(index, e)}
         />

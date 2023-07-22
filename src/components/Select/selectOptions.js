@@ -1,4 +1,4 @@
-export const selectOptions = [
+export const sortOptions = [
   "Default",
   "Ascending Date",
   "Descending Date",
