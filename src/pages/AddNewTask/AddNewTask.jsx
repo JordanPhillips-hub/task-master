@@ -23,27 +23,19 @@ const AddNewTask = () => {
   const [isEditing, setIsEditing] = useState("");
   const [editedSubtasks, setEditedSubtasks] = useState([]);
 
-  const getInputValue = (inputName) => {
-    if (!task || isEditing === inputName || inputValue[inputName] !== "") {
-      return inputValue[inputName];
-    } else {
-      return task[inputName];
-    }
-  };
-
-  const getLevelValue = (levelType) => {
-    if (!task || isEditing === levelType || taskLevel[levelType] !== 0) {
-      return taskLevel[levelType];
-    } else {
-      return task[levelType];
-    }
-  };
-
   const getInitialInputValue = (value, isLevelType) => {
     if (!task) {
       return isLevelType ? 0 : "";
     } else {
       return task[value];
+    }
+  };
+
+  const getInputValue = (name, state, value) => {
+    if (!task || isEditing === name || state[name] !== value) {
+      return state[name];
+    } else {
+      return task[name];
     }
   };
 
@@ -146,7 +138,7 @@ const AddNewTask = () => {
           <Input
             label="Task Name"
             id="taskName"
-            value={getInputValue("taskName")}
+            value={getInputValue("taskName", inputValue, "")}
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
@@ -158,12 +150,12 @@ const AddNewTask = () => {
           <LevelSelector
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
-            active={getLevelValue("complexity")}
+            active={getInputValue("complexity", taskLevel, 0)}
           />
           <LevelSelector
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
-            active={getLevelValue("priority")}
+            active={getInputValue("priority", taskLevel, 0)}
           />
         </section>
 
@@ -174,7 +166,7 @@ const AddNewTask = () => {
                 label="Due Date"
                 id="dueDate"
                 type="date"
-                value={getInputValue("dueDate")}
+                value={getInputValue("dueDate", inputValue, "")}
                 onChange={handleChange}
                 onClick={handleIsEditing("dueDate")}
               />
@@ -185,7 +177,7 @@ const AddNewTask = () => {
                 label="Select Time"
                 id="time"
                 type="time"
-                value={getInputValue("time")}
+                value={getInputValue("time", inputValue, "")}
                 onChange={handleChange}
                 onClick={handleIsEditing("time")}
               />
@@ -247,7 +239,7 @@ const AddNewTask = () => {
           <Input
             label="Add Tags"
             id="tags"
-            value={getInputValue("tags")}
+            value={getInputValue("tags", inputValue, "")}
             placeholder="School, Career, Routine"
             onChange={handleChange}
             onClick={handleIsEditing("tags")}
