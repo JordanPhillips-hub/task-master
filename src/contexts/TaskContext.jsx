@@ -115,6 +115,20 @@ export const TaskProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOrder]);
 
+  const completeTask = (task) => {
+    const newTasks = [...tasks].map((t) =>
+      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
+    );
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
+  const deleteTask = (task) => {
+    const newTasks = tasks.filter((t) => t !== task);
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const completeSubtask = (taskId, subtaskId) => {
     const newTasks = [...tasks].map((task) => {
       if (task.id === taskId) {
@@ -145,30 +159,16 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
-  const completeTask = (task) => {
-    const newTasks = [...tasks].map((t) =>
-      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
-    );
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const deleteTask = (task) => {
-    const newTasks = tasks.filter((t) => t !== task);
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
   const taskValues = {
     tasks,
     addTask,
     setTasks,
-    completeSubtask,
-    deleteTask,
-    completeTask,
     handleSortOrder,
-    editTask,
+    completeTask,
+    deleteTask,
+    completeSubtask,
     deleteSubtask,
+    editTask,
   };
 
   return (
