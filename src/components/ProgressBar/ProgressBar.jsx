@@ -7,12 +7,12 @@ import { FlexContainer } from "src/App.styles";
 
 const ProgressBar = ({ total, completed, round, warningColor }) => {
   const [progress, setProgress] = useState(0);
-  const circleRadius = 22;
-  const circleCircumference = 2 * Math.PI * circleRadius;
-  const offset = circleCircumference - (progress / 100) * circleCircumference;
+  const circleRad = 22;
+  const circleCirc = 2 * Math.PI * circleRad;
+  const offset = circleCirc - (progress / 100) * circleCirc;
 
   useEffect(() => {
-    const calculateProgress = () => {
+    const calcProgress = () => {
       if (total === 0) {
         setProgress(0);
       } else {
@@ -21,7 +21,7 @@ const ProgressBar = ({ total, completed, round, warningColor }) => {
       }
     };
 
-    calculateProgress();
+    calcProgress();
   }, [total, completed]);
 
   {
@@ -32,7 +32,7 @@ const ProgressBar = ({ total, completed, round, warningColor }) => {
             className="progress-ring__background"
             strokeWidth="4"
             fill="transparent"
-            r={circleRadius}
+            r={circleRad}
             cx="60"
             cy="60"
           ></circle>
@@ -40,11 +40,11 @@ const ProgressBar = ({ total, completed, round, warningColor }) => {
             className="progress-ring__circle"
             strokeWidth="4"
             fill="transparent"
-            r={circleRadius}
+            r={circleRad}
             cx="60"
             cy="60"
             style={{
-              strokeDasharray: circleCircumference,
+              strokeDasharray: circleCirc,
               strokeDashoffset: offset,
             }}
           ></circle>
