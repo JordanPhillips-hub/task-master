@@ -27,9 +27,8 @@ const ProgressBar = ({ total, completed, round, warningColor }) => {
   {
     return round ? (
       <RoundProgressBar warningColor={setWarningColor(warningColor)}>
-        <svg className="progress-ring" width="120" height="120">
+        <svg width="120" height="120">
           <circle
-            className="progress-ring__background"
             strokeWidth="4"
             fill="transparent"
             r={circleRad}

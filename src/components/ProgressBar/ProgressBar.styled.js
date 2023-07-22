@@ -18,7 +18,7 @@ export const RoundProgressBar = styled.div`
   right: -10px;
   bottom: 20px;
 
-  .progress-ring {
+  svg {
     display: flex;
     align-items: center;
     justify-content: center;
