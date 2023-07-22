@@ -3,7 +3,6 @@ import { TaskProvider } from "./contexts/TaskContext";
 import Home from "./pages/Home/Home";
 import AddNewTask from "./pages/AddNewTask/AddNewTask";
 import Details from "./pages/Details/Details";
-// import EditTask from "./pages/EditTask/EditTask";
 import { GlobalStyles } from "./App.styles";
 
 const App = () => {
@@ -14,9 +13,9 @@ const App = () => {
         <Router>
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
-            <Route exact path="/AddNewTask" element={<AddNewTask />}></Route>
+            <Route exact path="/addNewTask" element={<AddNewTask />}></Route>
             <Route exact path="/task/:id" element={<Details />}></Route>
-            <Route exact path="/EditTask/:id" element={<AddNewTask />}></Route>
+            <Route exact path="/editTask/:id" element={<AddNewTask />}></Route>
           </Routes>
         </Router>
       </TaskProvider>

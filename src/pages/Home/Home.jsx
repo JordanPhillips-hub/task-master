@@ -18,12 +18,13 @@ import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
+  const { tasks, setTasks, completeTask, handleSortOrder } =
+    useContext(TaskContext);
   const [activeSort, setActiveSort] = useState(false);
   const [activeCategory, setActiveCategory] = useState(false);
   const [categoryOrder, setCategoryOrder] = useState(null);
   const [searchValue, setSearchValue] = useState("");
-  const { tasks, setTasks, completeTask, handleSortOrder } =
-    useContext(TaskContext);
+
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
   const uniqueTags = [...new Set(tags)];
 
@@ -143,7 +144,7 @@ const Home = () => {
         </TaskCard>
       ))}
 
-      <Link to="/AddNewTask">
+      <Link to="/addNewTask">
         <Button lrg width="50%" gap="13px">
           <Icon type="plus" />
           Add New Task
