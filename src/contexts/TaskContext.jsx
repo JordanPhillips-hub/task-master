@@ -110,6 +110,21 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
+  const repeatTasks = (taskId) => {
+    const newTasks = [...tasks].map((task) => {
+      if (task.id === taskId) {
+        const updatedSubtasks = task.subtasks.map((subtask) => ({
+          ...subtask,
+          complete: false,
+        }));
+        return { ...task, subtasks: updatedSubtasks };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+    setStorage(newTasks);
+  };
+
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
       case "Ascending Priority":
@@ -168,6 +183,7 @@ export const TaskProvider = ({ children }) => {
     deleteTask,
     completeSubtask,
     deleteSubtask,
+    repeatTasks,
     handleSortOrder,
   };
 
