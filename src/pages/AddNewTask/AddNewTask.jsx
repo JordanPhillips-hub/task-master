@@ -6,41 +6,58 @@ import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
 import Input from "src/components/Input/Input";
 import Button from "src/components/Button/Button";
-import Icon from "src/components/Icon/Icon";
 import PageHeader from "src/components/PageHeader/PageHeader";
 import LevelSelector from "src/components/LevelSelector/LevelSelector";
 import Subtask from "src/components/Subtask/Subtask";
+import Icon from "src/components/Icon/Icon";
 import { Main, FlexContainer } from "src/App.styles";
 
 const AddNewTask = () => {
   const navigate = useNavigate();
 
+  const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
+  const { id } = useParams();
+  const task = tasks.find((task) => task.id === id);
+
+  const [subtasks, setSubtasks] = useState([]);
+  const [isEditing, setIsEditing] = useState("");
+  const [editedSubtasks, setEditedSubtasks] = useState([]);
+
+  const getInputValue = (inputName) => {
+    if (!task || isEditing === inputName || inputValue[inputName] !== "") {
+      return inputValue[inputName];
+    } else {
+      return task[inputName];
+    }
+  };
+
+  const getLevelValue = (levelType) => {
+    if (!task || isEditing === levelType || taskLevel[levelType] !== 0) {
+      return taskLevel[levelType];
+    } else {
+      return task[levelType];
+    }
+  };
+
   const getInitialInputValue = (value, isLevelType) => {
     if (!task) {
       return isLevelType ? 0 : "";
     } else {
-      return value;
+      return task[value];
     }
   };
 
-  const task = tasks.find((task) => task.id === id);
-
-  const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
-  const { id } = useParams();
-  const [subtasks, setSubtasks] = useState([]);
-  const [isEditing, setIsEditing] = useState("");
-  const [editedSubtasks, setEditedSubtasks] = useState([]);
   const [inputValue, setInputValue] = useState({
-    taskName: getInitialInputValue(task.taskName),
-    tags: getInitialInputValue(task.tags),
-    dueDate: getInitialInputValue(task.dueDate),
-    time: getInitialInputValue(task.time),
+    taskName: getInitialInputValue("taskName"),
+    tags: getInitialInputValue("tags"),
+    dueDate: getInitialInputValue("dueDate"),
+    time: getInitialInputValue("time"),
     subtask: "",
   });
 
   const [taskLevel, setTaskLevel] = useState({
-    complexity: getInitialInputValue(task.complexity, true),
-    priority: getInitialInputValue(task.priority, true),
+    complexity: getInitialInputValue("complexity", true),
+    priority: getInitialInputValue("priority", true),
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -100,9 +117,13 @@ const AddNewTask = () => {
     }
   };
 
-  // const removeSubtask = (task, arr) => {
-  //   setSubtasks(arr.filter((t) => t !== task));
-  // };
+  const removeSubtask = (task) => {
+    setSubtasks(subtasks.filter((t) => t !== task));
+  };
+
+  const removeEditedSubtask = (task) => {
+    setEditedSubtasks(editedSubtasks.filter((t) => t !== task));
+  };
 
   const handleIsEditing = (name) => {
     return !task ? null : () => setIsEditing(name);
@@ -118,14 +139,6 @@ const AddNewTask = () => {
       handleIsEditing(levelType);
     };
 
-  const getInputValue = (inputName, levelType) => {
-    if (isEditing === inputName || (levelType && taskLevel[levelType] !== 0)) {
-      return levelType ? taskLevel[levelType] : inputValue[inputName];
-    } else {
-      return levelType ? task[levelType] : task[inputName];
-    }
-  };
-
   return (
     <Main>
       <StyledAddNewTask onSubmit={handleSubmit}>
@@ -140,7 +153,7 @@ const AddNewTask = () => {
             placeholder="Task 1..."
             required={true}
             onChange={handleChange}
-            onClick={handleIsEditing("taskName")}
+            onClick={handleIsEditing("taskName", "input")}
           />
         </section>
 
@@ -148,12 +161,12 @@ const AddNewTask = () => {
           <LevelSelector
             text="Select Complexity Level"
             onClick={handleTaskLevel("complexity")}
-            active={getInputValue(null, "complexity")}
+            active={getLevelValue("complexity")}
           />
           <LevelSelector
             text="Select Priority Level"
             onClick={handleTaskLevel("priority")}
-            active={getInputValue(null, "priority")}
+            active={getLevelValue("priority")}
           />
         </section>
 
@@ -194,7 +207,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    // onButtonClick={() => removeSubtask(subtask, subtasks)}
+                    onButtonClick={() => removeSubtask(subtask)}
                   />
                 ))}
               </ul>
@@ -206,7 +219,7 @@ const AddNewTask = () => {
                   placeholder="Add New Subtask..."
                   onChange={handleChange}
                 />
-                <Button variant="round" onClick={handleSubtasks(false)}>
+                <Button variant="round" onClick={() => handleSubtasks(false)}>
                   <Icon type="plus" />
                 </Button>
               </FlexContainer>
@@ -231,7 +244,7 @@ const AddNewTask = () => {
                     text={`${index + 1}. ${subtask.subtask}`}
                     iconType="cross"
                     remove
-                    // onButtonClick={() => removeSubtask(subtask, editedSubtasks)}
+                    onButtonClick={() => removeEditedSubtask(subtask)}
                   />
                 ))}
               </ul>
@@ -243,7 +256,10 @@ const AddNewTask = () => {
                   placeholder="Add New Subtask..."
                   onChange={handleChange}
                 />
-                <Button variant="round" onClick={handleSubtasks(true)}>
+                <Button
+                  variant="round"
+                  onClick={() => handleSubtasks(true)}
+                >
                   <Icon type="plus" />
                 </Button>
               </FlexContainer>
