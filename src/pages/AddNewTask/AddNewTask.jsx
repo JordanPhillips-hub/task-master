@@ -195,53 +195,38 @@ const AddNewTask = () => {
 
         <section>
           <label htmlFor="subtask">Add Checklist For Subtasks</label>
-          <ul>
-            {(task ? [...task.subtasks, ...editedSubtasks] : subtasks).map(
-              (subtask, index) => (
-                <Subtask
-                  key={subtask.id}
-                  text={`${index + 1}. ${subtask.subtask}`}
-                  iconType="cross"
-                  remove
-                  onButtonClick={() =>
-                    task
-                      ? deleteSubtask(id, subtask.id)
-                      : removeSubtask(subtask, task ? editedSubtasks : subtasks)
-                  }
-                />
-              )
-            )}
-          </ul>
-          <FlexContainer>
-            <Input
-              id="subtask"
-              value={inputValue.subtask}
-              placeholder="Add New Subtask..."
-              onChange={handleChange}
-            />
-            <Button variant="round" onClick={() => handleSubtasks(!!task)}>
-              <Icon type="plus" />
-            </Button>
-          </FlexContainer>
-        </section>
+          {task && (
+            <>
+              <ul>
+                {task.subtasks.concat(editedSubtasks).map((subtask, index) => (
+                  <Subtask
+                    key={subtask.id}
+                    text={`${index + 1}. ${subtask.subtask}`}
+                    iconType="cross"
+                    remove
+                    onButtonClick={() =>
+                      editedSubtasks.includes(subtask)
+                        ? removeSubtask(subtask, editedSubtasks)
+                        : deleteSubtask(id, subtask.id)
+                    }
+                  />
+                ))}
+              </ul>
+            </>
+          )}
 
-        {/* <section>
-          <label htmlFor="subtask">Add Checklist For Subtasks</label>
           <ul>
-            {(task ? task.subtasks : subtasks).map((subtask, index) => (
+            {subtasks.map((subtask, index) => (
               <Subtask
                 key={subtask.id}
                 text={`${index + 1}. ${subtask.subtask}`}
                 iconType="cross"
                 remove
-                onButtonClick={() =>
-                  task
-                    ? deleteSubtask(id, subtask.id)
-                    : removeSubtask(subtask, subtasks)
-                }
+                onButtonClick={() => removeSubtask(subtask, subtasks)}
               />
             ))}
           </ul>
+
           <FlexContainer>
             <Input
               id="subtask"
@@ -249,11 +234,14 @@ const AddNewTask = () => {
               placeholder="Add New Subtask..."
               onChange={handleChange}
             />
-            <Button variant="round" onClick={() => handleSubtasks(!!task)}>
+            <Button
+              variant="round"
+              onClick={() => handleSubtasks(!task ? false : true)}
+            >
               <Icon type="plus" />
             </Button>
           </FlexContainer>
-        </section> */}
+        </section>
 
         <section>
           <Input
