@@ -23,6 +23,10 @@ const AddNewTask = () => {
   const [isEditing, setIsEditing] = useState("");
   const [editedSubtasks, setEditedSubtasks] = useState([]);
 
+  const handleIsEditing = (name) => {
+    return !task ? null : () => setIsEditing(name);
+  };
+
   const getInitialInputValue = (value, isLevelType) => {
     if (!task) {
       return isLevelType ? 0 : "";
@@ -59,6 +63,42 @@ const AddNewTask = () => {
     }));
   };
 
+  const handleTaskLevel =
+    (levelType) =>
+    ({ target: { innerText } }) => {
+      setTaskLevel((prevState) => ({
+        ...prevState,
+        [levelType]: Number(innerText),
+      }));
+      handleIsEditing(levelType);
+    };
+
+  const handleSubtasks = (isEditing) => {
+    if (inputValue.subtask.trim() !== "") {
+      const newSubtask = {
+        id: uid(),
+        subtask: inputValue.subtask,
+        complete: false,
+      };
+
+      if (isEditing) {
+        setEditedSubtasks((prevState) => [...prevState, newSubtask]);
+      } else {
+        setSubtasks((prevState) => [...prevState, newSubtask]);
+      }
+
+      setInputValue((prevState) => ({
+        ...prevState,
+        subtask: "",
+      }));
+    }
+  };
+
+  const removeSubtask = (task, arr) => {
+    const array = arr.filter((t) => t !== task);
+    arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task) {
@@ -87,46 +127,6 @@ const AddNewTask = () => {
     }
     navigate("/");
   };
-
-  const handleSubtasks = (isEditing) => {
-    if (inputValue.subtask.trim() !== "") {
-      const newSubtask = {
-        id: uid(),
-        subtask: inputValue.subtask,
-        complete: false,
-      };
-
-      if (isEditing) {
-        setEditedSubtasks((prevState) => [...prevState, newSubtask]);
-      } else {
-        setSubtasks((prevState) => [...prevState, newSubtask]);
-      }
-
-      setInputValue((prevState) => ({
-        ...prevState,
-        subtask: "",
-      }));
-    }
-  };
-
-  const removeSubtask = (task, arr) => {
-    const array = arr.filter((t) => t !== task);
-    arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
-  };
-
-  const handleIsEditing = (name) => {
-    return !task ? null : () => setIsEditing(name);
-  };
-
-  const handleTaskLevel =
-    (levelType) =>
-    ({ target: { innerText } }) => {
-      setTaskLevel((prevState) => ({
-        ...prevState,
-        [levelType]: Number(innerText),
-      }));
-      handleIsEditing(levelType);
-    };
 
   return (
     <Main>
