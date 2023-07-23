@@ -32,6 +32,7 @@ export const TaskProvider = ({ children }) => {
         dueDate,
         time,
         isCompleted: false,
+        createdAt: Date.now(),
       },
     ];
     setTasks(newTasks);
@@ -124,6 +125,9 @@ export const TaskProvider = ({ children }) => {
 
   const handleSortOrder = ({ target: { id } }) => {
     switch (id) {
+      case "Default":
+        setSortOrder("Default");
+        break;
       case "Ascending Priority":
         setSortOrder("Ascending Priority");
         break;
@@ -149,6 +153,8 @@ export const TaskProvider = ({ children }) => {
     if (sortOrder) {
       const newTasks = [...tasks].sort((a, b) => {
         switch (sortOrder) {
+          case "Default":
+            return a.createdAt - b.createdAt;
           case "Ascending Priority":
             return a.priority - b.priority;
           case "Descending Priority":
@@ -162,7 +168,7 @@ export const TaskProvider = ({ children }) => {
           case "Descending Date":
             return new Date(b.dueDate) - new Date(a.dueDate);
           default:
-            return 0;
+            return a.createdAt - b.createdAt;
         }
       });
       setTasks(newTasks);
