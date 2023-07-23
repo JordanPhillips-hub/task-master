@@ -80,10 +80,10 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
-  const updateSubtasks = (taskId, updater) => {
+  const updateSubtasks = (taskId, callback) => {
     const newTasks = [...tasks].map((task) => {
       if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map(updater);
+        const updatedSubtasks = task.subtasks.map(callback);
         return { ...task, subtasks: updatedSubtasks };
       }
       return task;
