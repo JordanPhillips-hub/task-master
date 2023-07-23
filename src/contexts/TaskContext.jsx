@@ -80,20 +80,32 @@ export const TaskProvider = ({ children }) => {
     setStorage(newTasks);
   };
 
-  const completeSubtask = (taskId, subtaskId) => {
+  const updateSubtasks = (taskId, updater) => {
     const newTasks = [...tasks].map((task) => {
       if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map((subtask) =>
-          subtask.id === subtaskId
-            ? { ...subtask, complete: !subtask.complete }
-            : subtask
-        );
+        const updatedSubtasks = task.subtasks.map(updater);
         return { ...task, subtasks: updatedSubtasks };
       }
       return task;
     });
     setTasks(newTasks);
     setStorage(newTasks);
+  };
+
+  const completeSubtask = (taskId, subtaskId) => {
+    updateSubtasks(taskId, (subtask) => {
+      if (subtask.id === subtaskId) {
+        return { ...subtask, complete: !subtask.complete };
+      }
+      return subtask;
+    });
+  };
+
+  const repeatTasks = (taskId) => {
+    updateSubtasks(taskId, (subtask) => ({
+      ...subtask,
+      complete: false,
+    }));
   };
 
   const deleteSubtask = (taskId, subtaskId) => {
@@ -102,21 +114,6 @@ export const TaskProvider = ({ children }) => {
         const updatedSubtasks = task.subtasks.filter(
           (subtask) => subtask.id !== subtaskId
         );
-        return { ...task, subtasks: updatedSubtasks };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
-
-  const repeatTasks = (taskId) => {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map((subtask) => ({
-          ...subtask,
-          complete: false,
-        }));
         return { ...task, subtasks: updatedSubtasks };
       }
       return task;
@@ -181,8 +178,8 @@ export const TaskProvider = ({ children }) => {
     setTasks,
     completeTask,
     deleteTask,
-    completeSubtask,
     deleteSubtask,
+    completeSubtask,
     repeatTasks,
     handleSortOrder,
   };
