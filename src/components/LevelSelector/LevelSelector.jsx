@@ -14,7 +14,10 @@ const generateLevelButtons = (n, active, onClick) => {
         sml
         style={
           i + 1 === active
-            ? { backgroundColor: "var(--clr-sky-blue)" }
+            ? {
+                backgroundColor: "var(--clr-sky-blue)",
+                color: "var(--clr-white)",
+              }
             : undefined
         }
         onClick={onClick}
