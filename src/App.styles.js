@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
   --clr-dim-gray: hsl(0, 0%, 44%);
   --clr-light-beige: hsl(37, 100%, 95%);
   --clr-pale-coral: hsl(7, 100%, 96%);
-  --clr-pale-green: 	hsl(120, 100%, 99%);
+  --clr-pale-green: 	hsl(120, 100%, 97%);
   --clr-light-green: hsl(120, 100%, 95%);
   --clr-mint-green: hsl(110, 100%, 95%);
   --clr-light-cyan: hsl(183, 100%, 95%);
