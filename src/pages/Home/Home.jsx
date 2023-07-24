@@ -98,6 +98,17 @@ const Home = () => {
         ></Select>
       </GridContainer>
 
+      <GridContainer>
+        <Button med width="100%" gap="10px">
+          <Icon type="powerOn" fontSize="1rem" />
+          Power Mode On
+        </Button>
+        <Button med width="100%" gap="10px">
+          <Icon type="powerOff" fontSize="1rem" />
+          Power Mode Off
+        </Button>
+      </GridContainer>
+
       {filteredTasks.map((task) => (
         <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
           <FlexContainer justify="space-between">
