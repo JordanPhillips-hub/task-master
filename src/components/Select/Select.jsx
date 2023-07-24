@@ -38,9 +38,14 @@ const Select = ({ name, options, onClick, isActive }) => {
                 select
                 id={option}
                 onClick={(e) => onClick(e, index)}
+                style={
+                  index === isActive
+                    ? { padding: "0.05em 0.05em" }
+                    : { padding: "0.4em 0.4em" }
+                }
               >
                 {index === isActive ? (
-                  <Icon type="check" fontSize="0.7rem" />
+                  <Icon type="check" fontSize="inherit" />
                 ) : null}
               </Button>
             </li>
