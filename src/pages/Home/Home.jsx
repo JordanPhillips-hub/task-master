@@ -20,8 +20,8 @@ import { Main, GridContainer, FlexContainer } from "src/App.styles";
 const Home = () => {
   const { tasks, setTasks, completeTask, handleSortOrder } =
     useContext(TaskContext);
-  const [activeSort, setActiveSort] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(false);
+  const [activeSort, setActiveSort] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
   const [categoryOrder, setCategoryOrder] = useState(null);
   const [searchValue, setSearchValue] = useState("");
 
@@ -30,7 +30,7 @@ const Home = () => {
 
   let filteredTasks;
   filteredTasks = tasks.filter((task) => task.taskName.includes(searchValue));
-  if (categoryOrder) {
+  if (categoryOrder && activeCategory) {
     filteredTasks = tasks.filter((task) => task.tags.includes(categoryOrder));
   }
 
@@ -57,6 +57,7 @@ const Home = () => {
   const handleSortOptions = (index, e) => {
     setActiveSort(index);
     handleSortOrder(e);
+    console.log(activeSort);
   };
 
   const handleFilterCategory = ({ target: { id } }) => {
@@ -64,7 +65,11 @@ const Home = () => {
   };
 
   const handleFilterTags = (index, e) => {
-    setActiveCategory(index);
+    if (activeCategory === index) {
+      setActiveCategory(null);
+    } else {
+      setActiveCategory(index);
+    }
     handleFilterCategory(e);
   };
 
