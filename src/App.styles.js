@@ -82,6 +82,7 @@ h2 {
 ul, 
 ol { 
   list-style: none;
+  padding: 0;
 }
 
 img, 
