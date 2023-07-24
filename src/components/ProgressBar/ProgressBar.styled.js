@@ -34,6 +34,7 @@ export const RoundProgressBar = styled.div`
   }
 
   .progress-ring__text {
+    color: black;
     fill: var(--clr-black);
     font-size: 0.75rem;
   }
