@@ -79,10 +79,9 @@ export const ButtonRound = styled.button`
   `}
 
   ${({ remove }) => remove && css`
-    background-color: var(--trans-200);
     &:hover {
-      background-color: var(--primary-300);
-      border: none;
+      background-color: var(--trans-200);
+      border: 1px solid var(--primary-300);
     }
   `}
 
