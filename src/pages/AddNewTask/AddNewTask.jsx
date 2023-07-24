@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
 import StyledAddNewTask from "./AddNewTask.styled";
@@ -23,9 +23,12 @@ const AddNewTask = () => {
   const [isEditing, setIsEditing] = useState("");
   const [editedSubtasks, setEditedSubtasks] = useState([]);
 
-  const handleIsEditing = (name) => {
-    return !task ? null : () => setIsEditing(name);
-  };
+  const handleIsEditing = useCallback(
+    (name) => {
+      return !task ? null : () => setIsEditing(name);
+    },
+    [task]
+  );
 
   const getInitialInputValue = (value, isLevelType) => {
     if (!task) {
@@ -56,77 +59,102 @@ const AddNewTask = () => {
     priority: getInitialInputValue("priority", true),
   });
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = useCallback(({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
       [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
     }));
-  };
+  }, []);
 
-  const handleTaskLevel =
+  const handleTaskLevel = useCallback(
     (levelType) =>
-    ({ target: { innerText } }) => {
-      setTaskLevel((prevState) => ({
-        ...prevState,
-        [levelType]: Number(innerText),
-      }));
-      handleIsEditing(levelType);
-    };
+      ({ target: { innerText } }) => {
+        setTaskLevel((prevState) => ({
+          ...prevState,
+          [levelType]: Number(innerText),
+        }));
+        handleIsEditing(levelType);
+      },
+    [handleIsEditing]
+  );
 
-  const handleSubtasks = (isEditing) => {
-    if (inputValue.subtask.trim() !== "") {
-      const newSubtask = {
-        id: uid(),
-        subtask: inputValue.subtask,
-        complete: false,
-      };
+  const handleSubtasks = useCallback(
+    (isEditing) => {
+      if (inputValue.subtask.trim() !== "") {
+        const newSubtask = {
+          id: uid(),
+          subtask: inputValue.subtask,
+          complete: false,
+        };
 
-      if (isEditing) {
-        setEditedSubtasks((prevState) => [...prevState, newSubtask]);
-      } else {
-        setSubtasks((prevState) => [...prevState, newSubtask]);
+        if (isEditing) {
+          setEditedSubtasks((prevState) => [...prevState, newSubtask]);
+        } else {
+          setSubtasks((prevState) => [...prevState, newSubtask]);
+        }
+
+        setInputValue((prevState) => ({
+          ...prevState,
+          subtask: "",
+        }));
       }
+    },
+    [inputValue.subtask]
+  );
 
-      setInputValue((prevState) => ({
-        ...prevState,
-        subtask: "",
-      }));
-    }
-  };
+  const removeSubtask = useCallback(
+    (task, arr) => {
+      const array = arr.filter((t) => t !== task);
+      arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
+    },
+    [subtasks]
+  );
 
-  const removeSubtask = (task, arr) => {
-    const array = arr.filter((t) => t !== task);
-    arr === subtasks ? setSubtasks(array) : setEditedSubtasks(array);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (task) {
-      const combinedSubtasks = [...task.subtasks, ...editedSubtasks];
-      editTask(
-        id,
-        inputValue.taskName,
-        taskLevel.complexity,
-        taskLevel.priority,
-        combinedSubtasks,
-        inputValue.tags,
-        inputValue.dueDate,
-        inputValue.time
-      );
-      setIsEditing("");
-    } else {
-      addTask(
-        inputValue.taskName,
-        taskLevel.complexity,
-        taskLevel.priority,
-        subtasks,
-        inputValue.tags,
-        inputValue.dueDate,
-        inputValue.time
-      );
-    }
-    navigate("/");
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (task) {
+        const combinedSubtasks = [...task.subtasks, ...editedSubtasks];
+        editTask(
+          id,
+          inputValue.taskName,
+          taskLevel.complexity,
+          taskLevel.priority,
+          combinedSubtasks,
+          inputValue.tags,
+          inputValue.dueDate,
+          inputValue.time
+        );
+        setIsEditing("");
+      } else {
+        addTask(
+          inputValue.taskName,
+          taskLevel.complexity,
+          taskLevel.priority,
+          subtasks,
+          inputValue.tags,
+          inputValue.dueDate,
+          inputValue.time
+        );
+      }
+      navigate("/");
+    },
+    [
+      addTask,
+      editTask,
+      editedSubtasks,
+      id,
+      inputValue.dueDate,
+      inputValue.tags,
+      inputValue.taskName,
+      inputValue.time,
+      navigate,
+      subtasks,
+      task,
+      taskLevel.complexity,
+      taskLevel.priority,
+    ]
+  );
 
   return (
     <Main>
