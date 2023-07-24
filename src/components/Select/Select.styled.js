@@ -14,10 +14,13 @@ z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.75rem;
   border-bottom: 1px solid var(--clr-black);
   padding-top: 9px;
   padding-bottom: 9px;
+
+  small {
+    font-size: 0.75rem;
+  }
 
   input {
     cursor: pointer;
