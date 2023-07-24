@@ -11,6 +11,7 @@ import { CiSearch, CiEdit, CiCalendarDate } from "react-icons/ci";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { BiCheck } from "react-icons/bi";
+import { LuPower, LuPowerOff } from "react-icons/lu";
 
 const icons = {
   arrowLeft: BsArrowLeftShort,
@@ -25,6 +26,8 @@ const icons = {
   cross: RxCross2,
   check: BiCheck,
   repeat: BsArrowRepeat,
+  powerOn: LuPower,
+  powerOff: LuPowerOff,
 };
 
 const Icon = ({ type, fontSize, ...rest }) => {
