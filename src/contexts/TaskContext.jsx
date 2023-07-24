@@ -102,7 +102,7 @@ export const TaskProvider = ({ children }) => {
     });
   };
 
-  const repeatTasks = (taskId) => {
+  const repeatSubtasks = (taskId) => {
     updateSubtasks(taskId, (subtask) => ({
       ...subtask,
       complete: false,
@@ -186,7 +186,7 @@ export const TaskProvider = ({ children }) => {
     deleteTask,
     deleteSubtask,
     completeSubtask,
-    repeatTasks,
+    repeatSubtasks,
     handleSortOrder,
   };
 
