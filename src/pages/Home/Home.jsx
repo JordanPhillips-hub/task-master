@@ -57,7 +57,6 @@ const Home = () => {
   const handleSortOptions = (index, e) => {
     setActiveSort(index);
     handleSortOrder(e);
-    console.log(activeSort);
   };
 
   const handleFilterCategory = ({ target: { id } }) => {
