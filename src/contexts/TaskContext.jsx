@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import { uid } from "uid";
 
 export const TaskContext = createContext();
@@ -11,119 +11,135 @@ export const TaskProvider = ({ children }) => {
     window.localStorage.setItem("tasks", JSON.stringify(list));
   };
 
-  const addTask = (
-    taskName,
-    complexity,
-    priority,
-    subtasks,
-    tags,
-    dueDate,
-    time
-  ) => {
-    const newTasks = [
-      ...tasks,
-      {
-        id: uid(),
-        taskName,
-        complexity,
-        priority,
-        subtasks,
-        tags,
-        dueDate,
-        time,
-        isCompleted: false,
-        createdAt: Date.now(),
-      },
-    ];
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const addTask = useCallback(
+    (taskName, complexity, priority, subtasks, tags, dueDate, time) => {
+      const newTasks = [
+        ...tasks,
+        {
+          id: uid(),
+          taskName,
+          complexity,
+          priority,
+          subtasks,
+          tags,
+          dueDate,
+          time,
+          isCompleted: false,
+          createdAt: Date.now(),
+        },
+      ];
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const editTask = (
-    taskId,
-    newTaskName,
-    newComplexity,
-    newPriority,
-    newSubtasks,
-    newTags,
-    newDueDate,
-    newTime
-  ) => {
-    const newTasks = [...tasks].map((task) =>
-      task.id === taskId
-        ? {
-            ...task,
-            taskName: newTaskName,
-            complexity: newComplexity,
-            priority: newPriority,
-            subtasks: newSubtasks,
-            tags: newTags,
-            dueDate: newDueDate,
-            time: newTime,
-          }
-        : task
-    );
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const editTask = useCallback(
+    (
+      taskId,
+      newTaskName,
+      newComplexity,
+      newPriority,
+      newSubtasks,
+      newTags,
+      newDueDate,
+      newTime
+    ) => {
+      const newTasks = [...tasks].map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              taskName: newTaskName,
+              complexity: newComplexity,
+              priority: newPriority,
+              subtasks: newSubtasks,
+              tags: newTags,
+              dueDate: newDueDate,
+              time: newTime,
+            }
+          : task
+      );
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const completeTask = (task) => {
-    const newTasks = [...tasks].map((t) =>
-      t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
-    );
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const completeTask = useCallback(
+    (task) => {
+      const newTasks = [...tasks].map((t) =>
+        t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t
+      );
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const deleteTask = (task) => {
-    const newTasks = tasks.filter((t) => t !== task);
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const deleteTask = useCallback(
+    (task) => {
+      const newTasks = tasks.filter((t) => t !== task);
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const updateSubtasks = (taskId, callback) => {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.map(callback);
-        return { ...task, subtasks: updatedSubtasks };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const updateSubtasks = useCallback(
+    (taskId, callback) => {
+      const newTasks = [...tasks].map((task) => {
+        if (task.id === taskId) {
+          const updatedSubtasks = task.subtasks.map(callback);
+          return { ...task, subtasks: updatedSubtasks };
+        }
+        return task;
+      });
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const completeSubtask = (taskId, subtaskId) => {
-    updateSubtasks(taskId, (subtask) => {
-      if (subtask.id === subtaskId) {
-        return { ...subtask, complete: !subtask.complete };
-      }
-      return subtask;
-    });
-  };
+  const completeSubtask = useCallback(
+    (taskId, subtaskId) => {
+      updateSubtasks(taskId, (subtask) => {
+        if (subtask.id === subtaskId) {
+          return { ...subtask, complete: !subtask.complete };
+        }
+        return subtask;
+      });
+    },
+    [updateSubtasks]
+  );
 
-  const repeatSubtasks = (taskId) => {
-    updateSubtasks(taskId, (subtask) => ({
-      ...subtask,
-      complete: false,
-    }));
-  };
+  const repeatSubtasks = useCallback(
+    (taskId) => {
+      updateSubtasks(taskId, (subtask) => ({
+        ...subtask,
+        complete: false,
+      }));
+    },
+    [updateSubtasks]
+  );
 
-  const deleteSubtask = (taskId, subtaskId) => {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === taskId) {
-        const updatedSubtasks = task.subtasks.filter(
-          (subtask) => subtask.id !== subtaskId
-        );
-        return { ...task, subtasks: updatedSubtasks };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-    setStorage(newTasks);
-  };
+  const deleteSubtask = useCallback(
+    (taskId, subtaskId) => {
+      const newTasks = [...tasks].map((task) => {
+        if (task.id === taskId) {
+          const updatedSubtasks = task.subtasks.filter(
+            (subtask) => subtask.id !== subtaskId
+          );
+          return { ...task, subtasks: updatedSubtasks };
+        }
+        return task;
+      });
+      setTasks(newTasks);
+      setStorage(newTasks);
+    },
+    [tasks]
+  );
 
-  const handleSortOrder = ({ target: { id } }) => {
+  const handleSortOrder = useCallback(({ target: { id } }) => {
     switch (id) {
       case "Default":
         setSortOrder("Default");
@@ -147,7 +163,7 @@ export const TaskProvider = ({ children }) => {
         setSortOrder("Descending Date");
         break;
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (sortOrder) {
