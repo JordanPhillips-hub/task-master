@@ -89,7 +89,6 @@ export const ButtonRound = styled.button`
   ${({ select }) => select && css`
     background-color: var(--clr-white);
     border: 1px solid var(--clr-black);
-    /* padding: 0.05em 0.05em; */
   `}
 `
 export const ButtonTransparent = styled.button`
