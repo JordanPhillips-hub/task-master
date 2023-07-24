@@ -15,8 +15,8 @@ const generateLevelButtons = (n, active, onClick) => {
         style={
           i + 1 === active
             ? {
-                backgroundColor: "var(--clr-sky-blue)",
-                color: "var(--clr-white)",
+                backgroundColor: "var(--primary-100)",
+                color: "var(--neutral-100)",
               }
             : undefined
         }

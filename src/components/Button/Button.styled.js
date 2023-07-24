@@ -28,41 +28,41 @@ export const sharedStyles = css`
 `
 export const ButtonPrimary = styled.button`
  ${sharedStyles}
-  background-color: var(--clr-sky-blue);
-  color: var(--clr-white);
+  background-color: var(--primary-100);
+  color: var(--neutral-100);
 
   &:hover,
   &:focus {
-    background-color: var(--clr-deep-sky-blue);
-    border: 1px solid var(--clr-sky-blue);
+    background-color: var(--primary-400);
+    border: 1px solid var(--primary-100);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
     transform: translateY(-3px);
   }
 
   ${({ remove }) => remove && css`
-    background-color: var(--clr-light-red-transparent);
+    background-color: var(--trans-200);
     &:hover {
-      background-color: var(--clr-red-orange);
+      background-color: var(--primary-300);
       border: none;
     }
   `}
 `
 export const ButtonSecondary = styled.button`
   ${sharedStyles}
-  background-color: var(--clr-white);
-  color: var(--clr-black);
-  border: 1px solid var(--clr-light-gray);
+  background-color: var(--neutral-100);
+  color: var(--neutral-900);
+  border: 1px solid var(--neutral-400);
 
   &:hover,
   &:focus {
-    border: 1px solid var(--clr-deep-sky-blue);
+    border: 1px solid var(--primary-400);
   }
 `
 export const ButtonRound = styled.button`
   ${sharedStyles}
   background-color: ${({ light }) => light
-    ? 'var(--clr-white)'
-    : 'var(--clr-light-blue-transparent)'};
+    ? 'var(--neutral-100)'
+    : 'var(--trans-100)'};
   border-radius: 50%;
   padding: 0.42em 0.42em;
   
@@ -70,7 +70,7 @@ export const ButtonRound = styled.button`
   &:hover,
   &:focus {
     transform: scale(1.1);
-    border: 1px solid var(--clr-deep-sky-blue);
+    border: 1px solid var(--primary-400);
   }
 
   ${({ sml }) => sml && css`
@@ -79,26 +79,26 @@ export const ButtonRound = styled.button`
   `}
 
   ${({ remove }) => remove && css`
-    background-color: var(--clr-light-red-transparent);
+    background-color: var(--trans-200);
     &:hover {
-      background-color: var(--clr-red-orange);
+      background-color: var(--primary-300);
       border: none;
     }
   `}
 
   ${({ select }) => select && css`
-    background-color: var(--clr-white);
-    border: 1px solid var(--clr-black);
+    background-color: var(--neutral-100);
+    border: 1px solid var(--neutral-900);
   `}
 `
 export const ButtonTransparent = styled.button`
   ${sharedStyles}
-  background-color: ${({ remove }) => remove ? 'var(--clr-light-red-transparent)' : 'var(--clr-light-blue-transparent)'};
-  color: var(--clr-black);
+  background-color: ${({ remove }) => remove ? 'var(--trans-200)' : 'var(--trans-100)'};
+  color: var(--neutral-900);
 
   &:hover,
   &:focus {
     transform: scale(1.1);
-    border: ${({ remove }) => remove ? '1px solid var(--clr-red-orange)' : '1px solid var(--clr-deep-sky-blue)'} ;
+    border: ${({ remove }) => remove ? '1px solid var(--primary-300)' : '1px solid var(--primary-400)'} ;
   }
 `

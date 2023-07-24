@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledSelect = styled.ul`
-background-color: var(--clr-white);
+background-color: var(--neutral-100);
 position: absolute;
 width: 185px;
 margin-top: 5px;
@@ -14,7 +14,7 @@ z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--clr-black);
+  border-bottom: 1px solid var(--neutral-900);
   padding-top: 9px;
   padding-bottom: 9px;
 

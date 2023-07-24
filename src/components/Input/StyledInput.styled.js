@@ -5,12 +5,12 @@ const StyledInput = styled.input`
   font-family: "Manrope", sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  border: 1px solid var(--clr-light-gray);
+  border: 1px solid var(--neutral-400);
   border-radius: 60px;
 
   :hover,
   :focus {
-    border: 1px solid var(--clr-deep-sky-blue);
+    border: 1px solid var(--primary-400);
   }
 
 &[type=text] {

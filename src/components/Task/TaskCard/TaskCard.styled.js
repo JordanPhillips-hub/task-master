@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 const StyledTaskCard = styled.div`
   position: relative;
-  background-color: ${({ complete }) => complete ? 'var(--clr-pale-green)' : 'var(--clr-white)'};
+  background-color: ${({ complete }) => complete ? 'var(--secondary-100)' : 'var(--neutral-100)'};
   margin-bottom: 24px;
   padding: 20px 14px 6px 14px;
   border-radius: 18px;
-  border: ${({ complete }) => complete ? '1px solid var(--clr-light-green)' : 'none'};
+  border: ${({ complete }) => complete ? '1px solid var(--secondary-200)' : 'none'};
 
   header {
     text-decoration: ${({ complete }) => complete ? 'line-through' : 'none'};
@@ -22,7 +22,7 @@ const StyledTaskCard = styled.div`
     &:hover,
     &:focus {
       outline: none;
-      color: var(--clr-black);
+      color: var(--neutral-900);
     }
   }
 `

@@ -7,11 +7,11 @@ export const setWarningColor = (dueDate) => {
   const daysDiff = dueDateMoment.diff(currentDate, 'days');
   let color;
   if (daysDiff === 0) {
-    color = "var(--clr-red-orange)";
+    color = "var(--primary-300)";
   } else if (daysDiff <= 3) {
-    color = "var(--clr-bright-orange)";
+    color = "var(--primary-200)";
   } else {
-    color = "var(--clr-sky-blue)";
+    color = "var(--primary-100)";
   }
   return color;
 };

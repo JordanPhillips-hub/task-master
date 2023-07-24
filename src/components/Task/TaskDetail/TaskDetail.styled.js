@@ -7,12 +7,12 @@ const StyledTaskDetail = styled.div`
   }
 
   p { 
-   color: var(--clr-dim-gray);
+   color: var(--neutral-500);
    margin: 0;
   }
 
   span {
-   color: var(--clr-black);
+   color: var(--neutral-900);
    font-weight: 500;
   }
 

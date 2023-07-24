@@ -25,7 +25,7 @@ export const RoundProgressBar = styled.div`
   }
 
   .progress-ring__background {
-    stroke: var(--clr-progress-bar-bg);
+    stroke: var(--neutral-300);
   }
 
   .progress-ring__circle {
@@ -35,7 +35,7 @@ export const RoundProgressBar = styled.div`
 
   .progress-ring__text {
     color: black;
-    fill: var(--clr-black);
+    fill: var(--neutral-900);
     font-size: 0.75rem;
   }
 `
