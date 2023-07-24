@@ -7,7 +7,7 @@ width: 185px;
 margin-top: 5px;
 padding: 13px 14px;
 border-radius: 14px;
-box-shadow: rgba(0, 0, 0, 0.16) 0px 16px 45px;
+box-shadow: 0px 16px 45px rgba(0, 0, 0, 0.16);
 z-index: 100;
 
   li {

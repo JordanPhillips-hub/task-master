@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
 import { TaskContext } from "src/contexts/TaskContext";
@@ -24,14 +24,29 @@ const Home = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [categoryOrder, setCategoryOrder] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [powerMode, setPowerMode] = useState(false);
 
+  // Filtered Tags
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
   const uniqueTags = [...new Set(tags)];
 
+  // Filtered Power Mode
+  const completedTasks = tasks.filter((task) => !task.isCompleted);
+  const powerModeNumbers = completedTasks.map(
+    (task) => task.complexity + task.priority
+  );
+  const largestPowerModeNumber = Math.max.apply(null, powerModeNumbers);
+
+  // Set Filtered Tasks
   let filteredTasks;
   filteredTasks = tasks.filter((task) => task.taskName.includes(searchValue));
   if (categoryOrder && activeCategory) {
     filteredTasks = tasks.filter((task) => task.tags.includes(categoryOrder));
+  }
+  if (powerMode) {
+    filteredTasks = tasks.filter(
+      (task) => task.complexity + task.priority === largestPowerModeNumber
+    );
   }
 
   const createHeaderButton = (type, onClick) => {
@@ -50,34 +65,44 @@ const Home = () => {
     return time ? formatTime(time) : "";
   };
 
-  const handleSearchValue = ({ target: { value } }) => {
+  const handlePowerMode = () => {
+    setPowerMode((prevState) => !prevState);
+  };
+
+  const handleSearchValue = useCallback(({ target: { value } }) => {
     setSearchValue(value);
-  };
+  }, []);
 
-  const handleSortOptions = (index, e) => {
-    setActiveSort(index);
-    handleSortOrder(e);
-  };
+  const handleSortOptions = useCallback(
+    (index, e) => {
+      setActiveSort(index);
+      handleSortOrder(e);
+    },
+    [handleSortOrder]
+  );
 
-  const handleFilterCategory = ({ target: { id } }) => {
+  const handleFilterCategory = useCallback(({ target: { id } }) => {
     setCategoryOrder(id);
-  };
+  }, []);
 
-  const handleFilterTags = (index, e) => {
-    if (activeCategory === index) {
-      setActiveCategory(null);
-    } else {
-      setActiveCategory(index);
-    }
-    handleFilterCategory(e);
-  };
+  const handleFilterTags = useCallback(
+    (index, e) => {
+      if (activeCategory === index) {
+        setActiveCategory(null);
+      } else {
+        setActiveCategory(index);
+      }
+      handleFilterCategory(e);
+    },
+    [activeCategory, handleFilterCategory]
+  );
 
   useEffect(() => {
     const localStorageTasks = window.localStorage.getItem("tasks");
     if (localStorageTasks) {
       setTasks(JSON.parse(localStorageTasks));
     }
-  }, []);
+  }, [setTasks]);
 
   return (
     <Main>
@@ -97,6 +122,11 @@ const Home = () => {
           onClick={(e, index) => handleFilterTags(index, e)}
         ></Select>
       </GridContainer>
+
+      <Button lrg width="100%" gap="15px" onClick={() => handlePowerMode()}>
+        {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
+        {powerMode ? "Power Mode Off" : "Power Mode On"}
+      </Button>
 
       {filteredTasks.map((task) => (
         <TaskCard key={uid()} complete={task.isCompleted ? true : false}>

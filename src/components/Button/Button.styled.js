@@ -14,15 +14,15 @@ export const sharedStyles = css`
   }
 
   ${({ lrg }) => lrg && css`
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-inline: auto;
-    padding: 1em 1em;
+    padding: 0.75em 0.75em;
     border-radius: 90px;
   `}
 
   ${({ med }) => med && css`
-    font-size: 0.875rem;
-    padding: 0.857em 0 0.857em;
+    font-size: 0.8rem;
+    padding: 0.6em 0 0.6em;
     border-radius: 60px;
   `}
 `
