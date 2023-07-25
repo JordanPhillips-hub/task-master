@@ -34,7 +34,6 @@ const Details = () => {
   useEffect(() => {
     const foundTask = tasks.find((task) => task.id === id);
     foundTask ? setTask(foundTask) : navigate("/");
-    console.log(id.useParams);
   }, [id, navigate, tasks]);
 
   return (
