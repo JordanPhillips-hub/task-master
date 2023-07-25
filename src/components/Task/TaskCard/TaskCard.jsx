@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const TaskCard = ({ children, complete }) => {
   const variants = {
-    hidden: { x: -200, opacity: 0 },
-    visible: { x: 0, opacity: 1 },
+    hidden: { y: 200, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
   };
   return (
     <motion.div
