@@ -30,7 +30,8 @@ export const ButtonPrimary = styled.button`
  ${sharedStyles}
   background-color: var(--primary-100);
   color: var(--neutral-100);
-
+  margin-bottom: 10px;
+  
   &:hover,
   &:focus {
     background-color: var(--primary-400);

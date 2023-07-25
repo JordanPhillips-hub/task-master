@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
+import { motion } from "framer-motion";
 import { TaskContext } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
@@ -105,85 +106,95 @@ const Home = () => {
 
   return (
     <Main>
-      <SearchBar value={searchValue} onChange={handleSearchValue} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+      >
+        <SearchBar value={searchValue} onChange={handleSearchValue} />
 
-      <GridContainer>
-        <Select
-          name="Sort"
-          options={sortOptions}
-          isActive={activeSort}
-          onClick={(e, index) => handleSortOptions(index, e)}
-        />
-        <Select
-          name="Category"
-          options={tags}
-          isActive={activeCategory}
-          onClick={(e, index) => handleFilterTags(index, e)}
-        ></Select>
-      </GridContainer>
-
-      <Button lrg width="100%" gap="15px" onClick={() => handlePowerMode()}>
-        {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
-        {powerMode ? "Power Mode Off" : "Power Mode On"}
-      </Button>
-
-      {filteredTasks.map((task) => (
-        <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
-          <FlexContainer justify="space-between">
-            <TaskHeader text={task.taskName} dueDate={task.dueDate} />
-
-            <FlexContainer gap="15px" marginBottom="16px">
-              <Link to={`/editTask/${task.id}`}>
-                {createHeaderButton("edit")}
-              </Link>
-              {createHeaderButton("check", () => completeTask(task))}
-            </FlexContainer>
-          </FlexContainer>
-
-          <TaskDetail
-            dueDate={task.dueDate}
-            icon="calendar"
-            title="Due Date:"
-            value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
+        <GridContainer>
+          <Select
+            name="Sort"
+            options={sortOptions}
+            isActive={activeSort}
+            onClick={(e, index) => handleSortOptions(index, e)}
           />
+          <Select
+            name="Category"
+            options={tags}
+            isActive={activeCategory}
+            onClick={(e, index) => handleFilterTags(index, e)}
+          ></Select>
+        </GridContainer>
 
-          <TaskDetail icon="arrowUp" title="Priority:" value={task.priority} />
-
-          <TaskDetail
-            icon="arrowMove"
-            title="Complexity:"
-            value={task.complexity}
-          />
-
-          <ProgressBar
-            warningColor={task.dueDate}
-            round
-            total={task.subtasks.length}
-            completed={
-              task.subtasks.filter((subtask) => subtask.complete).length
-            }
-          />
-
-          <FlexContainer gap="8px">
-            {task.tags
-              .filter((tag) => tag !== "")
-              .map((tag, index) => (
-                <TaskTag key={index}>{tag}</TaskTag>
-              ))}
-          </FlexContainer>
-
-          <Link key={uid()} to={`/task/${task.id}`}>
-            <small>Task Details</small>
-          </Link>
-        </TaskCard>
-      ))}
-
-      <Link to="/addNewTask">
-        <Button lrg width="50%" gap="13px">
-          <Icon type="plus" />
-          Add New Task
+        <Button lrg width="100%" gap="15px" onClick={() => handlePowerMode()}>
+          {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
+          {powerMode ? "Power Mode Off" : "Power Mode On"}
         </Button>
-      </Link>
+
+        {filteredTasks.map((task) => (
+          <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
+            <FlexContainer justify="space-between">
+              <TaskHeader text={task.taskName} dueDate={task.dueDate} />
+
+              <FlexContainer gap="15px" marginBottom="16px">
+                <Link to={`/editTask/${task.id}`}>
+                  {createHeaderButton("edit")}
+                </Link>
+                {createHeaderButton("check", () => completeTask(task))}
+              </FlexContainer>
+            </FlexContainer>
+
+            <TaskDetail
+              dueDate={task.dueDate}
+              icon="calendar"
+              title="Due Date:"
+              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
+            />
+
+            <TaskDetail
+              icon="arrowUp"
+              title="Priority:"
+              value={task.priority}
+            />
+
+            <TaskDetail
+              icon="arrowMove"
+              title="Complexity:"
+              value={task.complexity}
+            />
+
+            <ProgressBar
+              warningColor={task.dueDate}
+              round
+              total={task.subtasks.length}
+              completed={
+                task.subtasks.filter((subtask) => subtask.complete).length
+              }
+            />
+
+            <FlexContainer gap="8px">
+              {task.tags !== ""
+                ? task.tags.map((tag, index) => (
+                    <TaskTag key={index}>{tag}</TaskTag>
+                  ))
+                : null}
+            </FlexContainer>
+
+            <Link key={uid()} to={`/task/${task.id}`}>
+              <small>Task Details</small>
+            </Link>
+          </TaskCard>
+        ))}
+
+        <Link to="/addNewTask">
+          <Button lrg width="50%" gap="13px">
+            <Icon type="plus" />
+            Add New Task
+          </Button>
+        </Link>
+      </motion.div>
     </Main>
   );
 };

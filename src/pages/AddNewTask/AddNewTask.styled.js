@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const StyledAddNewTask = styled.form`
 
-ul {
-  padding: 0;
+&& ul {
+  padding: 0 ;
 }
 
 label {

@@ -85,6 +85,10 @@ ol {
 padding: 6px;
 }
 
+li {
+  list-style: none;
+}
+
 img, 
 picture { 
   max-width: 100%; 
