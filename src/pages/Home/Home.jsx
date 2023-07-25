@@ -28,7 +28,6 @@ const Home = () => {
 
   // Filtered Tags
   const tags = tasks.flatMap((task) => task.tags).filter((tag) => tag !== "");
-  const uniqueTags = [...new Set(tags)];
 
   // Filtered Power Mode
   const completedTasks = tasks.filter((task) => !task.isCompleted);
@@ -117,7 +116,7 @@ const Home = () => {
         />
         <Select
           name="Category"
-          options={uniqueTags}
+          options={tags}
           isActive={activeCategory}
           onClick={(e, index) => handleFilterTags(index, e)}
         ></Select>
@@ -166,11 +165,11 @@ const Home = () => {
           />
 
           <FlexContainer gap="8px">
-            {task.tags.map((tag, index) =>
-              task.tags.includes("") ? null : (
+            {task.tags
+              .filter((tag) => tag !== "")
+              .map((tag, index) => (
                 <TaskTag key={index}>{tag}</TaskTag>
-              )
-            )}
+              ))}
           </FlexContainer>
 
           <Link key={uid()} to={`/task/${task.id}`}>
