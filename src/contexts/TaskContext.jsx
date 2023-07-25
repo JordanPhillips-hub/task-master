@@ -1,8 +1,19 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { uid } from "uid";
 
 export const TaskContext = createContext();
+export const useTask = () => {
+  const value = useContext(TaskContext);
+  return value;
+};
+
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [sortOrder, setSortOrder] = useState(null);
@@ -195,6 +206,7 @@ export const TaskProvider = ({ children }) => {
 
   const taskValues = {
     tasks,
+    useTask,
     addTask,
     editTask,
     setTasks,
