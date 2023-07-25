@@ -2,6 +2,7 @@
 import { useState, useContext, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
+import { motion } from "framer-motion";
 import StyledAddNewTask from "./AddNewTask.styled";
 import { TaskContext } from "src/contexts/TaskContext";
 import Input from "src/components/Input/Input";
@@ -158,126 +159,134 @@ const AddNewTask = () => {
 
   return (
     <Main>
-      <StyledAddNewTask onSubmit={handleSubmit}>
-        <PageHeader
-          text={!task ? "Add New Task" : `Editing ${task.taskName}`}
-        />
-        <section>
-          <Input
-            label="Task Name"
-            id="taskName"
-            value={getInputValue("taskName", inputValue, "")}
-            placeholder="Task 1..."
-            required={true}
-            onChange={handleChange}
-            onClick={handleIsEditing("taskName", "input")}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+      >
+        <StyledAddNewTask onSubmit={handleSubmit}>
+          <PageHeader
+            text={!task ? "Add New Task" : `Editing ${task.taskName}`}
           />
-        </section>
-
-        <section>
-          <LevelSelector
-            text="Select Complexity Level"
-            onClick={handleTaskLevel("complexity")}
-            active={getInputValue("complexity", taskLevel, 0)}
-          />
-          <LevelSelector
-            text="Select Priority Level"
-            onClick={handleTaskLevel("priority")}
-            active={getInputValue("priority", taskLevel, 0)}
-          />
-        </section>
-
-        <section>
-          <FlexContainer gap="30px">
-            <div>
-              <Input
-                label="Due Date"
-                id="dueDate"
-                type="date"
-                value={getInputValue("dueDate", inputValue, "")}
-                onChange={handleChange}
-                onClick={handleIsEditing("dueDate")}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="Select Time"
-                id="time"
-                type="time"
-                value={getInputValue("time", inputValue, "")}
-                onChange={handleChange}
-                onClick={handleIsEditing("time")}
-              />
-            </div>
-          </FlexContainer>
-        </section>
-
-        <section>
-          <label htmlFor="subtask">Add Checklist For Subtasks</label>
-          {task && (
-            <>
-              <ul>
-                {task.subtasks.concat(editedSubtasks).map((subtask, index) => (
-                  <Subtask
-                    key={subtask.id}
-                    text={`${index + 1}. ${subtask.subtask}`}
-                    iconType="cross"
-                    remove
-                    onButtonClick={() =>
-                      editedSubtasks.includes(subtask)
-                        ? removeSubtask(subtask, editedSubtasks)
-                        : deleteSubtask(id, subtask.id)
-                    }
-                  />
-                ))}
-              </ul>
-            </>
-          )}
-
-          <ul>
-            {subtasks.map((subtask, index) => (
-              <Subtask
-                key={subtask.id}
-                text={`${index + 1}. ${subtask.subtask}`}
-                iconType="cross"
-                remove
-                onButtonClick={() => removeSubtask(subtask, subtasks)}
-              />
-            ))}
-          </ul>
-
-          <FlexContainer>
+          <section>
             <Input
-              id="subtask"
-              value={inputValue.subtask}
-              placeholder="Add New Subtask..."
+              label="Task Name"
+              id="taskName"
+              value={getInputValue("taskName", inputValue, "")}
+              placeholder="Task 1..."
+              required={true}
               onChange={handleChange}
+              onClick={handleIsEditing("taskName", "input")}
             />
-            <Button
-              variant="round"
-              onClick={() => handleSubtasks(!task ? false : true)}
-            >
-              <Icon type="plus" />
-            </Button>
-          </FlexContainer>
-        </section>
+          </section>
 
-        <section>
-          <Input
-            label="Add Tags"
-            id="tags"
-            value={getInputValue("tags", inputValue, "")}
-            placeholder="School, Career, Routine"
-            onChange={handleChange}
-            onClick={handleIsEditing("tags")}
-          />
-        </section>
+          <section>
+            <LevelSelector
+              text="Select Complexity Level"
+              onClick={handleTaskLevel("complexity")}
+              active={getInputValue("complexity", taskLevel, 0)}
+            />
+            <LevelSelector
+              text="Select Priority Level"
+              onClick={handleTaskLevel("priority")}
+              active={getInputValue("priority", taskLevel, 0)}
+            />
+          </section>
 
-        <Button type="submit" lrg width="50%">
-          {!task ? "Add Task" : "Edit Task"}
-        </Button>
-      </StyledAddNewTask>
+          <section>
+            <FlexContainer gap="30px">
+              <div>
+                <Input
+                  label="Due Date"
+                  id="dueDate"
+                  type="date"
+                  value={getInputValue("dueDate", inputValue, "")}
+                  onChange={handleChange}
+                  onClick={handleIsEditing("dueDate")}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Select Time"
+                  id="time"
+                  type="time"
+                  value={getInputValue("time", inputValue, "")}
+                  onChange={handleChange}
+                  onClick={handleIsEditing("time")}
+                />
+              </div>
+            </FlexContainer>
+          </section>
+
+          <section>
+            <label htmlFor="subtask">Add Checklist For Subtasks</label>
+            {task && (
+              <>
+                <ul>
+                  {task.subtasks
+                    .concat(editedSubtasks)
+                    .map((subtask, index) => (
+                      <Subtask
+                        key={subtask.id}
+                        text={`${index + 1}. ${subtask.subtask}`}
+                        iconType="cross"
+                        remove
+                        onButtonClick={() =>
+                          editedSubtasks.includes(subtask)
+                            ? removeSubtask(subtask, editedSubtasks)
+                            : deleteSubtask(id, subtask.id)
+                        }
+                      />
+                    ))}
+                </ul>
+              </>
+            )}
+
+            <ul>
+              {subtasks.map((subtask, index) => (
+                <Subtask
+                  key={subtask.id}
+                  text={`${index + 1}. ${subtask.subtask}`}
+                  iconType="cross"
+                  remove
+                  onButtonClick={() => removeSubtask(subtask, subtasks)}
+                />
+              ))}
+            </ul>
+
+            <FlexContainer>
+              <Input
+                id="subtask"
+                value={inputValue.subtask}
+                placeholder="Add New Subtask..."
+                onChange={handleChange}
+              />
+              <Button
+                variant="round"
+                onClick={() => handleSubtasks(!task ? false : true)}
+              >
+                <Icon type="plus" />
+              </Button>
+            </FlexContainer>
+          </section>
+
+          <section>
+            <Input
+              label="Add Tags"
+              id="tags"
+              value={getInputValue("tags", inputValue, "")}
+              placeholder="School, Career, Routine"
+              onChange={handleChange}
+              onClick={handleIsEditing("tags")}
+            />
+          </section>
+
+          <Button type="submit" lrg width="50%">
+            {!task ? "Add Task" : "Edit Task"}
+          </Button>
+        </StyledAddNewTask>
+      </motion.div>
     </Main>
   );
 };

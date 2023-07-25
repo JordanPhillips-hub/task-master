@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { uid } from "uid";
+import { motion } from "framer-motion";
 import { TaskContext } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
@@ -37,72 +38,82 @@ const Details = () => {
 
   return (
     <Main>
-      <PageHeader text="Task Details" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+      >
+        <PageHeader text="Task Details" />
 
-      <section>
-        <TaskCard>
-          <TaskHeader text={task.taskName} dueDate={task.dueDate} />
+        <section>
+          <TaskCard>
+            <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
-          <TaskDetail
-            dueDate={task.dueDate}
-            icon="calendar"
-            title="Due Date:"
-            value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
-          />
-
-          <TaskDetail icon="arrowUp" title="Priority:" value={task.priority} />
-
-          <TaskDetail
-            icon="arrowMove"
-            title="Complexity:"
-            value={task.complexity}
-          />
-
-          <ProgressBar
-            total={subtasks.length}
-            completed={completedSubtasks.length}
-            warningColor={task.dueDate}
-          />
-        </TaskCard>
-      </section>
-
-      <section>
-        <Header text="Checklist for subtasks" />
-        <div>
-          {subtasks.map((subtask, index) => (
-            <Subtask
-              key={uid()}
-              text={`${index + 1}. ${subtask.subtask}`}
-              iconType="check"
-              onButtonClick={() => completeSubtask(id, subtask.id)}
-              complete={subtask.complete ? true : false}
+            <TaskDetail
+              dueDate={task.dueDate}
+              icon="calendar"
+              title="Due Date:"
+              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
             />
-          ))}
-        </div>
-      </section>
 
-      <GridContainer>
-        <Link to={`/editTask/${id}`}>
-          <Button variant="transparent" med width="100%">
-            Edit Task
+            <TaskDetail
+              icon="arrowUp"
+              title="Priority:"
+              value={task.priority}
+            />
+
+            <TaskDetail
+              icon="arrowMove"
+              title="Complexity:"
+              value={task.complexity}
+            />
+
+            <ProgressBar
+              total={subtasks.length}
+              completed={completedSubtasks.length}
+              warningColor={task.dueDate}
+            />
+          </TaskCard>
+        </section>
+
+        <section>
+          <Header text="Checklist for subtasks" />
+          <div>
+            {subtasks.map((subtask, index) => (
+              <Subtask
+                key={uid()}
+                text={`${index + 1}. ${subtask.subtask}`}
+                iconType="check"
+                onButtonClick={() => completeSubtask(id, subtask.id)}
+                complete={subtask.complete ? true : false}
+              />
+            ))}
+          </div>
+        </section>
+
+        <GridContainer>
+          <Link to={`/editTask/${id}`}>
+            <Button variant="transparent" med width="100%">
+              Edit Task
+            </Button>
+          </Link>
+
+          <Button
+            variant="transparent"
+            med
+            remove
+            width="100%"
+            onClick={() => deleteTask(task, navigate("/"))}
+          >
+            Delete Task
           </Button>
-        </Link>
+        </GridContainer>
 
-        <Button
-          variant="transparent"
-          med
-          remove
-          width="100%"
-          onClick={() => deleteTask(task, navigate("/"))}
-        >
-          Delete Task
+        <Button lrg width="100%" gap="13px" onClick={() => repeatSubtasks(id)}>
+          <Icon type="repeat" />
+          Repeat Tasks
         </Button>
-      </GridContainer>
-
-      <Button lrg width="100%" gap="13px" onClick={() => repeatSubtasks(id)}>
-        <Icon type="repeat" />
-        Repeat Tasks
-      </Button>
+      </motion.div>
     </Main>
   );
 };
