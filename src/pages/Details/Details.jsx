@@ -1,9 +1,9 @@
 // /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { uid } from "uid";
 import { motion } from "framer-motion";
-import { TaskContext } from "src/contexts/TaskContext";
+import { useTask } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
 import Icon from "src/components/Icon/Icon";
@@ -27,14 +27,15 @@ const setTime = (time) => {
 
 const Details = () => {
   const navigate = useNavigate();
-  const { tasks, completeSubtask, deleteTask, repeatSubtasks } =
-    useContext(TaskContext);
+  const [task, setTask] = useState(null);
+  const { tasks, completeSubtask, deleteTask, repeatSubtasks } = useTask();
   const { id } = useParams();
-  const task = tasks.find((task) => task.id === id);
-  const subtasks = task?.subtasks || [];
-  const completedSubtasks = subtasks.filter((task) => task.complete === true);
 
-  if (!task) return <div>Task not found</div>;
+  useEffect(() => {
+    const foundTask = tasks.find((task) => task.id === id);
+    foundTask ? setTask(foundTask) : navigate("/");
+    console.log(id.useParams);
+  }, [id, navigate, tasks]);
 
   return (
     <Main>
@@ -47,31 +48,33 @@ const Details = () => {
 
         <section>
           <TaskCard>
-            <TaskHeader text={task.taskName} dueDate={task.dueDate} />
+            <TaskHeader text={task?.taskName} dueDate={task?.dueDate} />
 
             <TaskDetail
-              dueDate={task.dueDate}
+              dueDate={task?.dueDate}
               icon="calendar"
               title="Due Date:"
-              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
+              value={`${setDate(task?.dueDate)}, ${setTime(task?.time)}`}
             />
 
             <TaskDetail
               icon="arrowUp"
               title="Priority:"
-              value={task.priority}
+              value={task?.priority}
             />
 
             <TaskDetail
               icon="arrowMove"
               title="Complexity:"
-              value={task.complexity}
+              value={task?.complexity}
             />
 
             <ProgressBar
-              total={subtasks.length}
-              completed={completedSubtasks.length}
-              warningColor={task.dueDate}
+              total={task?.subtasks.length}
+              completed={
+                task?.subtasks.filter((task) => task.complete === true).length
+              }
+              warningColor={task?.dueDate}
             />
           </TaskCard>
         </section>
@@ -79,7 +82,7 @@ const Details = () => {
         <section>
           <Header text="Checklist for subtasks" />
           <div>
-            {subtasks.map((subtask, index) => (
+            {task?.subtasks.map((subtask, index) => (
               <Subtask
                 key={uid()}
                 text={`${index + 1}. ${subtask.subtask}`}
