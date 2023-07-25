@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 const StyledAddNewTask = styled.form`
 
+ul {
+  padding: 0;
+}
+
 label {
   font-size: 1.125rem;
   font-weight: 500;
