@@ -62,7 +62,7 @@ const AddNewTask = () => {
   const handleChange = useCallback(({ target: { name, value } }) => {
     setInputValue((prevState) => ({
       ...prevState,
-      [name]: name === "tags" ? value.replace(" ", ",").split(",") : value,
+      [name]: name === "tags" ? value.split(",") : value,
     }));
   }, []);
 
