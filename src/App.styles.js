@@ -62,6 +62,7 @@ body {
   line-height: 1.5; 
   text-rendering: optimizeSpeed; 
   min-height: 100vh; 
+  padding: 10px;
 }
 
 h1 {
