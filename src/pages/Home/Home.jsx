@@ -40,7 +40,7 @@ const Home = () => {
   // Set Filtered Tasks
   let filteredTasks;
   filteredTasks = tasks.filter((task) => task.taskName.includes(searchValue));
-  if (categoryOrder && activeCategory) {
+  if (categoryOrder && activeCategory !== null) {
     filteredTasks = tasks.filter((task) => task.tags.includes(categoryOrder));
   }
   if (powerMode) {
