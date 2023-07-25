@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { uid } from "uid";
 import { motion } from "framer-motion";
 import StyledAddNewTask from "./AddNewTask.styled";
-import { TaskContext } from "src/contexts/TaskContext";
+import { useTask } from "src/contexts/TaskContext";
 import Input from "src/components/Input/Input";
 import Button from "src/components/Button/Button";
 import PageHeader from "src/components/PageHeader/PageHeader";
@@ -16,7 +16,7 @@ import { Main, FlexContainer } from "src/App.styles";
 const AddNewTask = () => {
   const navigate = useNavigate();
 
-  const { addTask, tasks, editTask, deleteSubtask } = useContext(TaskContext);
+  const { addTask, tasks, editTask, deleteSubtask } = useTask();
   const { id } = useParams();
   const task = tasks.find((task) => task.id === id);
 

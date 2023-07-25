@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { uid } from "uid";
 import { motion } from "framer-motion";
-import { TaskContext } from "src/contexts/TaskContext";
+import { useTask } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
 import { formatDate } from "src/utils/formatDate";
 import Button from "src/components/Button/Button";
@@ -19,12 +19,11 @@ import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import { Main, GridContainer, FlexContainer } from "src/App.styles";
 
 const Home = () => {
-  const { tasks, setTasks, completeTask, handleSortOrder } =
-    useContext(TaskContext);
+  const { tasks, setTasks, completeTask, handleSortOrder } = useTask();
+  const [searchValue, setSearchValue] = useState("");
   const [activeSort, setActiveSort] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [categoryOrder, setCategoryOrder] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
   const [powerMode, setPowerMode] = useState(false);
 
   // Filtered Tags
