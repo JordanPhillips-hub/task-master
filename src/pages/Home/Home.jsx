@@ -175,9 +175,11 @@ const Home = () => {
             />
 
             <FlexContainer gap="8px">
-              {/* {task.tags.map((tag, index) => (
-              <TaskTag key={index}>{tag}</TaskTag>
-            ))} */}
+              {task.tags !== ""
+                ? task.tags.map((tag, index) => (
+                    <TaskTag key={index}>{tag}</TaskTag>
+                  ))
+                : null}
             </FlexContainer>
 
             <Link key={uid()} to={`/task/${task.id}`}>
