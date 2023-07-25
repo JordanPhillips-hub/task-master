@@ -68,7 +68,7 @@ const Details = () => {
 
       <section>
         <Header text="Checklist for subtasks" />
-        <ul>
+        <div>
           {subtasks.map((subtask, index) => (
             <Subtask
               key={uid()}
@@ -78,7 +78,7 @@ const Details = () => {
               complete={subtask.complete ? true : false}
             />
           ))}
-        </ul>
+        </div>
       </section>
 
       <GridContainer>
