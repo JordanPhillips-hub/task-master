@@ -49,7 +49,7 @@ const Home = () => {
     );
   }
 
-  const createHeaderButton = (type, onClick) => {
+  const createTaskHeaderButton = (type, onClick) => {
     return (
       <Button variant="round" onClick={onClick}>
         <Icon type={type} fontSize="1.3rem" />
@@ -140,9 +140,9 @@ const Home = () => {
 
               <FlexContainer gap="15px" marginBottom="16px">
                 <Link to={`/editTask/${task.id}`}>
-                  {createHeaderButton("edit")}
+                  {createTaskHeaderButton("edit")}
                 </Link>
-                {createHeaderButton("check", () => completeTask(task))}
+                {createTaskHeaderButton("check", () => completeTask(task))}
               </FlexContainer>
             </FlexContainer>
 
