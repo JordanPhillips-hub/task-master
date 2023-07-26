@@ -18,6 +18,10 @@ export const sharedStyles = css`
     margin-inline: auto;
     padding: 0.75em 0.75em;
     border-radius: 90px;
+
+    @media screen and (max-width: 768px){
+      font-size: 0.9rem;
+    }
   `}
 
   ${({ med }) => med && css`
@@ -66,7 +70,10 @@ export const ButtonRound = styled.button`
     : 'var(--trans-100)'};
   border-radius: 50%;
   padding: 0.42em 0.42em;
-  
+
+  @media screen and (max-width: 768px){
+    padding: 0.25em 0.25em;
+  }
 
   &:hover,
   &:focus {
@@ -77,6 +84,12 @@ export const ButtonRound = styled.button`
   ${({ sml }) => sml && css`
     width: 2.143em;
     height: 2.143em;
+
+    @media screen and (max-width: 768px){
+      width: 1.8em;
+      height: 1.8em;
+      padding: 0.8em 0.8em;
+    }
   `}
 
   ${({ remove }) => remove && css`

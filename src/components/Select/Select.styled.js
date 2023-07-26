@@ -9,6 +9,11 @@ border-radius: 14px;
 box-shadow: 0px 16px 45px rgba(0, 0, 0, 0.16);
 z-index: 100;
 
+@media screen and (max-width: 768px) {
+  width: 155px;
+  margin-inline: auto;
+}
+
 li {
   display: flex;
   align-items: center;
@@ -18,6 +23,9 @@ li {
 
   small {
     font-size: 0.75rem;
+    @media screen and (max-width: 768px) {
+      font-size: 0.62rem;
+}
   }
 
   input {

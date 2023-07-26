@@ -63,10 +63,15 @@ body {
   text-rendering: optimizeSpeed; 
   min-height: 100vh; 
   padding: 10px;
+  margin: 0;
 }
 
 h1 {
   font-size: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 }
 
 h1,
@@ -78,12 +83,16 @@ h2 {
 h2 {
   font-size: 1.125rem;
   margin-bottom: 7px;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
 }
 
 ul, 
 ol { 
   list-style: none;
-padding: 6px;
+  padding: 6px;
 }
 
 li {

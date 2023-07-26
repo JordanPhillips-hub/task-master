@@ -8,10 +8,18 @@ const StyledSubtask = styled.li`
   width: 100%;
   text-decoration: ${({ complete }) => complete ? 'line-through' : 'none'};
 
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
   button {
     background-color: ${({ complete }) => complete ? 'var(--primary-100)' : 'var(--trans-100)'};
     position: absolute;
     left: 167%;
+
+    @media screen and (max-width: 768px) {
+      left: 157%;
+    }
   }
 
   svg {

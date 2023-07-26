@@ -21,4 +21,8 @@ export const SearchIcon = styled.div`
   align-items: center;
   position: absolute;
   left: 5%;
+
+  @media screen and (max-width: 768px) {
+    left: 3.5%;
+  }
 `;
