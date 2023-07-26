@@ -127,13 +127,13 @@ const Home = () => {
           ></Select>
         </GridContainer>
 
-        <Button lrg width="100%" gap="15px" onClick={() => handlePowerMode()}>
+        <Button lrg width="100%" gap="15px" onClick={handlePowerMode}>
           {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
           {powerMode ? "Power Mode Off" : "Power Mode On"}
         </Button>
 
         {filteredTasks.map((task) => (
-          <TaskCard key={uid()} complete={task.isCompleted ? true : false}>
+          <TaskCard key={task.id} complete={task.isCompleted ? true : false}>
             <FlexContainer justify="space-between">
               <TaskHeader text={task.taskName} dueDate={task.dueDate} />
 
