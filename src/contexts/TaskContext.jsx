@@ -88,10 +88,11 @@ export const TaskProvider = ({ children }) => {
   );
 
   const deleteTask = useCallback(
-    (task) => {
+    (task, callback) => {
       const newTasks = tasks.filter((t) => t !== task);
       setTasks(newTasks);
       setStorage(newTasks);
+      callback();
     },
     [tasks]
   );
