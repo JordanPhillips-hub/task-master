@@ -18,7 +18,7 @@ const StyledSubtask = styled.li`
     left: 167%;
 
     @media screen and (max-width: 768px) {
-      left: 157%;
+      left: 143%;
     }
   }
 

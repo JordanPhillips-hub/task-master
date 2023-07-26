@@ -119,6 +119,10 @@ export const Main = styled.main`
   max-width: 400px;
   margin-inline: auto;
   padding-top: 72px;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 20px;
+  }
 `
 
 export const FlexContainer = styled.div`

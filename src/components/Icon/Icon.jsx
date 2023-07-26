@@ -33,7 +33,7 @@ const icons = {
 const Icon = ({ type, fontSize, ...rest }) => {
   const IconType = icons[type];
   return (
-    <IconType style={{ fontSize: fontSize ? fontSize : "1.5rem" }} {...rest} />
+    <IconType style={{ fontSize: fontSize ? fontSize : "1.3rem" }} {...rest} />
   );
 };
 
