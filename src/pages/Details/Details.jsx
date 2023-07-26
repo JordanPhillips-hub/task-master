@@ -1,7 +1,6 @@
 // /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { uid } from "uid";
 import { motion } from "framer-motion";
 import { useTask } from "src/contexts/TaskContext";
 import { formatTime } from "src/utils/formatTime";
@@ -83,7 +82,7 @@ const Details = () => {
           <div>
             {task?.subtasks.map((subtask, index) => (
               <Subtask
-                key={uid()}
+                key={subtask.id}
                 text={`${index + 1}. ${subtask.subtask}`}
                 iconType="check"
                 onButtonClick={() => completeSubtask(id, subtask.id)}
@@ -105,7 +104,7 @@ const Details = () => {
             med
             remove
             width="100%"
-            onClick={() => deleteTask(task, navigate("/"))}
+            onClick={() => deleteTask(task, () => navigate("/"))}
           >
             Delete Task
           </Button>
