@@ -32,6 +32,5 @@ label {
   width: 100%;
   padding: 12px 24px;
  }
-
 `
 export default StyledAddNewTask;
