@@ -1,0 +1,17 @@
+export const tagColors: string[] = [
+  "var(--tag-100)",
+  "var(--tag-200)",
+  "var(--tag-300)",
+  "var(--tag-400)",
+  "var(--tag-500)",
+  "var(--tag-600)",
+  "var(--tag-700)",
+  "var(--tag-800)",
+  "var(--tag-900)",
+  "var(--tag-1000)",
+  "var(--tag-1100)",
+  "var(--tag-1200)",
+  "var(--tag-1300)",
+  "var(--tag-1400)",
+  "var(--tag-1500)",
+];
