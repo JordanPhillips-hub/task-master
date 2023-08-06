@@ -8,8 +8,7 @@ const StyledTaskCard = styled.div<StyleProps>`
   position: relative;
   background-color: ${({ complete }) =>
     complete ? "var(--secondary-100)" : "var(--neutral-100)"};
-  width: 320px;
-  height: 230px;
+  width: 340px;
   margin-bottom: 10px;
   padding: 20px 14px 6px 14px;
   border-radius: 18px;
@@ -18,6 +17,10 @@ const StyledTaskCard = styled.div<StyleProps>`
 
   header {
     text-decoration: ${({ complete }) => (complete ? "line-through" : "none")};
+  }
+
+  h2 {
+    font-size: 1rem;
   }
 
   small {
