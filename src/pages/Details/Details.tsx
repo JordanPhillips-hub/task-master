@@ -14,7 +14,7 @@ import TaskHeader from "../../components/Task/TaskHeader/TaskHeader";
 import TaskDetail from "../../components/Task/TaskDetail/TaskDetail";
 import Subtask from "../../components/Subtask/Subtask";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import { Main, GridContainer } from "../../App.styles";
+import { Main, PageContainer, GridContainer } from "../../App.styles";
 
 const setDate = (date: string) => {
   return date ? formatDate(date) : "No Set Date";
@@ -44,87 +44,93 @@ const Details = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.75, ease: "easeOut" }}
       >
-        <PageHeader text="Task Details" />
-
-        <section>
-          <TaskCard complete={false}>
-            <TaskHeader
-              text={task?.taskName}
-              dueDate={task?.dueDate ?? ""}
-              warningColor={task?.dueDate ?? ""}
-            />
-
-            <TaskDetail
-              warningColor={task?.dueDate}
-              icon="calendar"
-              title="Due Date:"
-              value={`${setDate(task?.dueDate ?? "")}, ${setTime(
-                task?.time ?? ""
-              )}`}
-            />
-
-            <TaskDetail
-              icon="arrowUp"
-              title="Priority:"
-              value={task?.priority ?? 0}
-            />
-
-            <TaskDetail
-              icon="arrowMove"
-              title="Complexity:"
-              value={task?.complexity ?? 0}
-            />
-
-            <ProgressBar
-              total={task?.subtasks.length ?? 0}
-              round={false}
-              completed={
-                task?.subtasks.filter((task) => task.complete === true)
-                  .length ?? 0
-              }
-              warningColor={task?.dueDate ?? ""}
-            />
-          </TaskCard>
-        </section>
-
-        <section>
-          <Header text="Checklist for subtasks" />
-          <div>
-            {task?.subtasks.map((subtask, index) => (
-              <Subtask
-                key={subtask.id}
-                text={`${index + 1}. ${subtask.subtask}`}
-                iconType="check"
-                onClick={() => completeSubtask(id, subtask.id)}
-                complete={subtask.complete ? true : false}
-                remove={false}
+        <PageContainer>
+          <PageHeader text="Task Details" />
+          <section>
+            <TaskCard complete={false} style={{ width: "100%" }}>
+              <TaskHeader
+                text={task?.taskName}
+                dueDate={task?.dueDate ?? ""}
+                warningColor={task?.dueDate ?? ""}
               />
-            ))}
-          </div>
-        </section>
 
-        <GridContainer>
-          <Link to={`/editTask/${id}`}>
-            <Button variant="transparent" med width="100%">
-              Edit Task
+              <TaskDetail
+                warningColor={task?.dueDate}
+                icon="calendar"
+                title="Due Date:"
+                value={`${setDate(task?.dueDate ?? "")}, ${setTime(
+                  task?.time ?? ""
+                )}`}
+              />
+
+              <TaskDetail
+                icon="arrowUp"
+                title="Priority:"
+                value={task?.priority ?? 0}
+              />
+
+              <TaskDetail
+                icon="arrowMove"
+                title="Complexity:"
+                value={task?.complexity ?? 0}
+              />
+
+              <ProgressBar
+                total={task?.subtasks.length ?? 0}
+                round={false}
+                completed={
+                  task?.subtasks.filter((task) => task.complete === true)
+                    .length ?? 0
+                }
+                warningColor={task?.dueDate ?? ""}
+              />
+            </TaskCard>
+          </section>
+
+          <section>
+            <Header text="Checklist for subtasks" />
+            <div>
+              {task?.subtasks.map((subtask, index) => (
+                <Subtask
+                  key={subtask.id}
+                  text={`${index + 1}. ${subtask.subtask}`}
+                  iconType="check"
+                  onClick={() => completeSubtask(id, subtask.id)}
+                  complete={subtask.complete ? true : false}
+                  remove={false}
+                />
+              ))}
+            </div>
+          </section>
+
+          <GridContainer>
+            <Link to={`/editTask/${id}`}>
+              <Button variant="transparent" med width="100%">
+                Edit Task
+              </Button>
+            </Link>
+
+            <Button
+              variant="transparent"
+              med
+              remove
+              width="100%"
+              onClick={() => deleteTask(task, () => navigate("/"))}
+            >
+              Delete Task
             </Button>
-          </Link>
+          </GridContainer>
 
           <Button
-            variant="transparent"
-            med
-            remove
+            lrg
             width="100%"
-            onClick={() => deleteTask(task, () => navigate("/"))}
+            gap="13px"
+            onClick={() => repeatSubtasks(id)}
           >
-            Delete Task
+            <Icon type="repeat" />
+            Repeat Tasks
           </Button>
-        </GridContainer>
-
-        <Button lrg width="100%" gap="13px" onClick={() => repeatSubtasks(id)}>
-          <Icon type="repeat" />
-          Repeat Tasks
-        </Button>
+        </PageContainer>
       </motion.div>
     </Main>
   );
