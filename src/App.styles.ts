@@ -88,6 +88,7 @@ h2 {
 
 h2 {
   font-size: 1.125rem;
+  margin-bottom: 5px;
   
   @media screen and (max-width: 768px) {
     font-size: 1rem;
@@ -121,7 +122,7 @@ a {
 `;
 
 export const Main = styled.main`
-  max-width: 400px;
+  max-width: 1440px;
   margin-inline: auto;
   padding-top: 72px;
 
@@ -130,10 +131,16 @@ export const Main = styled.main`
   }
 `;
 
+export const PageContainer = styled.div`
+  max-width: 400px;
+  margin-inline: auto;
+`;
+
 export const FlexContainer = styled.div<FlexStyleProps>`
   position: relative;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: ${({ justify }) => justify};
   gap: ${({ gap }) => gap};
   margin-bottom: ${({ marginBottom }) => marginBottom};

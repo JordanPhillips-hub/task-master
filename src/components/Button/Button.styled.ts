@@ -31,6 +31,7 @@ export const sharedStyles = css<SharedStyleProps>`
     lrg &&
     css`
       font-size: 1rem;
+      max-width: 200px;
       margin-inline: auto;
       padding: 0.75em 0.75em;
       border-radius: 90px;

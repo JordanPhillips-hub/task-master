@@ -16,7 +16,12 @@ import TaskHeader from "../../components/Task/TaskHeader/TaskHeader";
 import TaskDetail from "../../components/Task/TaskDetail/TaskDetail";
 import TaskTag from "../../components/Task/TaskTag/TaskTag.styled";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import { Main, GridContainer, FlexContainer } from "../../App.styles";
+import {
+  Main,
+  PageContainer,
+  GridContainer,
+  FlexContainer,
+} from "../../App.styles";
 
 const Home = () => {
   const { tasks, setTasks, completeTask, handleSortOrder } = useTask();
@@ -129,87 +134,91 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.75, ease: "easeOut" }}
       >
-        <SearchBar value={searchValue} onChange={handleSearchValue} />
+        <PageContainer>
+          <SearchBar value={searchValue} onChange={handleSearchValue} />
 
-        <GridContainer>
-          <Select
-            name="Sort"
-            options={sortOptions}
-            isActive={activeSort}
-            onClick={(e, index) => handleSortOptions(index, e)}
-          />
-          <Select
-            name="Category"
-            options={tags}
-            isActive={activeCategory}
-            onClick={(e, index) => handleFilterTags(index, e)}
-          ></Select>
-        </GridContainer>
+          <GridContainer>
+            <Select
+              name="Sort"
+              options={sortOptions}
+              isActive={activeSort}
+              onClick={(e, index) => handleSortOptions(index, e)}
+            />
+            <Select
+              name="Category"
+              options={tags}
+              isActive={activeCategory}
+              onClick={(e, index) => handleFilterTags(index, e)}
+            ></Select>
+          </GridContainer>
 
-        <Button lrg width="100%" gap="15px" onClick={handlePowerMode}>
-          {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
-          {powerMode ? "Power Mode Off" : "Power Mode On"}
-        </Button>
+          <Button lrg width="100%" gap="15px" onClick={handlePowerMode}>
+            {powerMode ? <Icon type="powerOff" /> : <Icon type="powerOn" />}
+            {powerMode ? "Power Mode Off" : "Power Mode On"}
+          </Button>
+        </PageContainer>
 
-        {filteredTasks.map((task: Task) => (
-          <TaskCard key={task.id} complete={task.isCompleted ? true : false}>
-            <FlexContainer justify="space-between">
-              <TaskHeader
-                text={task.taskName}
+        <FlexContainer gap="15px" justify="center">
+          {filteredTasks.map((task: Task) => (
+            <TaskCard key={task.id} complete={task.isCompleted ? true : false}>
+              <FlexContainer justify="space-between">
+                <TaskHeader
+                  text={task.taskName}
+                  dueDate={task.dueDate}
+                  warningColor={task.dueDate}
+                />
+
+                <FlexContainer gap="15px" marginBottom="16px">
+                  <Link to={`/editTask/${task.id}`}>
+                    {createTaskHeaderButton("edit", () => null)}
+                  </Link>
+                  {createTaskHeaderButton("check", () => completeTask(task))}
+                </FlexContainer>
+              </FlexContainer>
+
+              <TaskDetail
                 dueDate={task.dueDate}
+                icon="calendar"
+                title="Due Date:"
+                value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
                 warningColor={task.dueDate}
               />
 
-              <FlexContainer gap="15px" marginBottom="16px">
-                <Link to={`/editTask/${task.id}`}>
-                  {createTaskHeaderButton("edit", () => null)}
-                </Link>
-                {createTaskHeaderButton("check", () => completeTask(task))}
+              <TaskDetail
+                icon="arrowUp"
+                title="Priority:"
+                value={task.priority}
+              />
+
+              <TaskDetail
+                icon="arrowMove"
+                title="Complexity:"
+                value={task.complexity}
+              />
+
+              <ProgressBar
+                round
+                total={task.subtasks.length}
+                warningColor={task.dueDate ?? ""}
+                completed={
+                  task.subtasks.filter((subtask) => subtask.complete).length
+                }
+              />
+
+              <FlexContainer gap="8px">
+                {task.tags.length > 0
+                  ? task.tags.map((tag, index) => (
+                      <TaskTag key={index}>{tag}</TaskTag>
+                    ))
+                  : null}
               </FlexContainer>
-            </FlexContainer>
 
-            <TaskDetail
-              dueDate={task.dueDate}
-              icon="calendar"
-              title="Due Date:"
-              value={`${setDate(task.dueDate)}, ${setTime(task.time)}`}
-              warningColor={task.dueDate}
-            />
-
-            <TaskDetail
-              icon="arrowUp"
-              title="Priority:"
-              value={task.priority}
-            />
-
-            <TaskDetail
-              icon="arrowMove"
-              title="Complexity:"
-              value={task.complexity}
-            />
-
-            <ProgressBar
-              round
-              total={task.subtasks.length}
-              warningColor={task.dueDate ?? ""}
-              completed={
-                task.subtasks.filter((subtask) => subtask.complete).length
-              }
-            />
-
-            <FlexContainer gap="8px">
-              {task.tags.length > 0
-                ? task.tags.map((tag, index) => (
-                    <TaskTag key={index}>{tag}</TaskTag>
-                  ))
-                : null}
-            </FlexContainer>
-
-            <Link key={uid()} to={`/task/${task.id}`}>
-              <small>Task Details</small>
-            </Link>
-          </TaskCard>
-        ))}
+              <Link key={uid()} to={`/task/${task.id}`}>
+                <small>Task Details</small>
+              </Link>
+            </TaskCard>
+          ))}
+        </FlexContainer>
 
         <Link to="/addNewTask">
           <Button lrg width="50%" gap="13px">
