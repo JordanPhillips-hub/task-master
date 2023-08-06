@@ -8,7 +8,9 @@ const StyledTaskCard = styled.div<StyleProps>`
   position: relative;
   background-color: ${({ complete }) =>
     complete ? "var(--secondary-100)" : "var(--neutral-100)"};
-  margin-bottom: 24px;
+  width: 320px;
+  height: 230px;
+  margin-bottom: 10px;
   padding: 20px 14px 6px 14px;
   border-radius: 18px;
   border: ${({ complete }) =>
@@ -19,8 +21,9 @@ const StyledTaskCard = styled.div<StyleProps>`
   }
 
   small {
-    display: inline-block;
-    margin-top: 15px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     text-decoration: underline;
   }
 
