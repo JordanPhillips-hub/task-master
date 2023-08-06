@@ -13,18 +13,18 @@ const StyledInput = styled.input`
     border: 1px solid var(--primary-400);
   }
 
-&[type=text] {
-  width: 100%;
-  padding: 1em 10.6em 1em 3em;
-}
-
-&[type=text],
-&[type=date],
-&[type=time] {
-  @media screen and (max-width: 768px) {
-    font-size: 0.8rem;
+  &[type="text"] {
+    width: 100%;
+    padding: 1em 10.6em 1em 3em;
   }
-}
-`
+
+  &[type="text"],
+  &[type="date"],
+  &[type="time"] {
+    @media screen and (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+  }
+`;
 
 export default StyledInput;
