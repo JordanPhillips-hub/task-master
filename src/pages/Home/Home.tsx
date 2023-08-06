@@ -206,11 +206,13 @@ const Home = () => {
               />
 
               <FlexContainer gap="8px">
-                {task.tags.length > 0
-                  ? task.tags.map((tag, index) => (
-                      <TaskTag key={index}>{tag}</TaskTag>
-                    ))
-                  : null}
+                {task.tags.length > 0 ? (
+                  task.tags
+                    .filter((tag) => tag.trim() !== "")
+                    .map((tag, index) => <TaskTag key={index}>{tag}</TaskTag>)
+                ) : (
+                  <TaskTag style={{ visibility: "hidden" }}>''</TaskTag>
+                )}
               </FlexContainer>
 
               <Link key={uid()} to={`/task/${task.id}`}>
