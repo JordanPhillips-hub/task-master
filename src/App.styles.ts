@@ -87,8 +87,7 @@ h2 {
 }
 
 h2 {
-  font-size: 1.125rem;
-  margin-bottom: 5px;
+  font-size: 1rem;
   
   @media screen and (max-width: 768px) {
     font-size: 1rem;
